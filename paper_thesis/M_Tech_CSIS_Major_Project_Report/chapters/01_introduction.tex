@@ -1,0 +1,161 @@
+\chapter{Introduction}
+\label{ch:introduction}
+
+\section{Background and Motivation}
+
+Biometric authentication is now deeply embedded in critical infrastructure.
+Border control systems, national identity programs, mobile banking, and access
+management platforms routinely rely on fingerprint, iris, and face recognition to
+verify who a person is \cite{jain2004multibiometrics}. Unlike passwords or tokens,
+biometric traits are permanent: a user cannot change their fingerprint the way they
+change a password. This permanence creates an acute problem when biometric
+\emph{templates}---the stored representations used for matching---are compromised.
+
+ISO/IEC~24745 \cite{iso24745} codifies three mandatory properties for any
+\emph{Biometric Template Protection} (BTP) scheme. A protected template must be
+\textbf{irreversible}: it must not be possible to reconstruct the original
+biometric trait from the stored data. It must be \textbf{unlinkable}: templates
+enrolled at different systems (using different transformation parameters) must not
+be linkable back to the same individual. And it must be \textbf{revocable}: when a
+template is compromised, it must be possible to re-enroll with a fresh, unlinkable
+transform. These three requirements together define the security floor for any
+system claiming to protect biometric privacy.
+
+The \emph{fuzzy vault} \cite{juels2002fuzzy} is one of the most extensively studied
+BTP primitives. It hides a secret polynomial among a large set of chaff points;
+only a biometric query that matches the enrolled data sufficiently closely can
+identify enough genuine points to reconstruct the polynomial by Lagrange
+interpolation \cite{rathgeb2011survey}. Maurya et al.\ \cite{maurya2025enhancing}
+advanced the state of the art by encoding quantized minutiae as elliptic curve (EC)
+points over Brainpool~P256r1 \cite{rfc5639}, achieving an Equal Error Rate (EER)
+as low as 0.005\% on FVC2002~DB1 with vault entropy exceeding 7.7~bits per
+coordinate. Despite this progress, unimodal fingerprint systems remain vulnerable
+to spoof attacks and performance degrades significantly on challenging data: EER
+reaches 5.0\% on FVC2002~DB3.
+
+Multimodal biometric fusion---combining evidence from fingerprint, iris, face, or
+other traits---is the standard approach to improving accuracy and spoof
+resistance \cite{ross2003information}. However, integrating multimodal fusion
+\emph{inside} a template protection scheme introduces a fundamental conflict:
+the cryptographic binding that protects the fingerprint vault must simultaneously
+accommodate iris data without compromising either modality's security or the
+scheme's ISO/IEC~24745 compliance.
+
+\subsection{The Gating Penalty: A Structural Problem}
+
+Every existing multimodal fuzzy vault scheme solves this integration problem by
+making the auxiliary modality a \emph{mandatory gate}: both modalities must
+succeed for the vault to be unlocked \cite{nandakumar2008multibiometric,
+moon2010multibiometric}. The consequence is immediate. Under AND-fusion, the
+Genuine Acceptance Rate (GAR) of the combined system is:
+\begin{equation}
+  \mathrm{GAR}_{\mathrm{AND}} = \mathrm{GAR}_{\mathrm{FP}}
+  \times \mathrm{GAR}_{\mathrm{Iris}} \leq \mathrm{GAR}_{\mathrm{FP}}
+\end{equation}
+Since $\mathrm{GAR}_{\mathrm{Iris}} < 1$ in any realistic deployment, the
+combined system is always worse than the fingerprint alone for genuine users.
+With the iris GAR measured at approximately 62\% in this work, over one third
+of genuine users are rejected by the combined system even when their fingerprint
+would have accepted them.
+
+This is not a calibration problem or a dataset artefact. It is a structural
+consequence of the AND-fusion architecture: using the iris as a mandatory gate
+means that iris failure becomes user rejection, regardless of fingerprint quality.
+The same structural flaw affects polynomial blinding (Architecture B), dense chaff
+injection (Architecture C), and AES-256-GCM vault encryption (Architecture D)---
+all tight-coupling strategies examined in this thesis.
+
+\subsection{The Centralization Problem}
+
+Even if the biometric performance problem were solved, a separate infrastructure
+problem remains. Centralized vault storage is a single point of failure. The
+Aadhaar breach of 2018 exposed biometric records of over 1.1 billion individuals;
+the U.S.\ Office of Personnel Management breach of 2015 exposed 5.6 million
+fingerprint records. Once a vault is leaked, an attacker can mount offline
+brute-force attacks without time pressure.
+
+Threshold secret sharing---specifically Shamir's $(t,n)$-scheme
+\cite{shamir1979how}---offers an information-theoretic solution: split the vault
+across $n$ nodes such that any $t$ shares reconstruct it exactly but any
+$t{-}1$ or fewer shares reveal zero information. No prior work has applied
+vault-level secret sharing to a fuzzy vault, nor combined it with a zero-penalty
+multimodal fusion scheme.
+
+\section{Problem Statement}
+
+This thesis addresses two tightly linked problems:
+
+\begin{enumerate}
+  \item \textbf{The gating penalty.} All existing multimodal fuzzy vault schemes
+  gate decoding on the auxiliary modality. When the iris fails, the user is
+  rejected even if the fingerprint alone would have succeeded. A scheme is needed
+  where a second modality can help when available but never hurt when unavailable.
+
+  \item \textbf{Centralized vault storage.} Storing protected biometric vaults on
+  a single server creates a single point of failure. A distributed storage
+  architecture is needed that provides information-theoretic security,
+  Byzantine fault tolerance, and auditability.
+\end{enumerate}
+
+\section{Objectives}
+
+\begin{enumerate}
+  \item To design a multimodal BTP scheme that uses the iris as an optional
+  booster rather than a mandatory gate, and to formally prove $\mathrm{EER_{IBFV}}
+  \leq \mathrm{EER_{Uni}}$ for all configurations.
+
+  \item To implement and evaluate the proposed IBFV scheme on four FVC fingerprint
+  databases (FVC2002 DB1--DB3, FVC2004 DB1) paired with CASIA-Iris-Interval
+  chimeric samples, across 960+ parameter configurations.
+
+  \item To compare IBFV against four alternative multimodal architectures
+  (AND-fusion, polynomial blinding, dense chaff injection, AES-256-GCM
+  encryption) and characterize why tight coupling structurally degrades performance.
+
+  \item To design D-IBFV, a decentralized extension applying $(t,n)$-Shamir Secret
+  Sharing to the vault itself, distributing shares on IPFS, and anchoring CIDs on
+  a blockchain, with formal proofs of share confidentiality and exact reconstruction.
+
+  \item To validate D-IBFV on Ethereum-compatible (Ganache) and Hyperledger
+  Fabric~2.5 platforms, measuring enrollment latency, verification latency,
+  throughput, storage costs, node failure resilience, and accuracy.
+
+  \item To demonstrate full ISO/IEC~24745 compliance: irreversibility (ECDLP
+  $\sim\!2^{128}$), unlinkability ($D_{\mathrm{sys}} \leq 0.03$), and
+  revocability via parameter-based re-enrollment.
+\end{enumerate}
+
+\section{Contributions}
+
+\begin{enumerate}
+  \item \textbf{IBFV: The first zero-penalty multimodal fuzzy vault.} The
+  Iris-Boosted Fuzzy Vault uses the iris as an optional booster by injecting $K$
+  iris-derived bonus polynomial evaluation points into the fingerprint vault.
+  The zero-penalty guarantee is formally proven (Theorem~1) and empirically
+  validated across 960+ configurations. All four alternative architectures degrade
+  performance, confirming gating is a structural---not incidental---problem.
+
+  \item \textbf{Full ISO/IEC~24745 security analysis.} A complete analysis against
+  Ratha et al.'s eight-point threat model \cite{ratha2001enhancing}: irreversibility
+  (ECDLP $\sim\!2^{128}$, iris code recovery $2^{514}$), unlinkability
+  ($D_{\mathrm{sys}} \leq 0.03$), and revocability.
+
+  \item \textbf{D-IBFV: Threshold-distributed vault storage.} The first scheme to
+  split a fuzzy vault via $(t,n)$-Shamir Secret Sharing over $\mathrm{GF}(257)$,
+  with formal proofs of share confidentiality and exact reconstruction, and
+  blockchain-anchored integrity.
+
+  \item \textbf{Multi-platform system benchmarks.} Enrollment under 806\,ms,
+  verification under 71\,ms, zero-bit-error reconstruction across 30{,}000 trials,
+  O(1) verification scaling, and only 0.5\,KB on-chain per user.
+\end{enumerate}
+
+\section{Thesis Organization}
+
+Chapter~\ref{ch:related} surveys related work. Chapter~\ref{ch:methodology}
+presents the proposed architecture in full technical detail. Chapter~\ref{ch:results}
+reports biometric and system experiments. Chapter~\ref{ch:discussion} discusses
+implications, security, and limitations. Chapter~\ref{ch:conclusions} concludes
+with future directions. Appendix~A provides mathematical proofs.
+Appendix~B gives complete algorithm listings.
+

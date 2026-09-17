@@ -1,0 +1,10 @@
+{
+    "channel": "dibfvchannel",
+    "chaincode": "vault_registry",
+    "peer_org1": "localhost:7051",
+    "peer_org2": "localhost:9051",
+    "orderer": "localhost:7050",
+    "fabric_samples_dir": "/tmp/dibfv-fabric/fabric-samples",
+    "tls_cert_org1": "/tmp/dibfv-fabric/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt",
+    "msp_org1": "/tmp/dibfv-fabric/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp"
+}

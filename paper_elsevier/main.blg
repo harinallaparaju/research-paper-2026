@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99e (TeX Live 2026)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: elsarticle-num.bst
+Database file #1: references.bib
+Warning--entry type for "iso24745" isn't style-file defined
+--line 98 of file references.bib
+You've used 28 entries,
+            2952 wiz_defined-function locations,
+            836 strings with 9605 characters,
+and the built_in function-call counts, 8845 in all, are:
+= -- 873
+> -- 259
+< -- 8
++ -- 105
+- -- 77
+* -- 584
+:= -- 1182
+add.period$ -- 28
+call.type$ -- 28
+change.case$ -- 31
+chr.to.int$ -- 0
+cite$ -- 28
+duplicate$ -- 286
+empty$ -- 1005
+format.name$ -- 100
+if$ -- 2301
+int.to.chr$ -- 0
+int.to.str$ -- 28
+missing$ -- 25
+newline$ -- 92
+num.names$ -- 28
+pop$ -- 176
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 600
+stack$ -- 0
+substring$ -- 573
+swap$ -- 68
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 79
+width$ -- 30
+write$ -- 242
+(There was 1 warning)

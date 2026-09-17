@@ -1,0 +1,199 @@
+\chapter{Related Work}
+\label{ch:related}
+
+This chapter surveys the research landscape across five areas directly relevant
+to this thesis: biometric template protection, fuzzy vault schemes, multimodal
+biometric fusion, iris recognition and fuzzy commitment, and blockchain-based
+biometric systems. A gap analysis table at the end positions this work against
+the state of the art.
+
+\section{Biometric Template Protection}
+
+Biometric Template Protection (BTP) approaches fall into two broad categories:
+cancelable biometrics and biometric cryptosystems.
+
+\textbf{Cancelable biometrics} \cite{ratha2007generating} apply intentional,
+repeatable but non-invertible transformations to raw biometric features before
+storage. The transformed template is stored; the original features are never saved.
+If the template is compromised, a different transformation produces a fresh,
+unlinkable template from the same biometric. Teoh et al.\ \cite{teoh2004random}
+introduced random multispace quantization for face and palmprint data. The primary
+criticism of cancelable biometrics is that the transformation may reduce
+discriminability.
+
+\textbf{Biometric cryptosystems} \cite{jain2008biometric} bind a cryptographic
+key to biometric data such that the key can only be reconstructed when a query
+biometric is sufficiently similar to the enrolled one. Dodis et
+al.\ \cite{dodis2008fuzzy} formalized this binding as \emph{fuzzy extractors},
+providing information-theoretically secure constructions with error-tolerance.
+The most widely studied instantiations are the fuzzy vault \cite{juels2002fuzzy}
+and the fuzzy commitment \cite{hao2006combining}.
+
+Rathgeb and Uhl \cite{rathgeb2011survey} provide a comprehensive survey of
+both paradigms, concluding that biometric cryptosystems offer stronger provable
+security guarantees but face greater challenges with noisy, unaligned data. This
+thesis works within the biometric cryptosystem paradigm.
+
+\section{Fuzzy Vault Schemes}
+
+The fuzzy vault \cite{juels2002fuzzy} was proposed by Juels and Sudan (2002) as
+a cryptographic construction for binding a secret to an unordered, fuzzy set.
+A degree-$k$ secret polynomial $p(x)$ is evaluated at biometric-derived points;
+these genuine points are hidden among chaff that do not lie on $p(x)$.
+Decoding requires at least $k{+}1$ genuine matches for Lagrange interpolation.
+
+Clancy et al.\ \cite{clancy2003secure} first applied the fuzzy vault to
+fingerprint minutiae. Uludag et al.\ \cite{uludag2005fuzzy} added alignment
+helper data, achieving EER 4.0\% on FVC2002~DB2. Nandakumar et
+al.\ \cite{nandakumar2007fuzzy} improved alignment via high-curvature minutiae,
+reducing EER to approximately 2\%.
+
+Tams \cite{tams2013attacks} demonstrated record-multiplicity attacks: multiple
+vaults from the same user can be cross-matched to identify genuine points. This
+underscores the need for enrollment-independent structures that ensure vault
+points are unlinkable across enrollments---a property provided by the ECDLP-based
+construction of this thesis.
+
+Maurya et al.\ \cite{maurya2025enhancing} substantially advanced the state of
+the art by replacing GF($2^{16}$) encoding with elliptic curve cryptography over
+Brainpool~P256r1 \cite{rfc5639}. Minutiae coordinates are quantized and mapped to
+EC points via $P_i = q_i \cdot G$, a one-way mapping protected by ECDLP with
+security strength $\sim\!2^{128}$ operations. Their scheme achieves EER as low as
+0.005\% on FVC2002~DB1 with vault entropy exceeding 7.7~bits per coordinate. This
+ECC vault is the unimodal baseline for the present work.
+
+\section{Multimodal Biometric Fusion}
+
+Multimodal biometrics improves recognition accuracy and spoof resistance by
+combining evidence from multiple traits or sensors
+\cite{ross2003information,jain2004multibiometrics}. Score-level fusion is most
+common in unconstrained systems. Inside a fuzzy vault, however, fusion must be
+integrated at the feature or vault-construction level because no matching score
+is ever explicitly computed.
+
+Nandakumar and Jain \cite{nandakumar2008multibiometric} fused fingerprint and
+iris within a single fuzzy vault by including genuine points from both modalities.
+Both modalities must successfully contribute to the polynomial reconstruction,
+creating the AND-fusion constraint: $\mathrm{GAR}_\mathrm{AND} =
+\mathrm{GAR}_\mathrm{FP} \times \mathrm{GAR}_\mathrm{Iris} \leq
+\mathrm{GAR}_\mathrm{FP}$.
+
+Moon et al.\ \cite{moon2010multibiometric} applied the same AND-fusion principle
+to face and fingerprint, with the face module remaining mandatory. Kelkboom et
+al.\ \cite{kelkboom2011multialgorithm} fused multiple fingerprint algorithms within
+a fuzzy commitment framework but did not address cross-modal fusion with a
+second biometric trait.
+
+Three additional tight-coupling strategies evaluated in this thesis---polynomial
+blinding (Architecture B), dense chaff seeding (Architecture C), and
+AES-256-GCM vault encryption (Architecture D)---all require iris key recovery for
+decoding and exhibit the same AND-fusion penalty. This thesis is the first to break
+this structural pattern by treating the iris as a booster: contributing when
+available, falling back to unimodal when not.
+
+\section{Iris Recognition and Fuzzy Commitment}
+
+Daugman \cite{daugman2004how} established the modern framework for iris
+recognition. The iris is encoded as a binary iris code using multi-scale 2-D
+Gabor wavelets, with fractional Hamming distance (FHD) as the matching metric.
+FHD is near 0.10--0.15 for same-iris pairs and near 0.46 (random) for
+different-iris pairs, providing wide separation. This makes iris one of the most
+discriminative biometric traits when captured under near-infrared illumination.
+
+Hao et al.\ \cite{hao2006combining} introduced the fuzzy commitment scheme for
+iris codes, binding a 140-bit cryptographic key to a 2048-bit iris code using
+error-correcting codes. Up to 25\% bit-level error can be corrected. This work
+established that iris codes can be used reliably in fuzzy cryptosystems with
+appropriate error-correcting codes.
+
+Hollingsworth et al.\ \cite{hollingsworth2009fragile} identified fragile bits in
+iris codes---positions near phase boundaries where encoding is unstable---and showed
+that masking them significantly improves matching accuracy.
+
+In this thesis, a repetition-code fuzzy commitment is applied to the full
+131{,}072-bit iris code from CASIA-Iris-Interval images. Block-wise majority
+decoding with bit interleaving (distributing spatially correlated errors across
+blocks) achieves a key recovery GAR of approximately 62\% at impostor FAR of
+0.10\%, with block size $B_s = 255$~bits.
+
+\section{Blockchain-Based Biometric Systems}
+\label{sec:blockchain_related}
+
+The intersection of biometrics and blockchain has attracted growing interest as a
+potential solution to the centralized storage problem.
+
+Delgado-Mohatar et al.\ \cite{delgado2020blockchain} surveyed the opportunities
+and challenges of storing biometric templates on blockchain, identifying high
+on-chain storage costs, privacy risks from immutable records, and latency as the
+key barriers. Their key recommendation---off-chain storage with on-chain hash
+anchoring---is the architecture adopted by D-IBFV.
+
+Acquah et al.\ \cite{acquah2020securing} confirmed that off-chain storage with
+on-chain hash anchoring is the scalable pattern and that on-chain template storage
+incurs prohibitive gas costs at scale.
+
+Goel et al.\ \cite{goel2019securing} secured CNN-based biometric feature extraction
+via blockchain with Shamir-based key recovery. However, unprotected feature data
+is stored on-chain, providing process auditability without template-level
+cryptographic protection.
+
+Lee and Jeong \cite{lee2021securing} proposed BDAS, a blockchain-based
+decentralized authentication system that fragments templates across a distributed
+ledger. BDAS achieves decentralization but without a fuzzy vault construction or
+formal protection guarantees.
+
+Sharma et al.\ \cite{sharma2024multimodal} combined fingerprint and iris via
+cancelable transforms on blockchain (EER~$\sim$8\%). Sharma and Dwivedi
+\cite{sharma2026fabric} deployed a similar approach on Hyperledger Fabric, reporting
+sub-second latency, without vault-level splitting.
+
+Yun et al.\ \cite{yun2024biorollup} proposed Bio-Rollup, integrating zk-SNARK
+auditing with layer-2 blockchain scaling for biometric query privacy, but without
+cryptographic vault protection for stored templates.
+
+Prakasha et al.\ \cite{prakasha2025privacy} surveyed privacy-preserving biometric
+authentication on blockchain, highlighting the need for stronger template protection,
+scalable architectures, and formal security proofs.
+
+\section{Summary and Gap Analysis}
+
+Table~\ref{tab:gap} summarizes the key characteristics of related approaches.
+Three gaps are directly addressed by this thesis:
+
+\begin{enumerate}
+  \item \textbf{No prior multimodal fuzzy vault is penalty-free.} All existing
+  multimodal schemes gate decoding on the auxiliary modality.
+
+  \item \textbf{No prior blockchain biometric system applies vault-level secret
+  sharing with formal proofs.} Existing systems store templates as monolithic
+  objects.
+
+  \item \textbf{No prior system demonstrates zero accuracy degradation from
+  decentralization.} D-IBFV proves and empirically confirms bit-exact reconstruction.
+\end{enumerate}
+
+\begin{table}[h]
+\centering
+\caption{Gap analysis: multimodal and blockchain-based biometric schemes.}
+\label{tab:gap}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Scheme} & \textbf{Aux.\ Required} & \textbf{Zero-Penalty} &
+\textbf{Decentralized} & \textbf{Formal Proofs} \\
+\midrule
+Nandakumar \cite{nandakumar2008multibiometric} & Yes & No & No & No \\
+Moon \cite{moon2010multibiometric}             & Yes & No & No & No \\
+Kelkboom \cite{kelkboom2011multialgorithm}     & Yes & No & No & No \\
+Arch.\ A--D (this work, compared)             & Yes & No & No & No \\
+\midrule
+Delgado-Mohatar \cite{delgado2020blockchain}   & --- & --- & Yes & No \\
+Sharma \cite{sharma2024multimodal}             & Yes & No & Yes & No \\
+Lee BDAS \cite{lee2021securing}                & --- & --- & Yes & No \\
+Yun Bio-Rollup \cite{yun2024biorollup}         & --- & --- & Yes & No \\
+\midrule
+\textbf{IBFV (this thesis)}   & \textbf{No} & \textbf{Yes} & No & \textbf{Yes} \\
+\textbf{D-IBFV (this thesis)} & \textbf{No} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,160 @@
+<mxfile host="app.diagrams.net" modified="2026-04-06" agent="IBFV Paper" version="24.0.0" type="device">
+  <diagram id="fuzzy-vault-concept" name="Fuzzy Vault Lock-Unlock Concept">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ==================== LEFT: LOCKING PHASE ==================== -->
+        <mxCell id="lock_title" value="&lt;b&gt;(a) Locking Phase (Enrollment)&lt;/b&gt;" style="text;html=1;align=center;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="100" y="15" width="250" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Secret -->
+        <mxCell id="secret" value="Secret S" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="80" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Polynomial -->
+        <mxCell id="poly" value="Polynomial F(x)&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;degree k, from S&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="160" y="55" width="110" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2p" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="secret" target="poly" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Biometric Features -->
+        <mxCell id="features" value="Biometric Features&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Q = {q₁, q₂, ..., qₜ}&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="120" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Genuine Points -->
+        <mxCell id="genuine" value="Genuine Points&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;{(qᵢ, F(qᵢ))}&lt;br&gt;ON the polynomial&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565C0;fontSize=10;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="115" width="120" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="f2g" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="features" target="genuine" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Chaff Points -->
+        <mxCell id="chaff" value="Chaff Points&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;{(xⱼ, yⱼ)} where yⱼ ≠ F(xⱼ)&lt;br&gt;NOT on the polynomial&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="200" y="185" width="130" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Vault -->
+        <mxCell id="vault" value="&lt;b&gt;Fuzzy Vault V&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;shuffle(genuine ∪ chaff)&lt;br&gt;Indistinguishable mix&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="130" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="g2v" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="genuine" target="vault" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c2v" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="chaff" target="vault" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Polynomial curve illustration area -->
+        <mxCell id="curve_box" value="" style="rounded=1;strokeColor=#cccccc;fillColor=#fafafa;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="260" width="480" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="curve_label" value="&lt;font style=&quot;font-size:9px&quot;&gt;Polynomial F(x) hidden among points:&lt;/font&gt;" style="text;html=1;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="50" y="265" width="200" height="15" as="geometry"/>
+        </mxCell>
+
+        <!-- Simulated polynomial curve -->
+        <mxCell id="curve" value="" style="shape=mxgraph.flowchart.annotation_1;rotation=-90;fillColor=none;strokeColor=#1565C0;strokeWidth=2;curved=1;" vertex="1" parent="1">
+          <mxGeometry x="125" y="260" width="250" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- Genuine dots (blue, on curve) -->
+        <mxCell id="dot_g1" value="●" style="text;html=1;fontSize=14;fontColor=#1565C0;" vertex="1" parent="1"><mxGeometry x="90" y="370" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_g2" value="●" style="text;html=1;fontSize=14;fontColor=#1565C0;" vertex="1" parent="1"><mxGeometry x="150" y="330" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_g3" value="●" style="text;html=1;fontSize=14;fontColor=#1565C0;" vertex="1" parent="1"><mxGeometry x="220" y="310" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_g4" value="●" style="text;html=1;fontSize=14;fontColor=#1565C0;" vertex="1" parent="1"><mxGeometry x="310" y="340" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_g5" value="●" style="text;html=1;fontSize=14;fontColor=#1565C0;" vertex="1" parent="1"><mxGeometry x="390" y="380" width="20" height="20" as="geometry"/></mxCell>
+
+        <!-- Chaff dots (red, scattered) -->
+        <mxCell id="dot_c1" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="70" y="300" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c2" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="110" y="420" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c3" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="170" y="280" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c4" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="195" y="400" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c5" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="250" y="420" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c6" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="270" y="290" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c7" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="340" y="300" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c8" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="360" y="430" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c9" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="420" y="310" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c10" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="450" y="400" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c11" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="130" y="290" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="dot_c12" value="×" style="text;html=1;fontSize=14;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="480" y="350" width="20" height="20" as="geometry"/></mxCell>
+
+        <!-- Legend for dots -->
+        <mxCell id="leg_genuine" value="&lt;font color=&quot;#1565C0&quot;&gt;● Genuine (on polynomial)&lt;/font&gt;" style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="320" y="440" width="160" height="15" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg_chaff" value="&lt;font color=&quot;#b85450&quot;&gt;× Chaff (random, off polynomial)&lt;/font&gt;" style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="320" y="452" width="190" height="15" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== DIVIDER ==================== -->
+        <mxCell id="divider" value="" style="line;strokeWidth=2;strokeColor=#cccccc;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="555" y="30" width="1" height="430" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== RIGHT: UNLOCKING PHASE ==================== -->
+        <mxCell id="unlock_title" value="&lt;b&gt;(b) Unlocking Phase (Verification)&lt;/b&gt;" style="text;html=1;align=center;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="700" y="15" width="280" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Query features -->
+        <mxCell id="query" value="Query Features&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Q' = {q'₁, q'₂, ..., q'ₘ}&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="60" width="120" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Stored vault -->
+        <mxCell id="stored_vault" value="Stored Vault V" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="120" width="100" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Match -->
+        <mxCell id="match" value="X-Coord Matching&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Find vault points whose&lt;br&gt;x-coord matches Q'&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="80" width="130" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="q2m" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="query" target="match" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="v2m" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="stored_vault" target="match" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Candidate set -->
+        <mxCell id="candidates" value="Candidate Set C&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Mix of genuine+chaff matches&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="940" y="82" width="140" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="m2c" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="match" target="candidates" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Lagrange -->
+        <mxCell id="lagrange" value="Lagrange Interpolation&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Try all (k+1)-subsets&lt;br&gt;Reconstruct F'(x)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="770" y="170" width="145" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2l" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="candidates" target="lagrange" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Secret recovery -->
+        <mxCell id="recover" value="Compute s'&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;From F'(x) coefficients&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="770" y="260" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="l2r" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="lagrange" target="recover" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Verify -->
+        <mxCell id="verify" value="Verify:&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;s'·G = Pub?&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="247" width="100" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2v" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="recover" target="verify" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Accept/Reject -->
+        <mxCell id="accept" value="&lt;b&gt;Accept&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Secret recovered&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2E7D32;fontSize=10;fontColor=#2E7D32;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="245" width="90" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="reject" value="&lt;b&gt;Reject&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;No valid poly found&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="290" width="90" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="v2a" value="Yes" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#2E7D32;fontSize=9;" edge="1" source="verify" target="accept" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="v2r" value="No" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#b85450;fontSize=9;" edge="1" source="verify" target="reject" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Key insight about security -->
+        <mxCell id="security_box" value="" style="rounded=1;strokeColor=#666666;fillColor=#f5f5f5;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="360" width="600" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="security_text" value="&lt;b&gt;Security:&lt;/b&gt; Without sufficient overlap between Q' and Q, the attacker picks subsets containing chaff points,&lt;br&gt;producing wrong polynomials. With g genuine and 5g chaff points, brute-force requires C(6g, k+1) attempts.&lt;br&gt;For g=20, k=7: C(120, 8) ≈ 5.2 × 10¹³ polynomial reconstructions — computationally infeasible." style="text;html=1;fontSize=10;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="610" y="365" width="580" height="70" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

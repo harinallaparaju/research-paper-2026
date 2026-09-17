@@ -1,0 +1,1273 @@
+{
+  "timestamp": "2026-04-07T15:13:29.041139",
+  "eye": "L",
+  "total_subjects": 249,
+  "total_images": 1332,
+  "successful": 1329,
+  "failed": 3,
+  "failures": [
+    {
+      "image": "S1141L03.jpg",
+      "subject": "141",
+      "reason": "Iris boundary detection failed"
+    },
+    {
+      "image": "S1220L02.jpg",
+      "subject": "220",
+      "reason": "Iris boundary detection failed"
+    },
+    {
+      "image": "S1229L01.jpg",
+      "subject": "229",
+      "reason": "Iris boundary detection failed"
+    }
+  ],
+  "per_subject": {
+    "001": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "002": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "003": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "004": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "005": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "006": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "007": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "008": {
+      "images": 11,
+      "success": 11,
+      "failed": 0
+    },
+    "009": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "010": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "011": {
+      "images": 9,
+      "success": 9,
+      "failed": 0
+    },
+    "012": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "013": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "014": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "015": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "016": {
+      "images": 4,
+      "success": 4,
+      "failed": 0
+    },
+    "017": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "018": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "019": {
+      "images": 14,
+      "success": 14,
+      "failed": 0
+    },
+    "020": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "021": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "022": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "023": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "024": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "025": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "026": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "027": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "028": {
+      "images": 12,
+      "success": 12,
+      "failed": 0
+    },
+    "029": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "030": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "031": {
+      "images": 2,
+      "success": 2,
+      "failed": 0
+    },
+    "032": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "033": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "034": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "035": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "036": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "037": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "038": {
+      "images": 4,
+      "success": 4,
+      "failed": 0
+    },
+    "039": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "040": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "041": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "042": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "043": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "044": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "045": {
+      "images": 11,
+      "success": 11,
+      "failed": 0
+    },
+    "046": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "047": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "048": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "049": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "050": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "051": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "052": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "053": {
+      "images": 13,
+      "success": 13,
+      "failed": 0
+    },
+    "054": {
+      "images": 4,
+      "success": 4,
+      "failed": 0
+    },
+    "055": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "056": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "057": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "058": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "059": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "060": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "061": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "062": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "063": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "064": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "065": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "066": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "067": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "068": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "069": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "070": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "071": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "072": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "073": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "074": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "075": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "076": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "077": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "078": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "079": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "080": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "081": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "082": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "083": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "084": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "085": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "086": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "087": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "088": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "089": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "090": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "091": {
+      "images": 3,
+      "success": 3,
+      "failed": 0
+    },
+    "092": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "093": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "094": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "095": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "096": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "097": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "098": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "099": {
+      "images": 4,
+      "success": 4,
+      "failed": 0
+    },
+    "100": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "101": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "102": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "103": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "104": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "105": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "106": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "107": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "108": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "109": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "110": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "111": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "112": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "113": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "114": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "115": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "116": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "117": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "118": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "119": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "120": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "121": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "122": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "123": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "124": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "125": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "126": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "127": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "128": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "129": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "130": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "131": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "132": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "133": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "134": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "135": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "136": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "137": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "138": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "139": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "140": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "141": {
+      "images": 6,
+      "success": 5,
+      "failed": 1
+    },
+    "142": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "143": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "144": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "145": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "146": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "147": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "148": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "149": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "150": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "151": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "152": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "153": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "154": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "155": {
+      "images": 3,
+      "success": 3,
+      "failed": 0
+    },
+    "156": {
+      "images": 9,
+      "success": 9,
+      "failed": 0
+    },
+    "157": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "158": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "159": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "160": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "161": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "162": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "163": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "164": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "165": {
+      "images": 9,
+      "success": 9,
+      "failed": 0
+    },
+    "166": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "167": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "168": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "169": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "170": {
+      "images": 8,
+      "success": 8,
+      "failed": 0
+    },
+    "171": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "172": {
+      "images": 8,
+      "success": 8,
+      "failed": 0
+    },
+    "173": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "174": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "175": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "176": {
+      "images": 8,
+      "success": 8,
+      "failed": 0
+    },
+    "177": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "178": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "179": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "180": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "181": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "182": {
+      "images": 9,
+      "success": 9,
+      "failed": 0
+    },
+    "183": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "184": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "185": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "186": {
+      "images": 9,
+      "success": 9,
+      "failed": 0
+    },
+    "187": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "188": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "189": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "190": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "191": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "192": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "193": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "194": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "195": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "196": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "197": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "198": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "199": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "200": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "201": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "202": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "203": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "204": {
+      "images": 2,
+      "success": 2,
+      "failed": 0
+    },
+    "205": {
+      "images": 2,
+      "success": 2,
+      "failed": 0
+    },
+    "206": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "207": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "208": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "209": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "210": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "211": {
+      "images": 15,
+      "success": 15,
+      "failed": 0
+    },
+    "212": {
+      "images": 8,
+      "success": 8,
+      "failed": 0
+    },
+    "213": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "214": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "215": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "216": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "217": {
+      "images": 4,
+      "success": 4,
+      "failed": 0
+    },
+    "218": {
+      "images": 3,
+      "success": 3,
+      "failed": 0
+    },
+    "219": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "220": {
+      "images": 6,
+      "success": 5,
+      "failed": 1
+    },
+    "221": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "222": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "223": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "224": {
+      "images": 11,
+      "success": 11,
+      "failed": 0
+    },
+    "225": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "226": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "227": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "228": {
+      "images": 7,
+      "success": 7,
+      "failed": 0
+    },
+    "229": {
+      "images": 10,
+      "success": 9,
+      "failed": 1
+    },
+    "230": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "231": {
+      "images": 8,
+      "success": 8,
+      "failed": 0
+    },
+    "232": {
+      "images": 3,
+      "success": 3,
+      "failed": 0
+    },
+    "233": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "234": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "235": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "236": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "237": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "238": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "239": {
+      "images": 10,
+      "success": 10,
+      "failed": 0
+    },
+    "240": {
+      "images": 5,
+      "success": 5,
+      "failed": 0
+    },
+    "241": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "242": {
+      "images": 3,
+      "success": 3,
+      "failed": 0
+    },
+    "243": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "244": {
+      "images": 6,
+      "success": 6,
+      "failed": 0
+    },
+    "245": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "246": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "247": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    },
+    "248": {
+      "images": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "249": {
+      "images": 0,
+      "success": 0,
+      "failed": 0
+    }
+  },
+  "success_rate_percent": 99.77
+}

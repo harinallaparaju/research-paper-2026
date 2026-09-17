@@ -1,0 +1,2062 @@
+{
+  "fp_db": "fvc2002_3",
+  "seed": 42,
+  "min_iris_images": 8,
+  "n_chimeric_subjects": 48,
+  "n_fp_subjects_available": 98,
+  "n_iris_subjects_eligible": 48,
+  "mapping": [
+    {
+      "chimeric_id": 1,
+      "fp_subject": 1,
+      "iris_subject": "S168",
+      "n_fp_impressions": 6,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/1_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S168_L_S1168L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/1_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S168_L_S1168L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/1_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S168_L_S1168L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/1_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S168_L_S1168L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/1_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S168_L_S1168L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/1_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S168_L_S1168L06.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 2,
+      "fp_subject": 2,
+      "iris_subject": "S159",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/2_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S159_L_S1159L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/2_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S159_L_S1159L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/2_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S159_L_S1159L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/2_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S159_L_S1159L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/2_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S159_L_S1159L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/2_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S159_L_S1159L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/2_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S159_L_S1159L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/2_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S159_L_S1159L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 3,
+      "fp_subject": 3,
+      "iris_subject": "S160",
+      "n_fp_impressions": 6,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/3_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S160_L_S1160L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/3_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S160_L_S1160L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/3_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S160_L_S1160L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/3_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S160_L_S1160L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/3_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S160_L_S1160L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/3_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S160_L_S1160L06.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 4,
+      "fp_subject": 4,
+      "iris_subject": "S042",
+      "n_fp_impressions": 6,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/4_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S042_L_S1042L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/4_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S042_L_S1042L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/4_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S042_L_S1042L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/4_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S042_L_S1042L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/4_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S042_L_S1042L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/4_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S042_L_S1042L06.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 5,
+      "fp_subject": 5,
+      "iris_subject": "S136",
+      "n_fp_impressions": 7,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/5_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S136_L_S1136L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/5_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S136_L_S1136L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/5_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S136_L_S1136L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/5_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S136_L_S1136L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/5_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S136_L_S1136L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/5_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S136_L_S1136L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/5_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S136_L_S1136L07.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 6,
+      "fp_subject": 6,
+      "iris_subject": "S036",
+      "n_fp_impressions": 7,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/6_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S036_L_S1036L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/6_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S036_L_S1036L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/6_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S036_L_S1036L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/6_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S036_L_S1036L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/6_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S036_L_S1036L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/6_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S036_L_S1036L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/6_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S036_L_S1036L07.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 7,
+      "fp_subject": 7,
+      "iris_subject": "S169",
+      "n_fp_impressions": 7,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/7_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S169_L_S1169L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/7_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S169_L_S1169L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/7_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S169_L_S1169L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/7_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S169_L_S1169L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/7_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S169_L_S1169L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/7_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S169_L_S1169L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/7_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S169_L_S1169L07.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 8,
+      "fp_subject": 8,
+      "iris_subject": "S199",
+      "n_fp_impressions": 3,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/8_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S199_L_S1199L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/8_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S199_L_S1199L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/8_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S199_L_S1199L03.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 9,
+      "fp_subject": 9,
+      "iris_subject": "S045",
+      "n_fp_impressions": 8,
+      "n_iris_images": 11,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/9_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S045_L_S1045L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/9_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S045_L_S1045L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/9_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S045_L_S1045L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/9_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S045_L_S1045L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/9_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S045_L_S1045L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/9_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S045_L_S1045L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/9_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S045_L_S1045L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/9_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S045_L_S1045L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 10,
+      "fp_subject": 10,
+      "iris_subject": "S008",
+      "n_fp_impressions": 8,
+      "n_iris_images": 11,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/10_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S008_L_S1008L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/10_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S008_L_S1008L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/10_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S008_L_S1008L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/10_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S008_L_S1008L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/10_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S008_L_S1008L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/10_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S008_L_S1008L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/10_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S008_L_S1008L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/10_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S008_L_S1008L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 11,
+      "fp_subject": 11,
+      "iris_subject": "S182",
+      "n_fp_impressions": 7,
+      "n_iris_images": 9,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/11_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S182_L_S1182L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/11_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S182_L_S1182L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/11_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S182_L_S1182L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/11_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S182_L_S1182L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/11_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S182_L_S1182L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/11_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S182_L_S1182L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/11_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S182_L_S1182L07.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 12,
+      "fp_subject": 12,
+      "iris_subject": "S011",
+      "n_fp_impressions": 1,
+      "n_iris_images": 9,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/12_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S011_L_S1011L01.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 13,
+      "fp_subject": 13,
+      "iris_subject": "S219",
+      "n_fp_impressions": 4,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/13_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S219_L_S1219L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/13_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S219_L_S1219L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/13_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S219_L_S1219L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/13_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S219_L_S1219L04.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 14,
+      "fp_subject": 14,
+      "iris_subject": "S162",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/14_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S162_L_S1162L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/14_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S162_L_S1162L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/14_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S162_L_S1162L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/14_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S162_L_S1162L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/14_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S162_L_S1162L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/14_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S162_L_S1162L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/14_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S162_L_S1162L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/14_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S162_L_S1162L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 15,
+      "fp_subject": 15,
+      "iris_subject": "S043",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/15_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S043_L_S1043L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/15_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S043_L_S1043L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/15_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S043_L_S1043L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/15_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S043_L_S1043L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/15_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S043_L_S1043L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/15_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S043_L_S1043L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/15_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S043_L_S1043L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/15_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S043_L_S1043L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 16,
+      "fp_subject": 16,
+      "iris_subject": "S176",
+      "n_fp_impressions": 8,
+      "n_iris_images": 8,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/16_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S176_L_S1176L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/16_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S176_L_S1176L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/16_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S176_L_S1176L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/16_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S176_L_S1176L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/16_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S176_L_S1176L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/16_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S176_L_S1176L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/16_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S176_L_S1176L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/16_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S176_L_S1176L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 17,
+      "fp_subject": 17,
+      "iris_subject": "S167",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/17_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S167_L_S1167L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/17_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S167_L_S1167L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/17_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S167_L_S1167L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/17_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S167_L_S1167L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/17_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S167_L_S1167L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/17_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S167_L_S1167L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/17_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S167_L_S1167L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/17_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S167_L_S1167L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 18,
+      "fp_subject": 18,
+      "iris_subject": "S211",
+      "n_fp_impressions": 5,
+      "n_iris_images": 15,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/18_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S211_L_S1211L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/18_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S211_L_S1211L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/18_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S211_L_S1211L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/18_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S211_L_S1211L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/18_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S211_L_S1211L05.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 19,
+      "fp_subject": 19,
+      "iris_subject": "S104",
+      "n_fp_impressions": 2,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/19_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S104_L_S1104L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/19_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S104_L_S1104L02.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 20,
+      "fp_subject": 20,
+      "iris_subject": "S170",
+      "n_fp_impressions": 8,
+      "n_iris_images": 8,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/20_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S170_L_S1170L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/20_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S170_L_S1170L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/20_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S170_L_S1170L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/20_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S170_L_S1170L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/20_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S170_L_S1170L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/20_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S170_L_S1170L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/20_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S170_L_S1170L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/20_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S170_L_S1170L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 21,
+      "fp_subject": 21,
+      "iris_subject": "S231",
+      "n_fp_impressions": 7,
+      "n_iris_images": 8,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/21_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S231_L_S1231L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/21_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S231_L_S1231L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/21_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S231_L_S1231L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/21_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S231_L_S1231L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/21_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S231_L_S1231L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/21_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S231_L_S1231L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/21_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S231_L_S1231L07.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 22,
+      "fp_subject": 22,
+      "iris_subject": "S172",
+      "n_fp_impressions": 7,
+      "n_iris_images": 8,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/22_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S172_L_S1172L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/22_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S172_L_S1172L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/22_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S172_L_S1172L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/22_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S172_L_S1172L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/22_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S172_L_S1172L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/22_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S172_L_S1172L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/22_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S172_L_S1172L07.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 23,
+      "fp_subject": 23,
+      "iris_subject": "S186",
+      "n_fp_impressions": 8,
+      "n_iris_images": 9,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/23_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S186_L_S1186L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/23_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S186_L_S1186L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/23_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S186_L_S1186L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/23_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S186_L_S1186L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/23_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S186_L_S1186L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/23_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S186_L_S1186L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/23_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S186_L_S1186L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/23_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S186_L_S1186L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 24,
+      "fp_subject": 24,
+      "iris_subject": "S161",
+      "n_fp_impressions": 7,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/24_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S161_L_S1161L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/24_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S161_L_S1161L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/24_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S161_L_S1161L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/24_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S161_L_S1161L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/24_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S161_L_S1161L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/24_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S161_L_S1161L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/24_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S161_L_S1161L07.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 25,
+      "fp_subject": 25,
+      "iris_subject": "S125",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/25_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S125_L_S1125L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/25_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S125_L_S1125L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/25_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S125_L_S1125L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/25_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S125_L_S1125L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/25_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S125_L_S1125L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/25_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S125_L_S1125L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/25_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S125_L_S1125L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/25_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S125_L_S1125L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 26,
+      "fp_subject": 26,
+      "iris_subject": "S156",
+      "n_fp_impressions": 8,
+      "n_iris_images": 9,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/26_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S156_L_S1156L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/26_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S156_L_S1156L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/26_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S156_L_S1156L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/26_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S156_L_S1156L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/26_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S156_L_S1156L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/26_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S156_L_S1156L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/26_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S156_L_S1156L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/26_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S156_L_S1156L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 27,
+      "fp_subject": 27,
+      "iris_subject": "S239",
+      "n_fp_impressions": 4,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/27_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S239_L_S1239L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/27_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S239_L_S1239L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/27_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S239_L_S1239L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/27_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S239_L_S1239L04.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 28,
+      "fp_subject": 28,
+      "iris_subject": "S224",
+      "n_fp_impressions": 8,
+      "n_iris_images": 11,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/28_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S224_L_S1224L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/28_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S224_L_S1224L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/28_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S224_L_S1224L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/28_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S224_L_S1224L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/28_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S224_L_S1224L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/28_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S224_L_S1224L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/28_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S224_L_S1224L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/28_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S224_L_S1224L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 29,
+      "fp_subject": 29,
+      "iris_subject": "S001",
+      "n_fp_impressions": 6,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/29_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S001_L_S1001L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/29_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S001_L_S1001L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/29_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S001_L_S1001L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/29_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S001_L_S1001L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/29_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S001_L_S1001L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/29_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S001_L_S1001L06.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 30,
+      "fp_subject": 30,
+      "iris_subject": "S115",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/30_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S115_L_S1115L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/30_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S115_L_S1115L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/30_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S115_L_S1115L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/30_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S115_L_S1115L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/30_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S115_L_S1115L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/30_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S115_L_S1115L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/30_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S115_L_S1115L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/30_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S115_L_S1115L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 31,
+      "fp_subject": 31,
+      "iris_subject": "S092",
+      "n_fp_impressions": 5,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/31_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S092_L_S1092L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/31_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S092_L_S1092L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/31_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S092_L_S1092L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/31_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S092_L_S1092L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/31_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S092_L_S1092L05.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 32,
+      "fp_subject": 32,
+      "iris_subject": "S212",
+      "n_fp_impressions": 8,
+      "n_iris_images": 8,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/32_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S212_L_S1212L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/32_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S212_L_S1212L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/32_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S212_L_S1212L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/32_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S212_L_S1212L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/32_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S212_L_S1212L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/32_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S212_L_S1212L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/32_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S212_L_S1212L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/32_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S212_L_S1212L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 33,
+      "fp_subject": 33,
+      "iris_subject": "S053",
+      "n_fp_impressions": 6,
+      "n_iris_images": 13,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/33_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S053_L_S1053L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/33_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S053_L_S1053L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/33_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S053_L_S1053L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/33_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S053_L_S1053L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/33_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S053_L_S1053L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/33_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S053_L_S1053L06.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 34,
+      "fp_subject": 34,
+      "iris_subject": "S191",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/34_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S191_L_S1191L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/34_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S191_L_S1191L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/34_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S191_L_S1191L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/34_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S191_L_S1191L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/34_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S191_L_S1191L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/34_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S191_L_S1191L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/34_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S191_L_S1191L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/34_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S191_L_S1191L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 35,
+      "fp_subject": 35,
+      "iris_subject": "S229",
+      "n_fp_impressions": 8,
+      "n_iris_images": 9,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/35_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S229_L_S1229L02.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/35_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S229_L_S1229L03.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/35_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S229_L_S1229L04.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/35_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S229_L_S1229L05.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/35_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S229_L_S1229L06.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/35_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S229_L_S1229L07.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/35_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S229_L_S1229L08.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/35_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S229_L_S1229L09.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 36,
+      "fp_subject": 36,
+      "iris_subject": "S007",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/36_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S007_L_S1007L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/36_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S007_L_S1007L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/36_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S007_L_S1007L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/36_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S007_L_S1007L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/36_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S007_L_S1007L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/36_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S007_L_S1007L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/36_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S007_L_S1007L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/36_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S007_L_S1007L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 37,
+      "fp_subject": 37,
+      "iris_subject": "S165",
+      "n_fp_impressions": 8,
+      "n_iris_images": 9,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/37_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S165_L_S1165L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/37_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S165_L_S1165L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/37_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S165_L_S1165L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/37_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S165_L_S1165L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/37_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S165_L_S1165L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/37_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S165_L_S1165L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/37_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S165_L_S1165L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/37_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S165_L_S1165L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 38,
+      "fp_subject": 38,
+      "iris_subject": "S188",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/38_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S188_L_S1188L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/38_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S188_L_S1188L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/38_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S188_L_S1188L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/38_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S188_L_S1188L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/38_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S188_L_S1188L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/38_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S188_L_S1188L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/38_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S188_L_S1188L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/38_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S188_L_S1188L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 39,
+      "fp_subject": 39,
+      "iris_subject": "S019",
+      "n_fp_impressions": 8,
+      "n_iris_images": 14,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/39_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S019_L_S1019L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/39_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S019_L_S1019L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/39_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S019_L_S1019L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/39_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S019_L_S1019L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/39_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S019_L_S1019L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/39_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S019_L_S1019L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/39_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S019_L_S1019L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/39_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S019_L_S1019L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 40,
+      "fp_subject": 40,
+      "iris_subject": "S179",
+      "n_fp_impressions": 3,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/40_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S179_L_S1179L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/40_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S179_L_S1179L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/40_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S179_L_S1179L03.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 41,
+      "fp_subject": 41,
+      "iris_subject": "S028",
+      "n_fp_impressions": 4,
+      "n_iris_images": 12,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/41_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S028_L_S1028L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/41_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S028_L_S1028L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/41_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S028_L_S1028L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/41_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S028_L_S1028L04.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 42,
+      "fp_subject": 43,
+      "iris_subject": "S030",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/43_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S030_L_S1030L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/43_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S030_L_S1030L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/43_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S030_L_S1030L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/43_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S030_L_S1030L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/43_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S030_L_S1030L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/43_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S030_L_S1030L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/43_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S030_L_S1030L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/43_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S030_L_S1030L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 43,
+      "fp_subject": 44,
+      "iris_subject": "S060",
+      "n_fp_impressions": 7,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/44_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S060_L_S1060L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/44_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S060_L_S1060L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/44_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S060_L_S1060L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/44_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S060_L_S1060L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/44_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S060_L_S1060L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/44_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S060_L_S1060L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/44_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S060_L_S1060L07.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 44,
+      "fp_subject": 45,
+      "iris_subject": "S081",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/45_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S081_L_S1081L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/45_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S081_L_S1081L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/45_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S081_L_S1081L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/45_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S081_L_S1081L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/45_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S081_L_S1081L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/45_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S081_L_S1081L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/45_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S081_L_S1081L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/45_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S081_L_S1081L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 45,
+      "fp_subject": 46,
+      "iris_subject": "S093",
+      "n_fp_impressions": 7,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/46_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S093_L_S1093L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/46_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S093_L_S1093L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/46_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S093_L_S1093L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/46_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S093_L_S1093L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/46_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S093_L_S1093L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/46_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S093_L_S1093L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/46_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S093_L_S1093L07.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 46,
+      "fp_subject": 47,
+      "iris_subject": "S002",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/47_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S002_L_S1002L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/47_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S002_L_S1002L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/47_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S002_L_S1002L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/47_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S002_L_S1002L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/47_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S002_L_S1002L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/47_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S002_L_S1002L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/47_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S002_L_S1002L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/47_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S002_L_S1002L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 47,
+      "fp_subject": 48,
+      "iris_subject": "S029",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/48_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S029_L_S1029L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/48_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S029_L_S1029L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/48_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S029_L_S1029L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/48_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S029_L_S1029L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/48_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S029_L_S1029L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/48_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S029_L_S1029L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/48_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S029_L_S1029L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/48_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S029_L_S1029L08.npz"
+        }
+      ]
+    },
+    {
+      "chimeric_id": 48,
+      "fp_subject": 49,
+      "iris_subject": "S209",
+      "n_fp_impressions": 8,
+      "n_iris_images": 10,
+      "pairs": [
+        {
+          "impression": 1,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/49_1.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S209_L_S1209L01.npz"
+        },
+        {
+          "impression": 2,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/49_2.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S209_L_S1209L02.npz"
+        },
+        {
+          "impression": 3,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/49_3.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S209_L_S1209L03.npz"
+        },
+        {
+          "impression": 4,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/49_4.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S209_L_S1209L04.npz"
+        },
+        {
+          "impression": 5,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/49_5.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S209_L_S1209L05.npz"
+        },
+        {
+          "impression": 6,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/49_6.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S209_L_S1209L06.npz"
+        },
+        {
+          "impression": 7,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/49_7.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S209_L_S1209L07.npz"
+        },
+        {
+          "impression": 8,
+          "fp_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/minutiae/2002/Db3_a/49_8.jpg.txt",
+          "iris_file": "/Users/suryanallaparaju/Desktop/Surya's Project/data/Iris/iris_codes/S209_L_S1209L08.npz"
+        }
+      ]
+    }
+  ]
+}

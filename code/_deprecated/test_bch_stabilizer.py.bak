@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+"""
+Test the concatenated code (inner repetition + outer BCH) iris stabilizer.
+
+Compares GAR between:
+  - Original IrisStabilizer (repetition only)
+  - IrisStabilizerBCH (inner repetition + outer BCH)
+
+Run from: /Users/suryanallaparaju/Desktop/Surya's Project/code/
+"""
+
+import sys, os
+import numpy as np
+from pathlib import Path
+from collections import defaultdict
+
+sys.path.insert(0, os.path.dirname(__file__))
+
+from iris_stabilizer import (
+    IrisStabilizer, IrisStabilizerBCH,
+    create_iris_commitment, recover_iris_key,
+    create_iris_commitment_bch, recover_iris_key_bch,
+)
+
+# ---------- Config ----------
+CODE_DIR = Path(__file__).parent.parent / "data" / "minutiae" / "Iris"
+MAX_SUBJECTS = 50        # Use first N subjects (0 = all)
+BLOCK_SIZES = [63]       # Inner repetition block sizes to test
+BCH_T_VALUES = [3, 5]    # BCH error correction capabilities
+MAX_SHIFT = 8            # Rotation search range
+
+def load_iris_codes(code_dir: Path, max_subjects: int = 0):
+    """Load iris codes grouped by subject."""
+    subjects = defaultdict(list)
+    npz_files = sorted(code_dir.glob("*.npz"))
+    for f in npz_files:
+        data = np.load(f)
+        code = data["code"]
+        mask = data["mask"]
+        # Subject ID: S1001L01 → S1001
+        name = f.stem
+        subj = name[:5]  # e.g. "S1001"
+        subjects[subj].append((code, mask, name))
+
+    subj_list = sorted(subjects.keys())
+    if max_subjects > 0:
+        subj_list = subj_list[:max_subjects]
+
+    return {s: subjects[s] for s in subj_list}
+
+
+def evaluate_gar(subjects, enroll_fn, recover_fn, label: str):
+    """Evaluate GAR: enroll with first sample, test all others."""
+    n_genuine = 0
+    n_success = 0
+    n_enrolled = 0
+
+    for subj, samples in subjects.items():
+        if len(samples) < 2:
+            continue
+        # Enroll with first sample
+        code_e, mask_e, name_e = samples[0]
+        commitment, stabilizer = enroll_fn(code_e, mask_e)
+        n_enrolled += 1
+
+        # Test with remaining samples
+        for code_q, mask_q, name_q in samples[1:]:
+            result = recover_fn(code_q, mask_q, commitment, stabilizer)
+            n_genuine += 1
+            if result.success:
+                n_success += 1
+
+    gar = n_success / n_genuine * 100 if n_genuine > 0 else 0
+    print(f"  {label}: GAR = {n_success}/{n_genuine} = {gar:.2f}%  "
+          f"(enrolled={n_enrolled})")
+    return gar, n_success, n_genuine
+
+
+def main():
+    print("=" * 65)
+    print("BCH Concatenated Code Stabilizer — Real Data Validation")
+    print("=" * 65)
+
+    subjects = load_iris_codes(CODE_DIR, MAX_SUBJECTS)
+    n_subj = len(subjects)
+    n_total = sum(len(v) for v in subjects.values())
+    print(f"\nLoaded {n_total} iris codes from {n_subj} subjects")
+
+    if n_total == 0:
+        print("ERROR: No iris codes found. Check CODE_DIR path.")
+        return
+
+    # Show code length
+    first_code = next(iter(subjects.values()))[0][0]
+    print(f"Code length: {len(first_code)} bits")
+
+    for bs in BLOCK_SIZES:
+        print(f"\n{'─' * 55}")
+        print(f"Block size Bs = {bs}")
+        print(f"{'─' * 55}")
+
+        # --- Original stabilizer ---
+        def enroll_orig(c, m):
+            return create_iris_commitment(c, m, block_size=bs, seed=42)
+        def recover_orig(c, m, comm, stab):
+            return recover_iris_key(c, m, comm, stab, max_shift=MAX_SHIFT)
+
+        evaluate_gar(subjects, enroll_orig, recover_orig,
+                     f"Original (rep-only, Bs={bs})")
+
+        # --- BCH stabilizer for each t ---
+        for t in BCH_T_VALUES:
+            def make_enroll(t_val):
+                def enroll_bch(c, m):
+                    return create_iris_commitment_bch(c, m, block_size=bs,
+                                                      bch_t=t_val, seed=42)
+                return enroll_bch
+            def make_recover():
+                def recover_bch(c, m, comm, stab):
+                    return recover_iris_key_bch(c, m, comm, stab,
+                                                max_shift=MAX_SHIFT)
+                return recover_bch
+
+            evaluate_gar(subjects, make_enroll(t), make_recover(),
+                         f"BCH(t={t}) + rep(Bs={bs})")
+
+    print(f"\n{'=' * 65}")
+    print("Done.")
+
+
+if __name__ == "__main__":
+    main()

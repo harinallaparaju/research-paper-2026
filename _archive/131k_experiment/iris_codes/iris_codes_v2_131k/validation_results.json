@@ -1,0 +1,18 @@
+{
+  "n_subjects": 198,
+  "n_codes": 1329,
+  "n_genuine_pairs": 4435,
+  "n_impostor_pairs": 5000,
+  "genuine_fhd_mean": 0.2625,
+  "genuine_fhd_std": 0.1261,
+  "genuine_fhd_median": 0.2569,
+  "impostor_fhd_mean": 0.4369,
+  "impostor_fhd_std": 0.0301,
+  "impostor_fhd_median": 0.4412,
+  "decidability_d_prime": 1.9023,
+  "segmentation_success_rate": 99.77,
+  "validation_gates": {
+    "seg_success_ge_85": true,
+    "genuine_fhd_le_035": true,
+    "impostor_fhd_ge_042": true,
+    "d_prime_ge_1_8": 

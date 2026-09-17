@@ -1,0 +1,82 @@
+<mxfile host="app.diagrams.net" modified="2026-04-06" agent="IBFV Paper" version="24.0.0" type="device">
+  <diagram id="fuzzy-vault-concept" name="Fuzzy Vault Concept">
+    <mxGraphModel dx="720" dy="460" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="720" pageHeight="460" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="a_label" value="&lt;b&gt;(a) Locking&lt;/b&gt;" style="text;html=1;fontSize=16;fontColor=#000000;align=center;" vertex="1" parent="1">
+          <mxGeometry x="80" y="10" width="180" height="28" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="secret" value="&lt;b&gt;Secret &lt;i&gt;s&lt;/i&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="20" y="55" width="100" height="42" as="geometry"/>
+        </mxCell>
+        <mxCell id="poly" value="Polynomial &lt;i&gt;p&lt;/i&gt;(&lt;i&gt;x&lt;/i&gt;)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="170" y="55" width="155" height="42" as="geometry"/>
+        </mxCell>
+        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;" edge="1" source="secret" target="poly" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="bio" value="Biometric" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="20" y="125" width="100" height="42" as="geometry"/>
+        </mxCell>
+        <mxCell id="genuine" value="&lt;b&gt;Genuine points&lt;/b&gt;&lt;br&gt;on &lt;i&gt;p&lt;/i&gt;(&lt;i&gt;x&lt;/i&gt;)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="170" y="118" width="155" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;" edge="1" source="bio" target="genuine" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="chaff" value="Chaff points&lt;br&gt;&lt;b&gt;not&lt;/b&gt; on &lt;i&gt;p&lt;/i&gt;(&lt;i&gt;x&lt;/i&gt;)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=13;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="190" width="155" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="vault_a" value="&lt;b&gt;Vault&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D0D0D0;strokeColor=#000000;fontSize=16;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="275" width="270" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;" edge="1" source="genuine" target="vault_a" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;" edge="1" source="chaff" target="vault_a" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="divider" value="" style="line;strokeWidth=1;strokeColor=#999999;strokeDasharray=6 4;" vertex="1" parent="1">
+          <mxGeometry x="360" y="10" width="1" height="310" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="b_label" value="&lt;b&gt;(b) Unlocking&lt;/b&gt;" style="text;html=1;fontSize=16;fontColor=#000000;align=center;" vertex="1" parent="1">
+          <mxGeometry x="440" y="10" width="200" height="28" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="query" value="Query biometric" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="385" y="55" width="145" height="42" as="geometry"/>
+        </mxCell>
+        <mxCell id="vault_b" value="&lt;b&gt;Vault&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D0D0D0;strokeColor=#000000;fontSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="560" y="55" width="80" height="42" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="candidates" value="Candidate&lt;br&gt;matches" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="430" y="130" width="130" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;" edge="1" source="query" target="candidates" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="b2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;dashed=1;" edge="1" source="vault_b" target="candidates" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="diamond" value="&amp;ge; &lt;i&gt;k&lt;/i&gt;+1 ?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="445" y="210" width="100" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;" edge="1" source="candidates" target="diamond" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="lagrange" value="&lt;b&gt;Lagrange&lt;/b&gt;&lt;br&gt;interpolation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="575" y="212" width="130" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="b4" value="Yes" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;fontSize=14;" edge="1" source="diamond" target="lagrange" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="verify" value="&lt;b&gt;Verify secret&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D0D0D0;strokeColor=#000000;fontSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="588" y="290" width="108" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="b5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;" edge="1" source="lagrange" target="verify" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="reject" value="Reject" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=14;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="455" y="310" width="80" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="b6" value="No" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;dashed=1;fontSize=14;" edge="1" source="diamond" target="reject" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

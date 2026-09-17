@@ -1,0 +1,262 @@
+\begin{thebibliography}{39}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Acquah et~al.(2020)Acquah, Chen, Pan, and
+  Tabares-Soto]{acquah2020securing}
+M.~A. Acquah, N.~Chen, J.~Pan, and R.~Tabares-Soto.
+\newblock Securing fingerprint biometrics using blockchain technology.
+\newblock \emph{Symmetry}, 12\penalty0 (7):\penalty0 1168, 2020.
+
+\bibitem[Androulaki et~al.(2018)Androulaki, Barger, Bortnikov, Cachin,
+  Christidis, De~Caro, Enyeart, Ferris, Laventman, Manevich,
+  et~al.]{androulaki2018hyperledger}
+E.~Androulaki, A.~Barger, V.~Bortnikov, C.~Cachin, K.~Christidis, A.~De~Caro,
+  D.~Enyeart, C.~Ferris, G.~Laventman, Y.~Manevich, et~al.
+\newblock {Hyperledger Fabric}: A distributed operating system for permissioned
+  blockchains.
+\newblock \emph{Proc. ACM EuroSys}, pages 1--15, 2018.
+
+\bibitem[Benet(2014)]{benet2014ipfs}
+J.~Benet.
+\newblock {IPFS} --- content addressed, versioned, {P2P} file system.
+\newblock In \emph{arXiv preprint arXiv:1407.3561}, 2014.
+
+\bibitem[Buterin(2014)]{buterin2014ethereum}
+V.~Buterin.
+\newblock A next-generation smart contract and decentralized application
+  platform.
+\newblock Ethereum White Paper, 2014.
+
+\bibitem[{CASIA}(2010)]{casia_iris}
+{CASIA}.
+\newblock {CASIA}-iris-interval database.
+\newblock \emph{Chinese Academy of Sciences Institute of Automation}, 2010.
+\newblock Available at http://biometrics.idealtest.org/.
+
+\bibitem[Clancy et~al.(2003)Clancy, Kiyavash, and Lin]{clancy2003secure}
+T.~C. Clancy, N.~Kiyavash, and D.~J. Lin.
+\newblock Secure smartcard-based fingerprint authentication.
+\newblock In \emph{Proc. ACM SIGMM Workshop on Biometrics Methods and
+  Applications}, pages 42--49, 2003.
+
+\bibitem[Daugman(2004)]{daugman2004how}
+J.~Daugman.
+\newblock How iris recognition works.
+\newblock \emph{IEEE Transactions on Circuits and Systems for Video
+  Technology}, 14\penalty0 (1):\penalty0 21--30, 2004.
+
+\bibitem[Delgado-Mohatar et~al.(2020)Delgado-Mohatar, Fierrez, Tolosana, and
+  Vera-Rodriguez]{delgado2020blockchain}
+O.~Delgado-Mohatar, J.~Fierrez, R.~Tolosana, and R.~Vera-Rodriguez.
+\newblock Blockchain and biometrics: A first look into opportunities and
+  challenges.
+\newblock In \emph{Proc. Int. Congr. on Blockchain and Applications}, pages
+  169--177. Springer, 2020.
+
+\bibitem[Dodis et~al.(2008)Dodis, Ostrovsky, Reyzin, and Smith]{dodis2008fuzzy}
+Y.~Dodis, R.~Ostrovsky, L.~Reyzin, and A.~Smith.
+\newblock Fuzzy extractors: How to generate strong keys from biometrics and
+  other noisy data.
+\newblock \emph{SIAM Journal on Computing}, 38\penalty0 (1):\penalty0 97--139,
+  2008.
+
+\bibitem[Goel et~al.(2019)Goel, Agarwal, Vatsa, Singh, and
+  Ratha]{goel2019securing}
+A.~Goel, A.~Agarwal, M.~Vatsa, R.~Singh, and N.~Ratha.
+\newblock Securing {CNN} model and biometric template using blockchain.
+\newblock In \emph{Proc. IEEE 10th Int. Conf. on Biometrics Theory,
+  Applications and Systems (BTAS)}, pages 1--7, 2019.
+
+\bibitem[Gomez-Barrero et~al.(2018)Gomez-Barrero, Galbally, Rathgeb, and
+  Busch]{gomezbarrero2017}
+M.~Gomez-Barrero, J.~Galbally, C.~Rathgeb, and C.~Busch.
+\newblock General framework to evaluate unlinkability in biometric template
+  protection systems.
+\newblock \emph{IEEE Transactions on Information Forensics and Security},
+  13\penalty0 (6):\penalty0 1406--1420, 2018.
+
+\bibitem[Hao et~al.(2006)Hao, Anderson, and Daugman]{hao2006combining}
+F.~Hao, R.~Anderson, and J.~Daugman.
+\newblock Combining crypto with biometrics effectively.
+\newblock \emph{IEEE Transactions on Computers}, 55\penalty0 (9):\penalty0
+  1081--1088, 2006.
+
+\bibitem[Hollingsworth et~al.(2009)Hollingsworth, Bowyer, and
+  Flynn]{hollingsworth2009fragile}
+K.~P. Hollingsworth, K.~W. Bowyer, and P.~J. Flynn.
+\newblock The best bits in an iris code.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 31\penalty0 (6):\penalty0 964--973, 2009.
+
+\bibitem[{ISO/IEC}(2022)]{iso24745}
+{ISO/IEC}.
+\newblock Information technology --- security techniques --- biometric
+  information protection, 2022.
+
+\bibitem[Jain and Ross(2004)]{jain2004multibiometrics}
+A.~K. Jain and A.~Ross.
+\newblock Multibiometric systems.
+\newblock \emph{Communications of the ACM}, 47\penalty0 (1):\penalty0 34--40,
+  2004.
+
+\bibitem[Jain et~al.(2008)Jain, Nandakumar, and Nagar]{jain2008biometric}
+A.~K. Jain, K.~Nandakumar, and A.~Nagar.
+\newblock Biometric template security.
+\newblock \emph{EURASIP Journal on Advances in Signal Processing},
+  2008:\penalty0 1--17, 2008.
+
+\bibitem[Juels and Sudan(2006)]{juels2002fuzzy}
+A.~Juels and M.~Sudan.
+\newblock A fuzzy vault scheme.
+\newblock \emph{Designs, Codes and Cryptography}, 38\penalty0 (2):\penalty0
+  237--257, 2006.
+\newblock Originally in Proc. IEEE ISIT 2002.
+
+\bibitem[Kelkboom et~al.(2011)Kelkboom, Breebaart, Buhan, and
+  de~Groot]{kelkboom2011multialgorithm}
+E.~J.~C. Kelkboom, J.~Breebaart, I.~Buhan, and A.~H.~M. de~Groot.
+\newblock Multi-algorithm fusion with template protection.
+\newblock \emph{IEEE Transactions on Information Forensics and Security},
+  6\penalty0 (4):\penalty0 1224--1230, 2011.
+
+\bibitem[Lee and Jeong(2021)]{lee2021securing}
+Y.~K. Lee and J.~Jeong.
+\newblock Securing biometric authentication system using blockchain.
+\newblock \emph{ICT Express}, 7\penalty0 (3):\penalty0 322--326, 2021.
+
+\bibitem[Lochter and Merkle(2010)]{rfc5639}
+M.~Lochter and J.~Merkle.
+\newblock Elliptic curve cryptography ({ECC}) {Brainpool} standard curves and
+  curve generation.
+\newblock RFC 5639, IETF, 2010.
+
+\bibitem[Maio et~al.(2002)Maio, Maltoni, Cappelli, Wayman, and
+  Jain]{maio2002fvc2002}
+D.~Maio, D.~Maltoni, R.~Cappelli, J.~L. Wayman, and A.~K. Jain.
+\newblock {FVC2002}: Second fingerprint verification competition.
+\newblock In \emph{Proc. 16th Int. Conf. on Pattern Recognition (ICPR)},
+  volume~3, pages 811--814, 2002.
+
+\bibitem[Maio et~al.(2004)Maio, Maltoni, Cappelli, Wayman, and
+  Jain]{maio2004fvc2004}
+D.~Maio, D.~Maltoni, R.~Cappelli, J.~L. Wayman, and A.~K. Jain.
+\newblock {FVC2004}: Third fingerprint verification competition.
+\newblock In \emph{Proc. Int. Conf. on Biometric Authentication (ICBA)}, pages
+  1--7, 2004.
+
+\bibitem[Maurya et~al.(2025)Maurya, Sandhya, Prasad, and
+  SuryanarayanaRaju]{maurya2025enhancing}
+Praphul~Kumar Maurya, Mulagala Sandhya, I~HHNTV Prasad, and Nallaparaju~V
+  SuryanarayanaRaju.
+\newblock Enhancing fingerprint template security using elliptic curve
+  cryptography and fuzzy vault encoding.
+\newblock \emph{Journal of Information Security and Applications}, 94:\penalty0
+  104243, 2025.
+
+\bibitem[Moon et~al.(2010)Moon, Choi, Moon, and Chung]{moon2010multibiometric}
+D.~Moon, W.~Y. Choi, K.~Y. Moon, and Y.~Chung.
+\newblock Multi-biometric fuzzy vault based on face and fingerprint.
+\newblock In \emph{Proc. Int. Conf. on Intelligent Information Hiding and
+  Multimedia Signal Processing}, pages 233--236. IEEE, 2010.
+
+\bibitem[Nandakumar and Jain(2008)]{nandakumar2008multibiometric}
+K.~Nandakumar and A.~K. Jain.
+\newblock Multibiometric template security using fuzzy vault.
+\newblock In \emph{Proc. IEEE 2nd Int. Conf. on Biometrics: Theory,
+  Applications and Systems (BTAS)}, pages 1--6, 2008.
+
+\bibitem[Nandakumar et~al.(2007)Nandakumar, Jain, and
+  Pankanti]{nandakumar2007fuzzy}
+K.~Nandakumar, A.~K. Jain, and S.~Pankanti.
+\newblock Fingerprint-based fuzzy vault: Implementation and performance.
+\newblock \emph{IEEE Transactions on Information Forensics and Security},
+  2\penalty0 (4):\penalty0 744--757, 2007.
+
+\bibitem[Pedersen(1991)]{pedersen1991non}
+Torben~Pryds Pedersen.
+\newblock Non-interactive and information-theoretic secure verifiable secret
+  sharing.
+\newblock In \emph{Advances in Cryptology -- CRYPTO '91}, volume 576 of
+  \emph{Lecture Notes in Computer Science}, pages 129--140. Springer, 1991.
+
+\bibitem[Prakasha and Sumalatha(2025)]{prakasha2025privacy}
+K.~K. Prakasha and U.~Sumalatha.
+\newblock Privacy-preserving techniques in biometric systems: Approaches and
+  challenges.
+\newblock \emph{IEEE Access}, 2025.
+
+\bibitem[Ratha et~al.(2001)Ratha, Connell, and Bolle]{ratha2001enhancing}
+N.~K. Ratha, J.~H. Connell, and R.~M. Bolle.
+\newblock Enhancing security and privacy in biometrics-based authentication
+  systems.
+\newblock \emph{IBM Systems Journal}, 40\penalty0 (3):\penalty0 614--634, 2001.
+
+\bibitem[Ratha et~al.(2007)Ratha, Chikkerur, Connell, and
+  Bolle]{ratha2007generating}
+N.~K. Ratha, S.~Chikkerur, J.~H. Connell, and R.~M. Bolle.
+\newblock Generating cancelable fingerprint templates.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 29\penalty0 (4):\penalty0 561--572, 2007.
+
+\bibitem[Rathgeb and Uhl(2011)]{rathgeb2011survey}
+C.~Rathgeb and A.~Uhl.
+\newblock A survey on biometric cryptosystems and cancelable biometrics.
+\newblock \emph{EURASIP Journal on Information Security}, 2011:\penalty0 1--25,
+  2011.
+
+\bibitem[Ross and Jain(2003)]{ross2003information}
+A.~Ross and A.~K. Jain.
+\newblock Information fusion in biometrics.
+\newblock \emph{Pattern Recognition Letters}, 24\penalty0 (13):\penalty0
+  2115--2125, 2003.
+
+\bibitem[Shamir(1979)]{shamir1979how}
+A.~Shamir.
+\newblock How to share a secret.
+\newblock \emph{Communications of the ACM}, 22\penalty0 (11):\penalty0
+  612--613, 1979.
+
+\bibitem[Sharma and Dwivedi(2026)]{sharma2026fabric}
+S.~Sharma and R.~Dwivedi.
+\newblock {Hyperledger Fabric}-based biometric identity management and
+  authentication: A performance-centric approach to block size optimization.
+\newblock \emph{Security and Privacy}, 2026.
+
+\bibitem[Sharma et~al.(2024)Sharma, Saini, and Chaudhury]{sharma2024multimodal}
+Sagar Sharma, Anupam Saini, and Santanu Chaudhury.
+\newblock Multimodal biometric user authentication using improved decentralized
+  fuzzy vault scheme based on blockchain network.
+\newblock \emph{Journal of Information Security and Applications}, 80:\penalty0
+  103671, 2024.
+
+\bibitem[Tams(2013)]{tams2013attacks}
+B.~Tams.
+\newblock Attacks and countermeasures in fingerprint based biometric
+  cryptosystems.
+\newblock \emph{arXiv preprint arXiv:1304.7386}, 2013.
+
+\bibitem[Teoh et~al.(2006)Teoh, Ngo, and Goh]{teoh2004random}
+A.~B.~J. Teoh, D.~C.~L. Ngo, and A.~Goh.
+\newblock Random multispace quantisation as an analytic mechanism for
+  {BioHashing} of biometric and random identity inputs.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 28\penalty0 (12):\penalty0 1892--1901, 2006.
+\newblock Originally proposed in 2004.
+
+\bibitem[Uludag et~al.(2005)Uludag, Pankanti, and Jain]{uludag2005fuzzy}
+U.~Uludag, S.~Pankanti, and A.~K. Jain.
+\newblock Fuzzy vault for fingerprints.
+\newblock In \emph{Proc. Int. Conf. on Audio- and Video-Based Biometric Person
+  Authentication (AVBPA)}, pages 310--319. Springer, 2005.
+
+\bibitem[Yun et~al.(2024)Yun, Lu, Liu, and Guan]{yun2024biorollup}
+J.~Yun, Y.~Lu, X.~Liu, and J.~Guan.
+\newblock {Bio-Rollup}: A new privacy protection solution for biometrics based
+  on two-layer scalability-focused blockchain.
+\newblock \emph{PeerJ Computer Science}, 10:\penalty0 e2268, 2024.
+
+\end{thebibliography}

@@ -1,0 +1,22 @@
+This is an implementation where for the data, we use 1_1 for locking the vault, and 1_2 for unlocking the vault.
+To my knowledge, two experiments were run. One experiment where, this happens, and another experiment where 1_1 to lock
+and all the other 1_2 to 1_8, to unlock.
+I am not sure if cross database is also checked, and cross user anyways has to be checked as imposters.
+
+Please refer to the published paper, that I am putting here.
+/published_paper
+
+Also these were the instructions given to run by my senior:
+To run the code follow the givem instructions--
+
+1. Create a folder (lets say X) and inside it create subfolders-- 
+	minutiae, vaults, results
+
+2. Paste the following code files inside X--
+        main2.4, main3, quantize2, unlocking, vault_create2
+
+3.Paste the txt files from DB folder to minutiae folder in  directory X
+
+4. Run main2.4.py file, it will create the vault for each user that is present in minutiae folder.
+
+5. Now, to unlock run the file main3.py, it will try to unlock all the vault files for each file in minutiae folder. It will store the results in results.csv file and results.txt file.

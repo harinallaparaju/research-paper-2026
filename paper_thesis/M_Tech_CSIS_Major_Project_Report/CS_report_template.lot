@@ -1,0 +1,28 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Gap analysis: multimodal and blockchain-based biometric schemes.}}{10}{table.caption.8}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Fingerprint databases used in experiments.}}{26}{table.caption.20}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces AND-Fusion penalty: best EER (\%) vs.\ Unimodal and IBFV.}}{27}{table.caption.21}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Tight-coupling architectures: best EER (\%) by database (Setup~1).}}{27}{table.caption.22}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces AUC comparison (best quantization factor per database).}}{28}{table.caption.23}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Iris key recovery performance ($B_s = 255$, $n_b = 514$).}}{29}{table.caption.26}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Biometric timing benchmarks (ms, $f=22$, $k=7$, DB1, averaged over 10{,}000 verification attempts, Apple~M1 processor).}}{30}{table.caption.27}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Ablation: EER (\%) vs.\ $K$ (DB3, $f=16$, $k=5$, Setup~1).}}{30}{table.caption.28}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Unlinkability: $D_{\mathrm {sys}}$ metric per Gomez-Barrero et al.\ \cite {gomezbarrero2017}. Lower is better; 0 = fully unlinkable, 1 = fully linkable.}}{31}{table.caption.29}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces Vault entropy at $f=24$, $k=7$.}}{31}{table.caption.30}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces Detailed EER comparison with Maurya et al.\ \cite {maurya2025enhancing}.}}{32}{table.caption.31}%
+\contentsline {table}{\numberline {4.11}{\ignorespaces Vault reconstruction accuracy across all Shamir configurations.}}{32}{table.caption.32}%
+\contentsline {table}{\numberline {4.12}{\ignorespaces D-IBFV enrollment latency breakdown (ms, mean~$\pm $~std).}}{33}{table.caption.33}%
+\contentsline {table}{\numberline {4.13}{\ignorespaces D-IBFV verification latency breakdown (ms, mean~$\pm $~std).}}{33}{table.caption.34}%
+\contentsline {table}{\numberline {4.14}{\ignorespaces Sequential throughput (TPS) and average latency.}}{34}{table.caption.35}%
+\contentsline {table}{\numberline {4.15}{\ignorespaces Per-user storage costs ($\approx $16.6~KB vault, GF(257) uint16 shares).}}{34}{table.caption.36}%
+\contentsline {table}{\numberline {4.16}{\ignorespaces Node failure resilience for $(3,5)$-Shamir (all $\binom {5}{k}$ patterns).}}{34}{table.caption.37}%
+\contentsline {table}{\numberline {4.17}{\ignorespaces Scalability projections for $(3,5)$-D-IBFV.}}{35}{table.caption.38}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces D-IBFV security properties per ISO/IEC~24745.}}{39}{table.caption.39}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Comparison with key prior multimodal fuzzy vault and blockchain biometric systems.}}{40}{table.caption.40}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

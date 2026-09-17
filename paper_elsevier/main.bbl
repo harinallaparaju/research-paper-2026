@@ -1,0 +1,137 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{jain2004multibiometrics}
+A.~K. Jain, A.~Ross, Multibiometric systems, Communications of the ACM 47~(1)
+  (2004) 34--40.
+
+\bibitem{iso24745}
+{ISO/IEC}, Information technology --- security techniques --- biometric
+  information protection (2022).
+
+\bibitem{juels2002fuzzy}
+A.~Juels, M.~Sudan, A fuzzy vault scheme, Designs, Codes and Cryptography
+  38~(2) (2006) 237--257, originally in Proc. IEEE ISIT 2002.
+
+\bibitem{rathgeb2011survey}
+C.~Rathgeb, A.~Uhl, A survey on biometric cryptosystems and cancelable
+  biometrics, EURASIP Journal on Information Security 2011 (2011) 1--25.
+
+\bibitem{clancy2003secure}
+T.~C. Clancy, N.~Kiyavash, D.~J. Lin, Secure smartcard-based fingerprint
+  authentication, in: Proc. ACM SIGMM Workshop on Biometrics Methods and
+  Applications, 2003, pp. 42--49.
+
+\bibitem{nandakumar2007fuzzy}
+K.~Nandakumar, A.~K. Jain, S.~Pankanti, Fingerprint-based fuzzy vault:
+  Implementation and performance, IEEE Transactions on Information Forensics
+  and Security 2~(4) (2007) 744--757.
+
+\bibitem{uludag2005fuzzy}
+U.~Uludag, S.~Pankanti, A.~K. Jain, Fuzzy vault for fingerprints, in: Proc.
+  Int. Conf. on Audio- and Video-Based Biometric Person Authentication (AVBPA),
+  Springer, 2005, pp. 310--319.
+
+\bibitem{hao2006combining}
+F.~Hao, R.~Anderson, J.~Daugman, Combining crypto with biometrics effectively,
+  IEEE Transactions on Computers 55~(9) (2006) 1081--1088.
+
+\bibitem{nandakumar2008multibiometric}
+K.~Nandakumar, A.~K. Jain, Multibiometric template security using fuzzy vault,
+  in: Proc. IEEE 2nd Int. Conf. on Biometrics: Theory, Applications and Systems
+  (BTAS), 2008, pp. 1--6.
+
+\bibitem{maurya2025enhancing}
+P.~K. Maurya, M.~Sandhya, I.~H. Prasad, N.~V. SuryanarayanaRaju, Enhancing
+  fingerprint template security using elliptic curve cryptography and fuzzy
+  vault encoding, Journal of Information Security and Applications 94 (2025)
+  104243.
+
+\bibitem{rfc5639}
+M.~Lochter, J.~Merkle, Elliptic curve cryptography ({ECC}) {Brainpool} standard
+  curves and curve generation, RFC 5639, IETF (2010).
+
+\bibitem{ross2003information}
+A.~Ross, A.~K. Jain, Information fusion in biometrics, Pattern Recognition
+  Letters 24~(13) (2003) 2115--2125.
+
+\bibitem{moon2010multibiometric}
+D.~Moon, W.~Y. Choi, K.~Y. Moon, Y.~Chung, Multi-biometric fuzzy vault based on
+  face and fingerprint, in: Proc. Int. Conf. on Intelligent Information Hiding
+  and Multimedia Signal Processing, IEEE, 2010, pp. 233--236.
+
+\bibitem{ratha2001enhancing}
+N.~K. Ratha, J.~H. Connell, R.~M. Bolle, Enhancing security and privacy in
+  biometrics-based authentication systems, IBM Systems Journal 40~(3) (2001)
+  614--634.
+
+\bibitem{ratha2007generating}
+N.~K. Ratha, S.~Chikkerur, J.~H. Connell, R.~M. Bolle, Generating cancelable
+  fingerprint templates, IEEE Transactions on Pattern Analysis and Machine
+  Intelligence 29~(4) (2007) 561--572.
+
+\bibitem{teoh2004random}
+A.~B.~J. Teoh, D.~C.~L. Ngo, A.~Goh, Random multispace quantisation as an
+  analytic mechanism for {BioHashing} of biometric and random identity inputs,
+  IEEE Transactions on Pattern Analysis and Machine Intelligence 28~(12) (2006)
+  1892--1901, originally proposed in 2004.
+
+\bibitem{jain2008biometric}
+A.~K. Jain, K.~Nandakumar, A.~Nagar, Biometric template security, EURASIP
+  Journal on Advances in Signal Processing 2008 (2008) 1--17.
+
+\bibitem{dodis2008fuzzy}
+Y.~Dodis, R.~Ostrovsky, L.~Reyzin, A.~Smith, Fuzzy extractors: How to generate
+  strong keys from biometrics and other noisy data, SIAM Journal on Computing
+  38~(1) (2008) 97--139.
+
+\bibitem{tams2013attacks}
+B.~Tams, Attacks and countermeasures in fingerprint based biometric
+  cryptosystems, arXiv preprint arXiv:1304.7386 (2013).
+
+\bibitem{kelkboom2011multialgorithm}
+E.~J.~C. Kelkboom, J.~Breebaart, I.~Buhan, A.~H.~M. de~Groot, Multi-algorithm
+  fusion with template protection, IEEE Transactions on Information Forensics
+  and Security 6~(4) (2011) 1224--1230.
+
+\bibitem{daugman2004how}
+J.~Daugman, How iris recognition works, IEEE Transactions on Circuits and
+  Systems for Video Technology 14~(1) (2004) 21--30.
+
+\bibitem{masek2003thesis}
+L.~Masek, Recognition of human iris patterns for biometric identification,
+  Master's thesis, University of Western Australia (2003).
+
+\bibitem{hollingsworth2009fragile}
+K.~P. Hollingsworth, K.~W. Bowyer, P.~J. Flynn, The best bits in an iris code,
+  IEEE Transactions on Pattern Analysis and Machine Intelligence 31~(6) (2009)
+  964--973.
+
+\bibitem{gomezbarrero2017}
+M.~Gomez-Barrero, J.~Galbally, C.~Rathgeb, C.~Busch, General framework to
+  evaluate unlinkability in biometric template protection systems, IEEE
+  Transactions on Information Forensics and Security 13~(6) (2018) 1406--1420.
+
+\bibitem{maio2002fvc2002}
+D.~Maio, D.~Maltoni, R.~Cappelli, J.~L. Wayman, A.~K. Jain, {FVC2002}: Second
+  fingerprint verification competition, in: Proc. 16th Int. Conf. on Pattern
+  Recognition (ICPR), Vol.~3, 2002, pp. 811--814.
+
+\bibitem{maio2004fvc2004}
+D.~Maio, D.~Maltoni, R.~Cappelli, J.~L. Wayman, A.~K. Jain, {FVC2004}: Third
+  fingerprint verification competition, in: Proc. Int. Conf. on Biometric
+  Authentication (ICBA), 2004, pp. 1--7.
+
+\bibitem{casia_iris}
+{CASIA}, {CASIA}-iris-interval database, Chinese Academy of Sciences Institute
+  of AutomationAvailable at http://biometrics.idealtest.org/ (2010).
+
+\bibitem{sandhya2017fingerprint}
+M.~Sandhya, M.~V. N.~K. Prasad, Fingerprint template protection using fused
+  minutiae descriptors, IET Biometrics 6~(5) (2017) 352--361.
+
+\end{thebibliography}

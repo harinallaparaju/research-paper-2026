@@ -1,0 +1,142 @@
+\chapter{Algorithm Listings}
+\label{appn:B}
+
+This appendix provides pseudocode for the five core algorithms of the IBFV and
+D-IBFV systems.
+
+% ============================================================================
+\section{IBFV Enrollment}
+% ============================================================================
+
+\begin{algorithm}[H]
+\caption{IBFV Enrollment}
+\label{alg:ibfv_enroll}
+\begin{algorithmic}[1]
+\Require Fingerprint minutiae $\mathcal{M}$, iris code $\mathbf{c}$, mask $\mathbf{mask}$
+\Require Parameters: quantization $f$, degree $k$, bonus points $K$, block size $B_s$
+\Ensure Vault $\mathcal{V}$, public key $S$, iris helper $(\mathbf{h}, H(\mathbf{k}))$
+\State // --- Fingerprint path ---
+\State $\mathcal{Q} \leftarrow$ \textsc{Quantize}$(\mathcal{M}, f)$ \Comment{18-bit integers}
+\State $\{P_i\} \leftarrow \{q_i \cdot G : q_i \in \mathcal{Q}\}$ \Comment{EC mapping}
+\State $p(x) \leftarrow$ random degree-$k$ polynomial, secret $s = \bigoplus_j \mathrm{bin}_6(a_j)$
+\State $S \leftarrow s \cdot G$ \Comment{ECC public key}
+\State $\mathcal{G}_{\mathrm{FP}} \leftarrow \{(P_i.x,\, p(P_i.x))\}$
+\State $\mathcal{C} \leftarrow$ \textsc{GenChaff}$(5|\mathcal{G}_{\mathrm{FP}}|, p)$ \Comment{chaff not on $p$}
+\State // --- Iris path ---
+\State $(\mathbf{h}, H(\mathbf{k})) \leftarrow$ \textsc{IrisCommitEnroll}$(\mathbf{c}, \mathbf{mask}, B_s)$
+\State $\kappa \leftarrow H(\mathbf{k})$ \Comment{iris key hash}
+\State // --- Bonus points ---
+\For{$j = 0$ \textbf{to} $K-1$}
+  \State $v_j \leftarrow \mathrm{SHA}\text{-}256$(``ibfv\_vpt:'' $\| j \|$ ``:'' $\| \kappa) \bmod p$
+  \State Ensure $v_j \notin \{P_i.x\}$ and $v_j$ are distinct
+\EndFor
+\State $\mathcal{G}_{\mathrm{Iris}} \leftarrow \{(v_j, p(v_j)) : j=0,\ldots,K-1\}$
+\State // --- Assemble vault ---
+\State $\mathcal{V} \leftarrow \mathrm{shuffle}(\mathcal{G}_{\mathrm{FP}} \cup \mathcal{G}_{\mathrm{Iris}} \cup \mathcal{C})$
+\State \Return $(\mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s)$
+\end{algorithmic}
+\end{algorithm}
+
+% ============================================================================
+\section{IBFV Verification}
+% ============================================================================
+
+\begin{algorithm}[H]
+\caption{IBFV Verification}
+\label{alg:ibfv_verify}
+\begin{algorithmic}[1]
+\Require Query minutiae $\mathcal{M}'$, iris code $\mathbf{c}'$, mask $\mathbf{mask}'$
+\Require Stored $(\mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s, K, k)$
+\Ensure Accept/Reject
+\State $\mathcal{Q}' \leftarrow$ \textsc{Quantize}$(\mathcal{M}', f)$
+\State $\mathcal{X}_{\mathrm{FP}} \leftarrow \{(x,y) \in \mathcal{V} : x \in \{q_i \cdot G).x : q_i \in \mathcal{Q}'\}\}$
+\State $\hat{\mathbf{k}} \leftarrow$ \textsc{IrisCommitRecover}$(\mathbf{c}', \mathbf{mask}', \mathbf{h}, H(\mathbf{k}), B_s)$
+\If{$\hat{\mathbf{k}} \neq \bot$} \Comment{iris succeeded}
+  \State $\kappa \leftarrow H(\hat{\mathbf{k}})$
+  \For{$j = 0$ \textbf{to} $K-1$}
+    \State $v_j \leftarrow \mathrm{SHA}\text{-}256$(``ibfv\_vpt:'' $\| j \|$ ``:'' $\| \kappa) \bmod p$
+  \EndFor
+  \State $\mathcal{X}_{\mathrm{Iris}} \leftarrow \{(x,y) \in \mathcal{V} : x \in \{v_j\}\}$
+  \State // Smart decoding: fix iris points, enumerate FP subsets
+  \For{each $(k+1-K)$-subset $S \subseteq \mathcal{X}_{\mathrm{FP}}$}
+    \State $\hat{p} \leftarrow$ \textsc{LagrangeInterp}$(S \cup \mathcal{X}_{\mathrm{Iris}})$
+    \State $\hat{s} \leftarrow \bigoplus_j \mathrm{bin}_6(\hat{a}_j)$, $\hat{S} \leftarrow \hat{s} \cdot G$
+    \If{$\hat{S} = S$} \Return \textbf{Accept} \EndIf
+  \EndFor
+\Else \Comment{iris failed: unimodal fallback}
+  \For{each $(k+1)$-subset $T \subseteq \mathcal{X}_{\mathrm{FP}}$}
+    \State $\hat{p} \leftarrow$ \textsc{LagrangeInterp}$(T)$
+    \State $\hat{s} \leftarrow \bigoplus_j \mathrm{bin}_6(\hat{a}_j)$, $\hat{S} \leftarrow \hat{s} \cdot G$
+    \If{$\hat{S} = S$} \Return \textbf{Accept} \EndIf
+  \EndFor
+\EndIf
+\State \Return \textbf{Reject}
+\end{algorithmic}
+\end{algorithm}
+
+% ============================================================================
+\section{D-IBFV Vault Splitting}
+% ============================================================================
+
+\begin{algorithm}[H]
+\caption{D-IBFV Vault Splitting (Shamir over GF(257))}
+\label{alg:vault_split}
+\begin{algorithmic}[1]
+\Require Vault bytes $\mathbf{b} \in \{0,\ldots,255\}^L$, threshold $t$, parties $n$
+\Ensure Shares $\{\mathbf{s}_1, \ldots, \mathbf{s}_n\}$
+\For{$i = 1$ \textbf{to} $L$}
+  \State $f_i(x) \leftarrow b_i + \sum_{j=1}^{t-1} a_j^{(i)} x^j$ where $a_j^{(i)} \stackrel{\$}{\leftarrow} \mathrm{GF}(257)$
+  \For{$j = 1$ \textbf{to} $n$}
+    \State $\mathbf{s}_j[i] \leftarrow f_i(j) \pmod{257}$ \Comment{uint16 encoding}
+  \EndFor
+\EndFor
+\State \Return $\{\mathbf{s}_1, \ldots, \mathbf{s}_n\}$
+\end{algorithmic}
+\end{algorithm}
+
+% ============================================================================
+\section{D-IBFV Distributed Enrollment}
+% ============================================================================
+
+\begin{algorithm}[H]
+\caption{D-IBFV Distributed Enrollment}
+\label{alg:dibfv_enroll}
+\begin{algorithmic}[1]
+\Require Fingerprint minutiae $\mathcal{M}$, iris code $\mathbf{c}$, mask $\mathbf{mask}$
+\Require Parameters $f, k, K, B_s, t, n$; blockchain client $\mathcal{B}$; IPFS client $\mathcal{I}$
+\Ensure User ID $\mathrm{uid}$ registered on blockchain
+\State $(\mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s) \leftarrow$ \textsc{IBFVEnroll}$(\mathcal{M}, \mathbf{c}, \mathbf{mask})$ \Comment{Alg.~\ref{alg:ibfv_enroll}}
+\State $\mathbf{b} \leftarrow$ \textsc{Serialize}$(\mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s)$ \Comment{Append SHA-256 trailer}
+\State $\{\mathbf{s}_j\} \leftarrow$ \textsc{VaultSplit}$(\mathbf{b}, t, n)$ \Comment{Alg.~\ref{alg:vault_split}}
+\For{$j = 1$ \textbf{to} $n$}
+  \State $\mathrm{cid}_j \leftarrow \mathcal{I}.\mathrm{add}(\mathbf{s}_j)$ \Comment{Upload share to IPFS}
+\EndFor
+\State $\mathcal{B}.\mathrm{storeCIDs}(\mathrm{uid}, \{\mathrm{cid}_j\}, t, n)$ \Comment{Anchor on blockchain}
+\State \textsc{SecureErase}$(\mathbf{b}, \{\mathbf{s}_j\})$
+\end{algorithmic}
+\end{algorithm}
+
+% ============================================================================
+\section{D-IBFV Distributed Verification}
+% ============================================================================
+
+\begin{algorithm}[H]
+\caption{D-IBFV Distributed Verification}
+\label{alg:dibfv_verify}
+\begin{algorithmic}[1]
+\Require Query $\mathcal{M}'$, $\mathbf{c}'$, $\mathbf{mask}'$; claimed $\mathrm{uid}$
+\Require Blockchain client $\mathcal{B}$; IPFS client $\mathcal{I}$
+\Ensure Accept/Reject
+\State $(\{\mathrm{cid}_j\}, t, n) \leftarrow \mathcal{B}.\mathrm{getCIDs}(\mathrm{uid})$
+\State $J \leftarrow$ any $t$ available node indices
+\State $\{\mathbf{s}_j : j \in J\} \leftarrow \{\mathcal{I}.\mathrm{get}(\mathrm{cid}_j) : j \in J\}$
+\State Verify each: assert $\mathcal{I}.\mathrm{hash}(\mathbf{s}_j) = \mathrm{cid}_j$
+\State $\hat{\mathbf{b}} \leftarrow$ \textsc{LagrangeRecon}$(\{(j, \mathbf{s}_j)\}_{j \in J}, t)$ over $\mathrm{GF}(257)$
+\State Assert SHA-256 trailer of $\hat{\mathbf{b}}$ matches embedded hash
+\State $(\mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s) \leftarrow$ \textsc{Deserialize}$(\hat{\mathbf{b}})$
+\State $\mathrm{decision} \leftarrow$ \textsc{IBFVVerify}$(\mathcal{M}', \mathbf{c}', \mathbf{mask}',
+  \mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s)$ \Comment{Alg.~\ref{alg:ibfv_verify}}
+\State \textsc{SecureErase}$(\hat{\mathbf{b}}, \{\mathbf{s}_j\})$
+\State \Return $\mathrm{decision}$
+\end{algorithmic}
+\end{algorithm}

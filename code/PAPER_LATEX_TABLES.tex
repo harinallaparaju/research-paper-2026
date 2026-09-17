@@ -1,0 +1,119 @@
+% =============================================================================
+% IBFV Paper — LaTeX Tables (ready to paste into manuscript)
+% =============================================================================
+
+% ─── Table 1: Best EER, Setup 1 ─────────────────────────────────────────────
+\begin{table}[t]
+\centering
+\caption{Best EER (\%) per architecture — Setup~1 (100 subjects, 1 test impression).
+IBFV achieves the lowest EER on every database. Architecture~A (AND-fusion) is always worse than the unimodal baseline.}
+\label{tab:setup1}
+\begin{tabular}{lcccccc}
+\toprule
+DB & Unimodal & Config & Arch~A & Config & \textbf{IBFV} & Config \\
+\midrule
+DB1 & 0.000 & $f\!=\!14, k\!=\!5$ & 3.500 & $f\!=\!14, k\!=\!5$ & \textbf{0.000} & $f\!=\!14, k\!=\!5$ \\
+DB2 & 0.000 & $f\!=\!16, k\!=\!7$ & 3.500 & $f\!=\!16, k\!=\!7$ & \textbf{0.000} & $f\!=\!14, k\!=\!7$ \\
+DB3 & 2.762 & $f\!=\!18, k\!=\!5$ & 5.855 & $f\!=\!18, k\!=\!5$ & \textbf{1.650} & $f\!=\!16, k\!=\!5$ \\
+DB4 & 2.404 & $f\!=\!22, k\!=\!5$ & 5.157 & $f\!=\!22, k\!=\!5$ & \textbf{1.076} & $f\!=\!18, k\!=\!7$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ─── Table 2: Best EER, Setup 2 ─────────────────────────────────────────────
+\begin{table}[t]
+\centering
+\caption{Best EER (\%) per architecture — Setup~2 (48 subjects, 7 test impressions).
+IBFV improves over the unimodal baseline in \emph{all} 144 configurations with zero violations.}
+\label{tab:setup2}
+\begin{tabular}{lccccc}
+\toprule
+DB & Unimodal & Config & \textbf{IBFV} & Config & Rel.\ Impr. \\
+\midrule
+DB1 & 2.736 & $f\!=\!28, k\!=\!5$ & \textbf{2.289} & $f\!=\!28, k\!=\!5$ & 16.3\% \\
+DB2 & 4.588 & $f\!=\!24, k\!=\!5$ & \textbf{3.316} & $f\!=\!22, k\!=\!5$ & 27.7\% \\
+DB3 & 6.738 & $f\!=\!26, k\!=\!5$ & \textbf{5.107} & $f\!=\!26, k\!=\!5$ & 24.2\% \\
+DB4 & 4.307 & $f\!=\!20, k\!=\!5$ & \textbf{2.791} & $f\!=\!22, k\!=\!7$ & 35.2\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ─── Table 3: Comparison with Senior's Paper ────────────────────────────────
+\begin{table}[t]
+\centering
+\caption{Comparison with prior ECC fuzzy vault~\cite{senior2025} (Setup~1).
+Our wider parameter sweep finds better optima. IBFV further reduces EER by up to 55\%.}
+\label{tab:comparison}
+\begin{tabular}{lccc}
+\toprule
+DB & \cite{senior2025} ($f\!=\!24, k\!=\!10$) & Our Unimodal (best) & \textbf{Our IBFV (best)} \\
+\midrule
+DB1 & 0.005 & 0.000 & \textbf{0.000} \\
+DB2 & 0.250 & 0.000 & \textbf{0.000} \\
+DB3 & 2.850 & 2.762 & \textbf{1.650} \\
+DB4 & 3.510 & 2.404 & \textbf{1.076} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ─── Table 4: Statistical Significance ──────────────────────────────────────
+\begin{table}[t]
+\centering
+\caption{Paired $t$-test on $\Delta\mathrm{EER} = \mathrm{EER}_\mathrm{Uni} - \mathrm{EER}_\mathrm{IBFV}$ across all 144 configurations per setup.
+All improvements are statistically significant at $p < 0.001$.}
+\label{tab:stats}
+\begin{tabular}{lccccl}
+\toprule
+ & $N$ & Mean $\Delta$ & Std & $t$ & $p$ \\
+\midrule
+\textbf{Setup~1 (all)} & 144 & 1.460\% & 1.773\% & 9.88 & $<0.001$ \\
+\quad DB1 only & 36 & 0.292\% & — & 4.16 & $<0.001$ \\
+\quad DB2 only & 36 & 0.264\% & — & 3.37 & $<0.001$ \\
+\quad DB3 only & 36 & 2.924\% & — & 7.85 & $<0.001$ \\
+\quad DB4 only & 36 & 2.361\% & — & 11.43 & $<0.001$ \\
+\midrule
+\textbf{Setup~2 (all)} & 144 & 2.088\% & 1.149\% & 21.80 & $<0.001$ \\
+\quad DB1 only & 36 & 1.550\% & — & 13.02 & $<0.001$ \\
+\quad DB2 only & 36 & 1.368\% & — & 23.13 & $<0.001$ \\
+\quad DB3 only & 36 & 3.261\% & — & 14.94 & $<0.001$ \\
+\quad DB4 only & 36 & 2.171\% & — & 14.65 & $<0.001$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ─── Table 5: Security Analysis ─────────────────────────────────────────────
+\begin{table}[t]
+\centering
+\caption{Vault security (bits) under normal operation vs.\ stolen iris key scenario.
+$n_\mathrm{bonus} = 4$, $n_\mathrm{chaff} = 200$, brainpoolP256r1 field.
+At $k = 5$ with stolen key, security is effectively broken ($\sim$2 bits).}
+\label{tab:security}
+\begin{tabular}{cccc}
+\toprule
+$k$ & Bits (normal) & Bits (stolen key) & Recommendation \\
+\midrule
+5 & 9--13 & \textbf{1.7--2.5} & \color{red}{Insecure if key stolen} \\
+7 & 12--18 & 5.1--7.7 & Minimum for IBFV \\
+9 & 16--24 & 8.6--12.9 & Recommended \\
+11 & 19--30 & 12.1--18.3 & High security \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ─── Table 6: Architecture A (AND-Fusion) Failure ───────────────────────────
+\begin{table}[t]
+\centering
+\caption{Architecture~A (AND-fusion) vs.\ Unimodal and IBFV — best EER per database (Setup~1).
+AND-fusion always degrades performance because iris FRR ($\sim$7\%) is added to the vault FRR.}
+\label{tab:archa}
+\begin{tabular}{lccc}
+\toprule
+DB & Arch~A & Unimodal & \textbf{IBFV} \\
+\midrule
+DB1 & 3.500 & 0.000 & \textbf{0.000} \\
+DB2 & 3.500 & 0.000 & \textbf{0.000} \\
+DB3 & 5.855 & 2.762 & \textbf{1.650} \\
+DB4 & 5.157 & 2.404 & \textbf{1.076} \\
+\bottomrule
+\end{tabular}
+\end{table}

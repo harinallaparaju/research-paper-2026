@@ -1,0 +1,235 @@
+<mxfile host="app.diagrams.net" modified="2026-04-06" agent="IBFV Paper" version="24.0.0" type="device">
+  <diagram id="ibfv-enrollment" name="IBFV Enrollment Pipeline">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;IBFV Enrollment Pipeline&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="600" y="10" width="400" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== FINGERPRINT PATH (Top) ==================== -->
+        <mxCell id="fp_label" value="&lt;b&gt;Fingerprint Path&lt;/b&gt;" style="text;html=1;align=left;fontSize=11;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="55" width="130" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Fingerprint Image -->
+        <mxCell id="fp_img" value="Fingerprint&lt;br&gt;Image" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMmMtNS41MiAwLTEwIDQuNDgtMTAgMTBzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnoiIGZpbGw9IiMxNTY1QzAiLz48L3N2Zz4=;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="80" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Preprocessing -->
+        <mxCell id="fp_preprocess" value="Preprocessing&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;500×500, 500 DPI&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="160" y="80" width="110" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Minutiae Extraction -->
+        <mxCell id="fp_minutiae" value="Minutiae&lt;br&gt;Extraction&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;M = {(xᵢ, yᵢ, θᵢ)}&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="310" y="80" width="120" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Quantization -->
+        <mxCell id="fp_quantize" value="Quantization&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;⌊x/f⌋ ‖ ⌊y/f⌋ ‖ ⌊θ/f⌋&lt;br&gt;→ 18-bit integer&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="470" y="80" width="130" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- EC Mapping -->
+        <mxCell id="fp_ec" value="EC Mapping&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Pᵢ = qᵢ · G&lt;br&gt;(BrainpoolP256r1)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="80" width="130" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Genuine FP Points -->
+        <mxCell id="fp_genuine" value="&lt;b&gt;Genuine Points&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;G_FP = {(Pᵢ.x, p(Pᵢ.x))}&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565C0;fontSize=10;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="810" y="80" width="150" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows for FP path -->
+        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="fp_img" target="fp_preprocess" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="fp_preprocess" target="fp_minutiae" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="fp_minutiae" target="fp_quantize" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="fp_quantize" target="fp_ec" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="fp_ec" target="fp_genuine" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== IRIS PATH (Middle) ==================== -->
+        <mxCell id="iris_label" value="&lt;b&gt;Iris Path&lt;/b&gt;" style="text;html=1;align=left;fontSize=11;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="30" y="175" width="100" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Iris Image -->
+        <mxCell id="iris_img" value="Iris&lt;br&gt;Image" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="80" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Iris Code Extraction -->
+        <mxCell id="iris_extract" value="Iris Code&lt;br&gt;Extraction&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Log-Gabor Filter&lt;br&gt;c ∈ {0,1}⁴⁹¹⁵²&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="160" y="195" width="120" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Fuzzy Commitment -->
+        <mxCell id="iris_commit" value="Fuzzy Commitment&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Repetition Code&lt;br&gt;Bit Interleaving&lt;br&gt;Block size B=63&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="195" width="130" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Key Hash -->
+        <mxCell id="iris_keyhash" value="Key Hash&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;κ = SHA-256(k)&lt;br&gt;48-bit key&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="490" y="200" width="110" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- SHA-256 PRF -->
+        <mxCell id="iris_prf" value="SHA-256 PRF&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;vⱼ = H(&quot;ibfv_vpt:&quot;&lt;br&gt;‖ j ‖ &quot;:&quot; ‖ κ) mod p&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="195" width="140" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bonus Points -->
+        <mxCell id="iris_bonus" value="&lt;b&gt;Bonus Points&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;G_Iris = {(vⱼ, p(vⱼ))}ⱼ₌₀ᴷ⁻¹&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2E7D32;fontSize=10;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="820" y="200" width="150" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows for Iris path -->
+        <mxCell id="b1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="iris_img" target="iris_extract" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="iris_extract" target="iris_commit" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="iris_commit" target="iris_keyhash" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b4" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="iris_keyhash" target="iris_prf" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="b5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="iris_prf" target="iris_bonus" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== POLYNOMIAL + VAULT (Bottom) ==================== -->
+
+        <!-- Random Polynomial -->
+        <mxCell id="poly" value="Random Polynomial&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;p(x) = Σ aⱼxʲ, deg k&lt;br&gt;aⱼ ∈ [10, 63] (6-bit)&lt;br&gt;s = bin(p) mod n&lt;br&gt;S = s · G (public key)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="650" y="310" width="150" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow from poly to genuine points (evaluate) -->
+        <mxCell id="c1" value="evaluate" style="edgeStyle=orthogonalEdgeStyle;dashed=1;fontSize=8;" edge="1" source="poly" target="fp_genuine" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="350"/>
+              <mxPoint x="950" y="350"/>
+              <mxPoint x="950" y="130"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Arrow from poly to bonus points (evaluate) -->
+        <mxCell id="c2" value="evaluate" style="edgeStyle=orthogonalEdgeStyle;dashed=1;fontSize=8;" edge="1" source="poly" target="iris_bonus" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="830" y="310"/>
+              <mxPoint x="895" y="280"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Chaff Generator -->
+        <mxCell id="chaff" value="Chaff Generator&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;5× |G_FP| random points&lt;br&gt;(cⱼ.x, rⱼ) where rⱼ ≠ p(cⱼ.x)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="155" width="160" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Vault Assembly -->
+        <mxCell id="vault" value="&lt;b&gt;VAULT ASSEMBLY&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;V = shuffle(G_FP ∪ G_Iris ∪ C)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="245" width="180" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Stored Template -->
+        <mxCell id="stored" value="&lt;b&gt;Stored Template&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;(V, S, h, H(k), B)&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="330" width="100" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows to vault -->
+        <mxCell id="d1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="fp_genuine" target="vault" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="990" y="105"/>
+              <mxPoint x="990" y="270"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="iris_bonus" target="vault" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1000" y="225"/>
+              <mxPoint x="1000" y="270"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="chaff" target="vault" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="d4" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="vault" target="stored" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Helper Data output from fuzzy commitment -->
+        <mxCell id="helper" value="Helper Data&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;h = c ⊕ w&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="340" y="280" width="90" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" style="dashed=1;fontSize=8;" edge="1" source="iris_commit" target="helper" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="stored" style="dashed=1;fontSize=8;" edge="1" source="helper" target="stored" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend_box" value="" style="rounded=1;strokeColor=#666666;fillColor=#f5f5f5;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="340" width="350" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend_title" value="&lt;b&gt;Legend&lt;/b&gt;" style="text;html=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="345" width="60" height="15" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1" value="" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="55" y="365" width="20" height="12" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1t" value="Fingerprint processing" style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="80" y="362" width="120" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2" value="" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="55" y="385" width="20" height="12" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2t" value="Iris processing" style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="80" y="382" width="120" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3" value="" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="55" y="405" width="20" height="12" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3t" value="Polynomial / Secret" style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="80" y="402" width="120" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4" value="" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="210" y="365" width="20" height="12" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4t" value="Chaff / Security" style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="235" y="362" width="120" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg5" value="" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="210" y="385" width="20" height="12" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg5t" value="Vault / Storage" style="text;html=1;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="235" y="382" width="120" height="18" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

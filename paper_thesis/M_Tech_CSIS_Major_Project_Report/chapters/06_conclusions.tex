@@ -1,0 +1,85 @@
+\chapter{Conclusions}
+\label{ch:conclusions}
+
+\section{Summary}
+\label{sec:conclusions_summary}
+
+This thesis addressed two interconnected problems in biometric template protection:
+(1)~the AND-fusion gating penalty that causes every existing multimodal fuzzy vault
+to perform worse than unimodal fingerprint recognition, and (2)~the single-point
+of compromise inherent in centralized biometric databases. The proposed solutions---
+the \textbf{Iris-Boosted Fuzzy Vault (IBFV)} and its decentralized extension
+\textbf{D-IBFV}---resolve both problems simultaneously, with formal proofs and
+extensive experimental validation.
+
+The four key results of this work are:
+
+\begin{enumerate}
+  \item \textbf{Zero-penalty multimodal fusion}: IBFV's conditional iris-boosting
+  architecture guarantees that the multimodal system never performs worse than
+  unimodal fingerprint recognition, regardless of iris quality. This was verified
+  empirically across all 144 Setup 2 configurations (zero violations) and proved
+  formally in Theorem~1 (Appendix~A).
+
+  \item \textbf{Significant EER reduction}: When iris recovery succeeds ($\sim$62\%
+  of genuine attempts), IBFV reduces EER by up to \textbf{61.3\%} relative to
+  the unimodal baseline (FVC2002~DB3). In Setup~1, 113 of 144 configurations
+  improve or tie; 31 configurations on the easy databases (DB1/DB2) show marginal
+  elevation ($\leq 0.07$~pp) attributable to the non-zero iris impostor FAR
+  ($\approx 0.10\%$). The improvement is largest on challenging databases where the
+  fingerprint alone struggles at the margin.
+
+  \item \textbf{Decentralized template protection with D-IBFV}: Applying
+  $(t,n)$-Shamir Secret Sharing to the IBFV vault, with shares stored on IPFS
+  and CIDs anchored on Hyperledger Fabric and EVM-compatible blockchains,
+  eliminates single-server trust. Across 30{,}000 reconstruction trials, the
+  reconstructed vault is bit-for-bit identical to the original. The system tolerates
+  up to $n{-}t$ node failures and provides information-theoretic security against
+  compromise of any $t{-}1$ shares (Theorem~2).
+
+  \item \textbf{Practical performance}: D-IBFV verification completes in
+  $\sim$56--70\,ms end-to-end (including blockchain CID lookup and IPFS share
+  retrieval), with the biometric verification taking only $\sim$12\,ms. The system
+  is compatible with ISO/IEC~24745 irreversibility, unlinkability ($D_\mathrm{sys}
+  \leq 0.03$), and revocability requirements.
+\end{enumerate}
+
+\section{Future Work}
+\label{sec:future_work}
+
+\begin{enumerate}
+  \item \textbf{Adaptive $K$ selection}: The number of bonus points $K$ is
+  currently fixed at enrollment. An adaptive scheme that adjusts $K$ based on
+  real-time iris quality scores (e.g., BRISQUE, pupil dilation, coverage fraction)
+  could further optimize the boost while minimizing any latency overhead.
+
+  \item \textbf{Co-acquired multimodal datasets}: All experiments used chimeric
+  (artificially paired) fingerprint-iris data. Evaluation on genuinely co-acquired
+  multimodal databases (e.g., a custom collection at NIT Warangal or the
+  WVU multimodal database) would validate performance under correlated intra-subject
+  variation.
+
+  \item \textbf{Production blockchain deployment}: Deploying D-IBFV on a public
+  Layer-2 network (Polygon PoS, Arbitrum, StarkNet) would provide real-world
+  latency and cost measurements under network congestion, mempool competition,
+  and variable gas prices---conditions not simulated by Ganache.
+
+  \item \textbf{Verifiable Secret Sharing}: Replacing Shamir's basic scheme with
+  a Verifiable Secret Sharing (VSS) protocol \cite{pedersen1991non} would allow
+  each shareholder to prove that their share is correct without reconstructing
+  the vault. This would enable malicious node detection and is a natural
+  extension for adversarial deployment environments.
+
+  \item \textbf{Additional modalities}: The IBFV architecture is not specific to
+  iris and fingerprint. Any biometric capable of producing a stable binary key
+  (face \cite{hao2006combining}, finger vein, palm print) can serve as the booster
+  modality. A systematic study of which modality combinations maximize the boost
+  is a natural extension.
+
+  \item \textbf{On-device enrollment}: Migrating the enrollment computation to a
+  trusted execution environment (ARM TrustZone, Intel TDX) would allow the vault
+  to be constructed on the user's device, with only shares uploaded, further
+  reducing the attack surface.
+\end{enumerate}
+
+

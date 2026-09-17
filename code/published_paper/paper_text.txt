@@ -1,0 +1,1509 @@
+ Contents  lists available  at ScienceDirect
+Journal  of Information  Security  and Applications
+journal  homepage:  www.elsevier.com/locate/jisa 
+Enhancing  fingerprint  template  security  using  elliptic  curve  cryptography  
+and fuzzy  vault  encoding
+Praphul  Kumar  Maurya , Mulagala  Sandhya
+∗, I HHNTV  Prasad
+ ,
+Nallaparaju  V SuryanarayanaRaju
+Department  of Computer  Science and Engineering,  National Institute of Technology, Warangal, 506004, Telangana, India
+A R T I C L E  I N F O
+Keywords:
+Fingerprint  authentication
+Cancelable  fingerprint  templates
+Minutiae  descriptors
+Elliptic curve cryptography
+Fuzzy vault mechanism
+Biometric  security A B S T R A C T
+Fingerprint  authentication  is widely employed  for identity verification  due to its reliance  on unique biometric  
+traits, such as ridge patterns  and minutiae  points. Despite its advantages,  traditional  fingerprint  systems 
+remain susceptible  to spoofing  and privacy breaches,  raising significant  security  concerns.  To mitigate  these 
+risks, cancelable  biometrics  have emerged  as a viable solution  by irreversibly  transforming  biometric  features,  
+thereby preventing  the reconstruction  of the original fingerprint  even in the event of template  compromise.  
+This paper proposes  a novel approach  for generating  cancelable  biometric  templates  from fingerprint  images 
+by transforming  minutiae  points and securely  mapping  them onto elliptic curves. Authentication  is performed  
+entirely within the transformed  domain using a fuzzy vault scheme,  thus preserving  template  security  
+throughout  the matching  process.  The efficacy of the suggested  method is demonstrated  by experimental  
+evaluations  on the FVC2002  and FVC2004  datasets,  which reveal EER values (in %) of 0.0, 0.02, and 5.0 
+for DB1, DB2, and DB3 of FVC2002  and 2.4 for DB1 of FVC2004,  respectively.  The security  and comparative  
+analysis  prove the effectiveness  of the proposed  method over current methods.
+1. Introduction
+Modern  security  technologies  have made great strides in biometric  
+authentication  systems  (BAS), which provide  a reliable  substitute  for 
+traditional  knowledge-based  (passwords,  for example)  or token-based  
+(ID cards, for example)  authentication  techniques.  BAS offers improved  
+identity  verification  with increased  resistance  against  prevalent  threats 
+like credential  theft and impersonation  by utilizing  distinctive  physi-
+ological  or behavioral  traits, such as fingerprints,  iris patterns,  palm-
+prints, or facial features.  At the core of these systems  lies the biometric  
+template:  a compact  and discriminative  digital representation  of an 
+individual’s  biometric  traits, which serves as the basis for comparison  
+during the authentication  process  (see Fig.  1).
+Despite  their advantages,  the deployment  of BAS introduces  serious 
+security  and privacy  concerns,  particularly  regarding  the protection  
+of stored biometric  templates.  Various  attack strategies  have shown 
+that biometric  templates,  if compromised,  can be reverse-engineered  
+to reconstruct  original  biometric  traits, leading  to unauthorized  access 
+and irreversible  loss of biometric  confidentiality  [1,2]. Among  the 
+most prominent  attacks are template  inversion  attacks,  where adver-
+saries attempt  to reconstruct  biometric  traits from stored templates;  
+∗Corresponding  author.
+E-mail addresses:  pk23cms2r18@student.nitw.ac.in  (P.K. Maurya) , m.sandhya@nitw.ac.in  (M. Sandhya) , ih23csr2r06@student.nitw.ac.in  (I HHNTV  Prasad) , 
+nv24csm2s04@student.nitw.ac.in  (N.V SuryanarayanaRaju) .cross-matching  attacks,  where templates  across different  databases  are 
+correlated  to track individuals  without  their consent;  and spoofing  
+attacks,  where fabricated  biometric  samples  are used to impersonate  
+legitimate  users. These vulnerabilities  highlight  the pressing  need for 
+robust, privacy-preserving  protection  schemes  for biometric  data.
+Cancelable  biometric  techniques  have become  a viable way to 
+solve privacy  and security  issues in biometric  systems.  In cancelable  
+biometrics,  the original  biometric  data is subjected  to a non-invertible  
+transformation,  generating  an application-specific  pseudo-identity  for 
+storage  and matching.  As defined  by the ISO/IEC  24745:2011  standard,  
+two essential  properties  must be upheld:  irreversibility  and cancelabil-
+ity [3]. Even if the transformation  parameters  are revealed,  irreversibil-
+ity guarantees  that it is computationally  impossible  to recreate  the 
+original  biometric  data from the altered template.  Cancelability  allows 
+for the generation  of multiple,  distinct  templates  from the same biomet-
+ric source,  facilitating  revocation  and preventing  cross-matching  across 
+different  applications.  Preserving  high recognition  accuracy  within the 
+transformed  domain  is crucial to maintaining  system usability  while 
+ensuring  robust template  protection.
+https://doi.org/10.1016/j.jisa.2025.104243Journal  of Information  Security  and Applications  94 (2025)  104243  
+2214-2126/©  2025  Elsevier  Ltd. All rights  are reserved,  including  those  for text and data mining,  AI training,  and similar  technologies.  
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Fig. 1. Biometric  authentication  system.
+In this paper, we propose  a novel method  for generating  secure 
+cancelable  fingerprint  templates  by integrating  elliptic curve crypto-
+graphic  transformations  of minutiae  features  with a Fuzzy Vault-based  
+authentication  framework.  The use of elliptic curve cryptography  (ECC) 
+offers strong security  guarantees  with efficient  computation,  while the 
+Fuzzy Vault scheme  provides  robust authentication  even with intra-
+class variability  and prevents  unauthorized  access. The combination  
+of ECC and fuzzy vault systems  provides  a powerful  and efficient  
+solution  for biometric  authentication  security.  ECC provides  robust 
+cryptographic  security  with smaller  key sizes than RSA, allowing  for 
+faster computations  and reduced  storage  requirements,  ideal for mobile 
+and IoT devices.  The fuzzy vault approach  improves  biometric  robust-
+ness by allowing  approximate  matching  while safeguarding  templates  
+with chaff points, limiting  inversion  attacks,  and enabling  template  
+revocation.  Combining  these technologies  results in a tiered security  
+system,  with ECC protecting  cryptographic  keys and the fuzzy vault 
+protecting  biometric  templates.  This technique  protects  privacy,  as-
+sures scalability,  and allows for secure regeneration  if hacked.  This 
+framework,  designed  for real-world  applications,  facilitates  distributed  
+systems  by balancing  efficiency  and security  in resource-constrained  
+contexts  while protecting  biometric  data from potential  breaches.  Its 
+versatility  makes it a good fit for modern  authentication  methods.  The 
+proposed  approach  aims to enhance  template  security,  ensure revo-
+cability,  and maintain  high authentication  accuracy,  thus addressing  
+critical challenges  in the design of next-generation  biometric  systems.
+The remainder  of this paper is structured  as follows:  Section  2 
+presents  a review of related work. Section  3 outlines  the essential  back-
+ground  concepts  necessary  for understanding  the proposed  approach.  
+Section  4 describes  the proposed  methodology  in detail. Section  5 
+discusses  the experimental  setup, results,  and performance  evaluation.  
+Section  6 offers a comprehensive  security  analysis  of the system.  Fi-
+nally, Section  7 concludes  the paper and suggests  potential  directions  
+for future research.
+2. Related  work
+Fingerprint-based  biometric  systems  offer significant  advantages  
+over traditional  authentication  methods,  such as passwords  and tokens.  
+However,  one of the major concerns  with these systems  is the potential  
+for identity  theft, as fingerprint  data cannot be changed  once compro-
+mised. Furthermore,  research  has shown that fingerprint  images can be 
+reconstructed  if minutiae  points are exposed.  In order to address  these challenges  and enhance  the security  of fingerprint  templates,  several 
+techniques  have been proposed.
+Ratha et al. [4] proposed  several constructs  for implementing  can-
+cellable  biometrics  in fingerprint  recognition,  focusing  on feature do-
+main transformations.  Their work demonstrated  the possibility  of gen-
+erating  a large number  of cancellable  fingerprint  templates  with min-
+imal loss in recognition  accuracy,  thereby  increasing  the security  of 
+biometric  data.
+Gao et al. [5] facial features  extracted  by deep neural networks  
+contain  personally  identifiable  information  that can even be recreated  
+from facial photos.  This calls for strong biometric  template  protec-
+tion (BTP) systems  that adhere to requirements  including  accuracy  
+preservation,  revocability,  unlinkability,  and non-invertibility.  In order 
+to produce  stable and cancelable  face templates,  the authors  present  
+a novel approach  that combines  Simhash  and Multiple  Partial Walsh 
+Transformations  (MPWT).
+Sandhya  and Prasad [6] proposed  a method  for constructing  can-
+celable fingerprint  templates  by integrating  bit strings derived  from 
+both local and global attributes  of minutiae  points. In a related line 
+of work, Ali et al. [7] introduced  a rotation-invariant,  non-invertible  
+transformation  technique,  which was subsequently  refined  in their later 
+study [8]. Furthermore,  Ali et al. [9] presented  the Polynomial  Vault 
+framework,  which employs  polynomial  curves for secure key binding  
+within biometric  systems.  Although  this approach  offers strong security  
+guarantees,  it was observed  to perform  poorly under same-key  attack 
+scenarios.
+Jignesh  et al. [10] presented  an alignment-free  fingerprint  authen-
+tication  technique  that uses Elliptic  Curve Signcryption  to improve  the 
+system’s  computational  efficiency  and security  by combining  minu-
+tiae point descriptors  with Scale-Invariant  Feature  Transform  (SIFT) 
+keypoint  descriptors.
+Champaneria  et al. [11] presented  a cancellable  biometric  authen-
+tication  scheme  based on geometric  transformations.  Their approach  
+leverages  non-reversible  transformations  to secure fingerprint  tem-
+plates, protecting  user identities  from unauthorized  access. This study 
+emphasizes  the advantages  of geometric  transformations  in making  
+templates  resistant  to reconstruction  attacks,  thus ensuring  privacy  and 
+security  in biometric  systems.
+M.S.Khan  et al. [12] discusses  how important  it is to improve  
+security  and privacy  in biometric  systems,  especially  for palm print 
+templates.  Because  compromised  biometric  data is irreplaceable  and 
+current  cancelable  palm print templates  are weak in terms of security  Journal  of Information  Security  and Applications  94 (2025)  104243  
+2 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+and recognition  performance,  there are serious privacy  and security  
+hazards.
+Khan et al. [13] discuss the use of fingerprint  recognition  systems  
+has sparked  serious worries  about the security  and privacy  of biometric  
+data, especially  in light of the potential  for compromised  fingerprint  
+templates.  Through  the transformation  of original  biometric  data into 
+a new, unlikable  form that may be regenerated  or cancelled  in the event 
+of breach,  cancelable  biometric  systems  present  a promising  potential  
+solution.
+Song et al. [14] The usage of fingerprints  and faces in biometric  
+systems  is common,  but maintaining  these distinct  and reliable  tem-
+plates presents  serious security  and privacy  problems  because  leaked 
+templates  may allow original  photos to be recovered.  A solution  is 
+provided  by cancelable  biometric  techniques,  which convert  original  
+data into unlinkable,  revocable,  and irreversible  versions.
+Zhou et al. [15] demonstrate  a workable  and efficient  multi-
+biometric  system that provides  a solid solution  for secure, comprehen-
+sive identity  management  by effectively  striking  a balance  between  
+strong privacy  protection  and high recognition  performance,  particu-
+larly satisfying  the requirements  of irreversibility,  unlinkability,  and 
+revocability  for cancelable  biometric  templates.
+Sp et al. [16] introduced  a modality-independent  approach  for gen-
+erating  cancelable  biometric  templates  based on random  feature vector 
+transformations.  The method  involves  computing  distance  vectors  be-
+tween multiple  randomized  transformations  of the original  biometric  
+feature vector, thereby  ensuring  non-invertibility  and eliminating  the 
+need to store any original  biometric  data.
+The fuzzy commitment  scheme,  proposed  by Juels and Watten-
+berg [17], integrates  error-correcting  codes with cryptographic  prim-
+itives to enhance  the security  of biometric  templates.  In this scheme,  
+the binary representation  of a user’s biometric  data is combined  with 
+a codeword  from an error correction  code using a bitwise  exclusive-
+OR (XOR) operation,  and the resulting  value is stored as the protected  
+template.  During authentication,  a new biometric  sample is similarly  
+binarized  and XORed with the stored data to recover  the original  
+codeword,  provided  the input is sufficiently  close to the original.  This 
+enables  both secure key retrieval  and reliable  identity  verification,  even 
+in the presence  of minor biometric  variations.
+The fuzzy vault scheme,  introduced  by Juels and Sudan [18], se-
+cures a secret key by binding  it with a set of genuine  biometric  data 
+points – such as fingerprint  minutiae  – augmented  with a large number  
+of randomly  generated  chaff points. These chaff points obscure  the gen-
+uine data, rendering  the vault unintelligible  to unauthorized  users. Dur-
+ing authentication,  if the presented  biometric  data sufficiently  overlaps  
+with the original  feature set, the system can successfully  reconstruct  
+the key and verify the user’s identity,  thereby  enabling  secure and 
+error-tolerant  biometric  authentication.
+Nandakumar  [19] proposed  a fuzzy commitment-based  cryptosys-
+tem in which a mathematical  function  representing  minutiae  informa-
+tion is used to compute  the binary representation  of fingerprint  data. 
+The approach  involves  quantizing  the Fourier  spectrum  of this function  
+to generate  a robust binary string, which is subsequently  secured  using 
+the fuzzy commitment  scheme.  To address  alignment  issues, high-
+curvature  points are utilized  for aligning  the probe fingerprint,  and the 
+corresponding  alignment  data is stored as helper information.  While 
+this technique  enhances  matching  accuracy,  the storage  of auxiliary  
+data introduces  potential  vulnerabilities,  as it may be exploited  in 
+certain attack scenarios.
+Li et al. [20] introduced  a method  for deriving  the binary rep-
+resentation  of fingerprint  features,  which are subsequently  protected  
+using the fuzzy commitment  scheme.  The binary string is generated  
+from minutiae  triplets,  where each triplet consists  of three minutiae  
+points that meet a specific  threshold  criterion,  such as the area of 
+the triangle  formed  by the points. While this approach  offers strong 
+security,  it necessitates  multiple  fingerprint  samples  and involves  a 
+complex  procedure  for generating  the binary template,  which could be considered  a limitation  in terms of both efficiency  and practical  
+implementation.
+Joni Saputra  et al. [21] proposed  a distance-based  fuzzy vault 
+method  to enhance  the accuracy  of biometric  authentication  systems.  
+Their approach  incorporates  several modifications,  including  minutiae  
+filtering  and candidate  point identification  techniques,  which eliminate  
+the need for image alignment  and rotation  during both registration  
+and authentication.  Additionally,  the distance-based  method  avoids the 
+generation  of auxiliary  helper data, which could otherwise  pose a risk 
+of information  leakage,  thereby  reducing  the potential  for exploits  by 
+impostors.
+Vivek Singh et al. [22] proposed  a method  for filtering  genuine  
+vault points from a combined  set of genuine  and chaff points, thereby  
+enhancing  the security  of stored fingerprint  templates.  This technique  
+ensures  that only genuine  minutiae  contribute  to the key recovery  
+process,  reducing  the risk of unauthorized  access. Additionally,  to 
+address  minutiae  misalignment  during verification,  they introduced  a 
+Principal  Component  Analysis  (PCA)-based  alignment  technique,  which 
+significantly  improves  the accuracy  of the verification  process.
+In [23], Nandakumar  introduced  a fuzzy vault technique  that uti-
+lizes transformed  minutiae  point information,  enabling  revocability  of 
+the biometric  template.  This transformation  is password-based,  and 
+a Cyclic Redundancy  Check (CRC) is employed  to detect errors in 
+the generated  key during the decoding  process  in authentication.  This 
+approach  enhances  both the security  and reliability  of the system by 
+ensuring  key integrity.
+Li and Hu [24] proposed  an alignment-free  technique  for securing  
+fingerprint  templates  using the fuzzy vault method.  They utilized  pair-
+polar structures  of minutiae  points as features  and constructed  separate  
+vaults for each pair-polar  structure.  While this approach  enhances  
+security,  the need to generate  multiple  vaults introduces  additional  
+complexity  to the encoding  and decoding  processes.
+Uludag  and Jain [25] introduced  a fuzzy vault method  to secure 
+fingerprint  templates  by replacing  traditional  error correction  codes 
+with a Cyclic Redundancy  Check (CRC). During enrollment,  minutiae  
+locations  are mapped  onto a polynomial  derived  from a secret key, and 
+polynomial  reconstruction  is achieved  through  Lagrange  interpolation  
+during authentication.  In a subsequent  extension  of this work, Nan-
+dakumar  et al. [26] enhanced  the vault by incorporating  orientation  
+values alongside  minutiae  locations  during encoding.  Additionally,  they 
+implemented  a coarse filtering  technique  to selectively  retain genuine  
+minutiae  during the decoding  process.
+Rathgeb  et al. [27] proposed  a multi-biometric  fuzzy vault tech-
+nique that integrates  fingerprint  and facial recognition  features.  By 
+combining  multiple  biometric  modalities  at the feature level before 
+applying  the fuzzy vault scheme,  this approach  enhances  both the 
+security  and accuracy  of the biometric  system.  The study demonstrates  
+notable  improvements  in recognition  accuracy  and resistance  to spoof-
+ing attacks by leveraging  the complementary  strengths  of multiple  
+biometric  traits.
+Tams et al. [28] proposed  a method  to defend against  cross-
+matching  attacks by arranging  minutiae  points and chaff points in a 
+hexagonal  grid structure.  This arrangement  complicates  attempts  to 
+cross-match  with vault points from other databases,  thereby  preventing  
+the retrieval  of the original  minutiae  points. Additionally,  the security  
+of the minutiae-based  fuzzy vault against  various  attack vectors  is 
+further analyzed  in their work.
+Abdullahi  et al. [29] conducted  a comprehensive  survey on attacks 
+targeting  Biometric  Authentication  Systems  (BAS), examining  various  
+attack vectors,  including  inversion  attacks,  false acceptance  attacks,  
+and attacks involving  record multiplicity.  Their findings  emphasize  the 
+urgent need for secure and cancellable  biometric  systems  to safeguard  
+the integrity  and privacy  of biometric  data. Jin et al. [30] introduce  
+a key binding  scheme  for minutiae-based  fingerprint  biometrics  that Journal  of Information  Security  and Applications  94 (2025)  104243  
+3 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+does not rely on error-correcting  codes, and incorporates  cancellable  
+transformations.  Additionally,  the minutiae  data is securely  protected  
+using a robust, non-invertible  cancellable  transform,  which plays a vital 
+role in mitigating  various  security  and privacy  threats.
+Existing  fuzzy vault-based  fingerprint  template  protection  schemes  
+often lack robust resistance  against  cross-matching  and correlation  
+attacks.  In addition,  many such schemes  rely on the storage  of helper 
+data, which can become  a vulnerability  if exploited  by an adversary.  
+In this work, we enhance  the traditional  fuzzy vault approach  [18] 
+by integrating  quantized  minutiae  descriptors  mapped  onto an el-
+liptic curve, thereby  introducing  a robust cryptographic  layer. This 
+integration  significantly  mitigates  the risk of cross-matching  and re-
+construction  attacks,  ensuring  that the original  biometric  template  
+remains  secure even in the event of compromise.  Furthermore,  the 
+use of Elliptic  Curve Cryptography  (ECC) enables  the generation  of 
+user-specific  public keys for authentication,  eliminating  the need for 
+conventional  error correction  codes such as CRC, which are commonly  
+employed  in prior fuzzy vault-based  schemes.
+3. Preliminary
+3.1. Fuzzy vault scheme
+Biometric  cryptosystems  must address  the challenge  of intra-user  
+variability  in biometric  data. The Fuzzy Vault scheme,  proposed  by 
+Juels and Sudan [18], is a widely adopted  method  for binding  a 
+cryptographic  key with noisy biometric  data in a secure manner.  Unlike 
+conventional  cryptography,  which expects  exact keys, the fuzzy vault 
+allows unlocking  even when the input features  are only approximately  
+correct.
+3.1.1. Overview
+The fuzzy vault is a form of secure sketch that hides a polynomial  
+corresponding  to a secret (e.g., a cryptographic  key) among a large set 
+of random  chaff points. Only someone  with a sufficiently  overlapping  
+set of biometric  features  can recover  enough  genuine  points to recon-
+struct the polynomial  and retrieve  the secret. It leverages  the hardness  
+of the polynomial  reconstruction  problem  over noisy data, ensuring  
+security  even if the vault is exposed.
+Formally,  let 𝑆 be a secret, and let 𝑄= {𝑞1, 𝑞2,…, 𝑞𝑡} be the user’s 
+biometric  features  extracted  from a fingerprint  image. A polynomial  
+𝐹(𝑥) of degree 𝑘 is generated  from 𝑆, and each 𝑞𝑖∈𝑄 is evaluated  
+under 𝐹 to produce  (𝑞𝑖, 𝐹(𝑞𝑖)). These are the genuine  points. To hide 
+these, a number  of chaff points (𝑥𝑗, 𝑦𝑗) are added such that 𝑥𝑗∉𝑄 and 
+𝑦𝑗≠𝐹(𝑞𝑗).
+The final vault 𝑉 is the union of genuine  and chaff points:
+𝑉= {(𝑞𝑖, 𝐹(𝑞𝑖))} ∪ {( 𝑥𝑗, 𝑦𝑗)}
+The vault is shuffled  and stored. Only someone  with a query set 𝑄′ that 
+significantly  overlaps  with 𝑄 can reconstruct  𝐹(𝑥) and thus retrieve  𝑆
+(see Fig.  2).
+3.1.2. Phases of the Fuzzy vault
+The fuzzy vault scheme  primarily  consists  of two phases:  Locking
+and Unlocking . In the Locking  phase, the vault is created  by combining  
+genuine  biometric  features  with a secret. During the Unlocking  phase, 
+the goal is to retrieve  the secret by attempting  to open the vault using 
+a query template.
+3.1.2.1.  Locking  phase. In this phase, a secret is encoded  into a polyno-
+mial, and a mixture  of genuine  and chaff points is created  to construct  
+the vault.Algorithm  1 Fuzzy Vault Locking  Algorithm
+Input: Secret 𝑆, Genuine  Feature  Set 𝑄= {𝑞1, 𝑞2,…, 𝑞𝑡}, Number  of 
+chaff points 𝑛, Degree 𝑘
+Output: Vault 𝑉
+1:Encode  𝑆 as coefficients  of a polynomial  𝐹(𝑥) of degree 𝑘 over a 
+finite field F
+2:Initialize  vault 𝑉←∅
+3:for all 𝑞𝑖∈𝑄 do
+4: Compute  𝑦𝑖←𝐹(𝑞𝑖)
+5: Add genuine  point (𝑞𝑖, 𝑦𝑖) to 𝑉
+6:end for
+7:while number  of chaff points added < 𝑛 do
+8: Randomly  select 𝑥𝑗∈F⧵𝐺
+9: Select random  𝑦𝑗∈F such that 𝑦𝑗≠𝑃(𝑥𝑗)
+10: Add chaff point (𝑥𝑗, 𝑦𝑗) to 𝑉
+11:end while
+12:Shuffle 𝑉 randomly
+13:return 𝑉
+3.1.2.2.  Unlocking  phase. The unlocking  phase attempts  to reconstruct  
+the original  polynomial  using the query biometric  features.  If enough  
+correct matches  are found, the polynomial  can be interpolated  and the 
+secret is recovered.
+Algorithm  2 Fuzzy Vault Unlocking  with Lagrange  Interpolation
+Input: Vault 𝑉= {( 𝑥𝑖, 𝑦𝑖)}, Query points set 𝑃′= {𝑝′
+1, 𝑝′
+2,…, 𝑝′
+𝑚}, 
+Threshold  𝑘
+Output: Recovered  Secret 𝑆 or Failure
+1:Initialize  candidate  set 𝐶←{(𝑥, 𝑦) ∈𝑉∣𝑥∈𝑃′}
+2:for all subsets  𝐶′⊆ 𝐶 of size 𝑘+ 1 do
+3: Let 𝐶′= {(𝑥0, 𝑦0),(𝑥1, 𝑦1),…,(𝑥𝑘, 𝑦𝑘)}
+4: Construct  polynomial  𝐹′(𝑥) using Lagrange  interpolation:
+𝐹′(𝑥) =𝑘∑
+𝑗=0𝑦𝑗⋅∏
+0≤𝑚≤𝑘
+𝑚≠𝑗𝑥−𝑥𝑚
+𝑥𝑗−𝑥𝑚
+5: Extract  coefficients  {𝑠1, 𝑠2,…, 𝑠𝑘+1} from 𝐹′(𝑥)
+6: Concatenate  to form 𝑠=𝑠1‖𝑠2‖⋯‖𝑠𝑘+1
+7: if 𝑠 passes verification  (e.g., reconstructs  valid public key) then
+8: return Success
+9: end if
+10:end for
+11:return Failure
+3.1.3. Security  considerations
+The security  of the fuzzy vault lies in the difficulty  of distinguishing  
+genuine  points from chaff points without  substantial  overlap  between  
+the feature sets. Without  a query set that closely resembles  the real 
+biometric  traits, an attacker  cannot rebuild  the polynomial,  even if 
+they manage  to get into the vault. The presence  of numerous  decoy 
+points makes it computationally  infeasible  for the attacker  to derive 
+the original  data.
+3.2. Elliptic Curve Cryptography  (ECC)
+Elliptic  Curve Cryptography  (ECC) is a public-key  cryptosystem  that 
+provides  high security  with significantly  smaller  key sizes compared  
+to traditional  systems  like RSA [31,32]. ECC operates  over the alge-
+braic structure  of elliptic curves defined  on finite fields. Its efficiency  
+makes ECC particularly  well-suited  for resource-constrained  environ-
+ments, such as embedded  systems  and biometric  cryptosystems,  where 
+computational  power and memory  are limited.Journal  of Information  Security  and Applications  94 (2025)  104243  
+4 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Fig. 2. Block diagram  of fuzzy vault scheme.
+An elliptic curve over a finite field F𝑝 (where 𝑝 is a prime) is defined  
+by the Weierstrass  equation:
+𝑦2=𝑥3+𝑎𝑥+𝑏mod𝑝
+where 4𝑎3+27𝑏2≢0 (mod 𝑝) ensures  that the curve has no singularities.  
+The set of points (𝑥, 𝑦) satisfying  this equation,  along with a special 
+point at infinity  , form an abelian  group under a defined  addition  
+operation.
+ECC derives  its security  from the Elliptic  Curve Discrete  Logarithm  
+Problem  (ECDLP):  given points 𝑃 and 𝑄=𝑘𝑃 on the curve, it is 
+computationally  infeasible  to determine  𝑘.
+3.2.1. Mapping  integers  to curve points
+In many ECC-based  applications,  including  biometric  systems,  we 
+need to bind integer values (e.g., hashed features,  keys, etc.) to elliptic 
+curve points. Since ECC operates  on points, a deterministic  mapping  
+from an integer to a valid point on the curve is essential.
+In elliptic curve-based  cryptographic  systems,  it is often necessary  
+to represent  integer values as points on the curve. A simple and secure 
+approach  is to use scalar multiplication  of the base point 𝐺 with the 
+integer 𝑥:
+𝑃=𝑥.𝐺
+Here, 𝑥 is the input integer and 𝐺 is the generator  point defined  on 
+the elliptic curve. The result 𝑃 is a valid point on the curve.
+This representation  is deterministic  and produces  a unique point for 
+every integer modulo  the order of 𝐺. Since scalar multiplication  is a 
+core operation  in ECC and is computationally  hard to reverse  (due to 
+the Elliptic  Curve Discrete  Logarithm  Problem),  it offers a secure and 
+efficient  way to bind an integer to a curve point [33].
+More complex  mappings  like the Shallue–van  de Woestijne  (SWU) 
+algorithm  or Elligator  offer uniform  and privacy-preserving  mappings  
+but require  more computational  resources  [34].4. Proposed  method
+4.1. Image preprocessing  and minutiae  extraction
+Fingerprint  image preprocessing  is a crucial step in ensuring  re-
+liable and accurate  biometric  feature extraction  [1]. In our work, 
+each fingerprint  image is first resized to a standardized  resolution  of
+500 × 500 pixels and adjusted  to a spatial resolution  of 500 DPI. 
+This normalization  ensures  consistency  across varying  input sources  
+and enhances  the performance  of the downstream  minutiae  extraction  
+process.
+To accurately  align and extract fingerprint  features,  we utilize the
+MegaMatcher  SDK [35], a commercial-grade  biometric  processing  
+toolkit developed  by Neurotechnology.  The SDK’s high-accuracy  algo-
+rithms are employed  to align the fingerprint  images and extract the 
+minutiae  points. The resulting  output is a structured  set of minutiae  
+descriptors,  which includes  ridge endings  and ridge bifurcations.  A 
+ridge bifurcation  minutiae  is a position  where a ridge divides  into two 
+pathways,  and a ridge-ending  minutiae  is a point where a ridge ends. 
+The 𝑖th minutiae  point 𝑀𝑖 of a fingerprint,  which includes  its x and 𝑦
+coordinates  and its tracing direction  𝜃, is defined  by Eq.  (1). 
+𝑀𝑖= (𝑥𝑖, 𝑦𝑖, 𝜃𝑖) (1)
+This preprocessing  pipeline  ensures  that the input fingerprint  tem-
+plates are uniform  and well-suited  for further cryptographic  transfor-
+mation and matching.
+4.2. Feature quantization  and integer encoding
+To convert  fingerprint  minutiae  into a compact  and privacy-
+preserving  representation,  we apply a quantization  and encoding
+scheme.  Each minutia  point is represented  by its spatial coordinates  
+(𝑥, 𝑦) and orientation  𝜃. We normalize  these values by dividing  them 
+with a quantization  factor 𝑓, which reduces  intra-class  variations  and 
+increases  robustness  to noise:
+𝑥′=⌊
+𝑥
+𝑓⌋
+, 𝑦′=⌊𝑦
+𝑓⌋
+, 𝜃′=⌊
+𝜃
+𝑓⌋Journal  of Information  Security  and Applications  94 (2025)  104243  
+5 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Fig. 3. Block diagram  of proposed  fuzzy vault based biometric  authentication  system.
+The quantized  values are then individually  converted  to their binary 
+representations  (6 bits each). These binary strings are concatenated  to 
+form a single bitstring  (of 18 bits), which is finally converted  to a 
+decimal  integer.  This integer uniquely  represents  the minutia  and is 
+suitable  for cryptographic  binding  in subsequent  steps. This method  
+ensures  fixed-length  encoding  for each minutia  point (see Fig.  3).
+Algorithm  3 Quantize  and Encode  Minutiae  as Integers
+Input: Minutiae  set 𝑀= {(𝑥𝑖, 𝑦𝑖, 𝜃𝑖)}, quantization  factor 𝑓
+Output: Set of encoded  integers  𝑄
+1:𝑄←∅
+2:for all (𝑥, 𝑦, 𝜃 ) ∈𝑀 do
+3: 𝑥′←⌊
+𝑥
+𝑓⌋
+4: 𝑦′←⌊
+𝑦
+𝑓⌋
+5: 𝜃′←⌊
+𝜃
+𝑓⌋
+6: 𝑏𝑥←Binary (𝑥′)
+7: 𝑏𝑦←Binary (𝑦′)
+8: 𝑏𝜃←Binary (𝜃′)
+9: 𝑏←𝑏𝑥‖𝑏𝑦‖𝑏𝜃 ⊳ Concatenate  binary strings
+10: 𝑞←Decimal (𝑏)
+11: 𝑄←𝑄∪ {𝑞}
+12:end for
+13:return 𝑄
+4.3. Elliptic curve mapping
+Upon converting  each minutia  into a quantized  integer,  we subse-
+quently  map this integer onto an elliptic curve through  scalar multipli-
+cation. This process  ensures  that the integer is transformed  into a valid 
+point on the elliptic curve.
+An elliptic curve of large prime field P (256 bits) is chosen.  A 
+Generator  point G of the curve is determined.  Let 𝑞𝑖 be the encoded  
+integer from the previous  step. The corresponding  point 𝑃 on the curve 
+is computed  as:
+𝑃=𝑞𝑖𝐺
+This operation  binds the biometric  data into the algebraic  structure  
+of the elliptic curve, leveraging  the hardness  of the Elliptic  Curve 
+Discrete  Logarithm  Problem  (ECDLP)  for security  [31,33].Algorithm  4 Map Encoded  Integers  to Elliptic  Curve Points
+Input: Set of encoded  integers  𝑄= {𝑞1, 𝑞2,…, 𝑞𝑡}, base point 𝐺 on 
+elliptic curve
+Output: Set of elliptic curve points 𝑃= {𝑝1, 𝑝2,…, 𝑝𝑡}
+1:𝑃←∅
+2:for all 𝑞𝑖∈𝑄 do
+3: 𝑝𝑖←𝑞𝑖⋅𝐺 ⊳  Scalar multiplication  on elliptic curve
+4: 𝑃←𝑃∪ {𝑝𝑖}
+5:end for
+6:return 𝑃
+This step ensures  non-invertibility  under normal  assumptions  of 
+ECC, adding a cryptographic  layer to the biometric  template.  The scalar 
+multiplication  process  is deterministic,  collision-resistant,  and robust 
+against  brute-force  attacks.  It also ensures  the cancelability  of the 
+fingerprint  template  [1,4].
+4.4. Enrollment
+First, the degree k of the polynomial  F(x) is decided.  Then k+1 ran-
+dom integers  are generated,  which serve as the secret S = {𝑠1, 𝑠2,…, 𝑠𝑘,
+𝑠𝑘+1} which is used as the coefficients  of the Polynomial  F(x). Then the 
+secret S, degree k, genuine  feature set Q, and number  of chaff points n 
+is passed to 1 and the vault is created.  The private key s for the user is 
+calculated  by concatenating  all the values in S:
+𝑠=𝑠1∥𝑠2∥ … ∥ 𝑠𝑘+1
+From the private key s, we construct  the public key for the user by 
+mapping  it on the elliptic curve.
+𝑃 𝑢𝑏=𝑠.𝐺
+This public key is also stored along with the vault, and is used while 
+unlocking  the vault.
+4.5. Verification
+During verification,  the query minutiae  points are passed through  
+the same quantization  and encoding  algorithm,  and we get query 
+integers  set Q’. These integers  are then mapped  to the same elliptic 
+curve using the same base point G, and query points P’ are obtained.Journal  of Information  Security  and Applications  94 (2025)  104243  
+6 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Table 1
+Obtained  GAR/FAR  values on FVC2002  DB1 dataset.
+ Factor Degree 5 Degree 6 Degree 7 Degree 8 Degree 9 Degree 10 Degree 11 
+ 16 100.0%/0.1% 99.0%/0.0% 99.0%/0.0% 98.0%/0.0% 97.0%/0.0% 97.0%/0.0% 95.0%/0.0%  
+ 18 100.0%/0.1% 100.0%/0.0% 100.0%/0.0% 100.0%/0.0% 98.0%/0.0% 98.0%/0.0% 96.0%/0.0%  
+ 20 100.0%/0.3% 100.0%/0.1% 100.0%/0.1% 99.0%/0.0% 99.0%/0.0% 99.0%/0.0% 98.0%/0.0%  
+ 22 100.0%/0.7% 100.0%/0.3% 100.0%/0.1% 100.0%/0.1% 99.0%/0.0% 99.0%/0.0% 96.0%/0.0%  
+ 24 100.0%/1.4% 100.0%/0.5% 100.0%/0.2% 100.0%/0.1% 100.0%/0.0% 100.0%/0.0% 98.0%/0.0%  
+ 26 100.0%/2.8% 100.0%/1.2% 100.0%/0.5% 100.0%/0.2% 99.0%/0.1% 99.0%/0.0% 99.0%/0.0%  
+ 28 100.0%/4.6% 100.0%/2.4% 100.0%/1.2% 100.0%/0.6% 100.0%/0.2% 100.0%/0.1% 99.0%/0.0%  
+ 30 100.0%/7.0% 100.0%/3.8% 100.0%/2.1% 100.0%/1.0% 100.0%/0.5% 100.0%/0.2% 100.0%/0.1%  
+The x-coordinate  values of P’, degree k and vault V is passed to 
+2, which interpolate  polynomial  using Lagrange  interpolation.  The 
+coefficients  of the generated  polynomial  is used to yield the secret s’. 
+This s’ is mapped  to the curve and Pub’ is calculated  –
+𝑃 𝑢𝑏′=𝑠′𝐺
+If this public key is same as the saved public key, the user is verified  
+else rejected.
+5. Experiment  results
+A number  of performance  indicators,  such as Equal Error Rate 
+(EER) and Receiver  Operating  Characteristic  (ROC) curves,  are used to 
+thoroughly  assess the performance  of the suggested  method.  We used 
+datasets  from the Fingerprint  Verification  Challenge  (FVC) 2002 and 
+FVC 2004 to evaluate  the system’s  performance.  In particular,  one FVC 
+2004 dataset,  DB1, and three FVC 2002 datasets,  DB1, DB2, and DB3, 
+were employed.  Each dataset  contains  800 photos total, consisting  of 
+grayscale  fingerprint  images from 100 participants,  each of whom has 
+eight images.
+The proposed  method  incorporates  two critical tuning parameters  
+to enhance  both robustness  and security.  The first parameter  is the
+quantization  factor (𝑓), which is employed  to quantize  the minutiae  
+descriptor  values (such as position  and orientation).  This quantization  
+helps mitigate  intra-class  variations , natural  variations  in fingerprint  
+impressions  from the same user. The second parameter  is the degree
+(𝑘) of the polynomial  𝐹(𝑥), which directly  determines  the minimum  
+number  of genuine  points required  to reconstruct  the polynomial  and 
+successfully  recover  the secret 𝑠 from the vault. By adjusting  𝑘, the 
+system can control  its tolerance  to inter-class  similarities , accidental  
+similarities  between  different  users, thereby  enhancing  the overall 
+discriminative  power and security  of the vault. A higher polynomial  
+degree increases  the minimum  number  of correct matches  required,  
+thus reducing  the chances  of false acceptances.
+5.1. Setup 1
+In the first experimental  configuration,  each user’s first image was 
+used to create the vault, and their second image was used to unlock 
+the vault. The Genuine  Acceptance  Rate (GAR) and False Acceptance  
+Rate (FAR) values (in %) for the FVC2002  DB1 dataset  are shown in 
+Table  1, which correspond  to different  values of the two tuning param-
+eters. FAR, which is determined  by dividing  the number  of wrongfully  
+accepted  occurrences  by the total number  of impersonation  attempts,  it 
+is the probability  that the system will mistakenly  accept an impostor  or 
+unauthorized  user. On the other hand, GAR, which is the ratio of really 
+accepted  instances  to the entire number  of genuine  attempts,  shows the 
+probability  that the system will successfully  accept a legitimate  user. 
+We determined  the GAR and FAR for each combination  by evaluating  
+eight different  values for the quantization  factor f and five different  
+values for the polynomial  degree k. Similarly,  Table  2 displays  the GAR 
+and FAR values for the FVC2002  DB2 dataset,  Table  3 presents  the GAR 
+and FAR values for the FVC2002  DB3 dataset,  and Table  4 shows the 
+GAR and FAR values for the FVC2004  DB1 dataset.Plotting  the False Acceptance  Rate (FAR) and the False Rejection  
+Rate (FRR) yields the Equal Error Rate (EER). FRR, which is determined  
+by dividing  the number  of falsely rejected  cases by the total number  
+of legitimate  tries, is the probability  that the system would mistakenly  
+reject a legitimate  user. At the intersection  of the FRR and FAR curves,  
+the EER is calculated.  The system performs  so well at this intersection  
+that the likelihood  of a false rejection  is equal to the likelihood  of a 
+false acceptance.
+On FVC2002  DB1, the best result in terms of EER is 0.005%  at f =
+24 and k = 10. Similarly,  we obtained  0.02% EER for FVC2002  DB2 at 
+f = 20 and k = 8. For FVC2002  DB3, we obtained  5.0% EER at f = 28 
+and k = 5. Finally,  for FVC20024  DB1, we obtained  2.404%  EER at f =
+22 and k = 5.
+Fig.  4 illustrates  the FAR versus FRR curves for the FVC2002  and 
+FVC2004  datasets.  The point of intersection  of these curves represents  
+the Equal Error Rate (EER). From Fig.  4(a), it is observed  that the EER 
+for FVC2002  DB1 occurs at k = 10 for f = 24. Similarly,  in Fig.  4(b), the 
+EER point for FVC2002  DB2 is found at k = 8 for f = 20. For FVC2002  
+DB3, as shown in Fig.  4(c), the EER occurs at k = 5 for f = 28. Finally,  
+Fig.  4(d) displays  that the EER for FVC2004  DB1 occurs at k = 5 for f 
+= 22.
+The ROC curves for FVC2002  DB1, DB2, DB3, and FVC2004  DB1 
+are shown in Figs.  5(a), 5(b), 5(c), and 5(d), respectively.  For different  
+threshold  levels, the Genuine  Acceptance  Rate (GAR) versus the False 
+Positive  Rate (FPR) is shown graphically  by the ROC curve. Better 
+fingerprint  recognition  system performance  is shown by a higher Area 
+Under the Curve (AUC) score, which shows a greater  capacity  to 
+accurately  identify  true matches  while reducing  false positives.  The 
+AUC values for FVC2002  DB1, DB2, and DB3, as well as FVC2004  
+DB1, are 0.9999,  1.0, 0.9706,  and 0.9885,  respectively,  as illustrated  
+in Fig.  5. When the classifier’s  AUC score is near 1, it means that it 
+can discriminate  between  real and fake fingerprint  matches  with high 
+accuracy.
+Table  5 Compares  the suggested  fingerprint  recognition  method  
+with a number  of current  methods  using four benchmark  datasets  
+(FVC2002  DB1, DB2, DB3 and FVC2004  DB1) with Equal Error Rate 
+(EER) as the evaluation  parameter.  In biometric  systems,  EER is a 
+crucial parameter  that shows the point at which the false rejection  
+rate and the false acceptance  rate are equal. Improved  accuracy  and 
+dependability  are shown by lower EER values.
+With the lowest EERs on FVC2002  DB1 (0.00%)  and DB2 (0.02%),  
+the suggested  solution  achieves  near-perfect  performance  and routinely  
+beats the current  methodologies.  Compared  to higher values such as 
+6. 14% [6] (Sandhya  and Prasad)  and 11.38%  [10] (Jignesh  et al.), 
+the suggested  method  records  5.00% on FVC2002  DB3, which is com-
+petitive  even though  it is not the best of both. The EER of 2.40% for 
+FVC2004  DB1 obtained  by the suggested  method  is higher than that of 
+the majority  of the compared  procedures.
+The performance  trends reveal that while some existing  methods  
+show strong results on specific  datasets,  they often lack consistency  
+across all databases.  In contrast,  the proposed  method  demonstrates  
+reliable  and stable performance  throughout,  highlighting  its robustness  
+and general  applicability.  Its consistently  low EER values across mul-
+tiple benchmark  datasets  indicate  a high capability  to minimize  both 
+false acceptances  and false rejections.  This makes it highly suitable  for 
+secure and accurate  biometric  identification  systems.Journal  of Information  Security  and Applications  94 (2025)  104243  
+7 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Table 2
+Obtained  GAR/FAR  values on FVC2002  DB2 dataset.
+ Factor Degree 5 Degree 6 Degree 7 Degree 8 Degree 9 Degree 10 Degree 11 
+ 16 100.0/0.1313 100.0/0.0606 100.0/0 100.0/0 97.0/0 96.0/0 96.0/0  
+ 18 100.0/0.3939 100.0/0.1515 99.0/0.0202 99.0/0.0101 99.0/0.0101 99.0/0.0101 98.0/0  
+ 20 100.0/1.1515 100.0/0.4444 100.0/0.1313 100.0/0.0404 99.0/0.0101 99.0/0 98.0/0  
+ 22 100.0/2.0101 100.0/1.0505 100.0/0.3232 100.0/0.1515 100.0/0.0808 99.0/0.0303 99.0/0.0202  
+ 24 100.0/4.4949 100.0/2.1717 100.0/0.9697 100.0/0.3939 100.0/0.202 100.0/0.1111 100.0/0.0808  
+ 26 100.0/7.6465 100.0/3.9697 100.0/2.2727 100.0/1.2525 100.0/0.596 100.0/0.2828 100.0/0.1313  
+ 28 100.0/11.2222 100.0/6.9091 100.0/4.303 100.0/2.3939 100.0/1.3838 100.0/0.697 100.0/0.3535  
+ 30 100.0/15.7677 100.0/9.9899 100.0/5.9394 100.0/3.6263 100.0/2.2222 100.0/1.2828 100.0/0.7677  
+Table 3
+Obtained  GAR/FAR  values on FVC2002  DB3 dataset.
+ Factor Degree 5 Degree 6 Degree 7 Degree 8 Degree 9 Degree 10 Degree 11 
+ 16 91.58/0.1411 88.42/0.0868 85.26/0.0434 81.05/0.0326 75.79/0.0217 72.63/0.0217 64.21/0.0217  
+ 18 94.74/0.2604 91.58/0.1194 85.26/0.0434 84.21/0.0434 80.0/0.0109 74.74/0 71.58/0  
+ 20 94.74/0.6294 92.63/0.2496 91.58/0.1411 87.37/0.0977 83.16/0.0651 82.11/0.0217 78.95/0.0109  
+ 22 94.74/1.0635 93.68/0.5534 92.63/0.3581 87.37/0.2062 83.16/0.1194 82.11/0.0868 75.79/0.0326  
+ 24 94.74/2.1378 93.68/1.0635 92.63/0.6511 91.58/0.3473 89.47/0.2062 84.21/0.1302 80.0/0.0543  
+ 26 94.74/3.5377 94.74/1.9533 93.68/1.096 90.53/0.7379 87.37/0.4124 84.21/0.2604 81.05/0.1628  
+ 28 94.74/5.3825 94.74/3.1145 94.74/1.6603 94.74/1.0526 92.63/0.6186 88.42/0.3907 83.16/0.2604  
+ 30 96.84/8.1932 95.79/4.6989 94.74/2.7781 93.68/1.8231 89.47/1.1612 87.37/0.7596 86.32/0.4558  
+Table 4
+Obtained  GAR/FAR  values on FVC2004  DB1 dataset.
+ Factor Degree 5 Degree 6 Degree 7 Degree 8 Degree 9 Degree 10 Degree 11 
+ 16 92.0/0.2525 89.0/0.1111 88.0/0.0404 83.0/0.0101 83.0/0 78.0/0 72.0/0  
+ 18 95.0/0.8081 94.0/0.3636 91.0/0.1515 88.0/0.0909 86.0/0.0707 85.0/0.0202 79.0/0  
+ 20 96.0/1.6061 95.0/0.7273 92.0/0.3333 90.0/0.1414 85.0/0.0808 82.0/0.0202 76.0/0.0101  
+ 22 98.0/2.8081 95.0/1.3939 91.0/0.7071 89.0/0.3131 89.0/0.1515 86.0/0.0909 81.0/0.0101  
+ 24 95.0/4.4949 93.0/2.4949 93.0/1.2424 90.0/0.5859 88.0/0.3131 85.0/0.1919 80.0/0.101  
+ 26 99.0/7.3434 97.0/4.1717 94.0/2.3131 92.0/1.2727 92.0/0.7374 90.0/0.404 84.0/0.2525  
+ 28 98.0/9.6263 96.0/5.5253 94.0/3.2222 94.0/1.9394 90.0/1.101 83.0/0.5758 82.0/0.3232  
+ 30 99.0/13.2121 99.0/8.2424 97.0/4.7677 92.0/2.9697 92.0/1.8485 89.0/1.1717 85.0/0.7374  
+Fig. 4. FAR/FRR  curves of the proposed  approach  for databases  FVC2002  DB1, DB2, DB3, and FVC2004  DB1.Journal  of Information  Security  and Applications  94 (2025)  104243  
+8 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Fig. 5. ROC curves of the proposed  approach  for databases  FVC2002  DB1, DB2, DB3, and FVC2004  DB1.
+Table 5
+Comparison  of the proposed  method with existing methods  in terms of EER values (in %).
+ Technique/Author FVC2002  DB1 FVC2002  DB2 FVC2002  DB3 FVC2004  DB1 
+ Sandhya and Prasad et al. [6] 2.19 1.6 6.14 11.89  
+ Gao et al. [5] 0.24 0.31 2.86 2.44  
+ Vivek et al. [22] 4.00 3.10 – 11.95  
+ M.S.Khan  et al. [12] 0.15 0.34 1.28 2.25  
+ M.S.Khan  et al. [13] 0.11 0.23 1.02 2.69  
+ S.Song et al. [14] 0.13 0.18 2.50 2.38  
+ Z.Zohu et al. [15] 0.43 2.10 6.60 4.15  
+ Proposed  method 0.005 0.02 5.00 2.40  
+Note: ‘‘–’’ indicates  unavailability  of data.
+5.2. Setup 2
+In this experimental  setup, we created  the vault using the first image 
+of each user, and to unlock it, we tried to unlock the vault using all 8 
+images of each user one by one. So, there were 800 genuine  attempts  
+(for each user there is a vault, so all images are counted  as one genuine  
+attempt),  and there were 79 200 imposter  attempts  (as images of one 
+user are imposter  attempt  for all other users). Table  6 presents  the GAR 
+and FAR, expressed  in percentages,  for the FVC2002  DB1 dataset  for 
+various  configurations  of the two tuning parameters.  Specifically,  eight 
+values of the quantization  factor f and five values of the polynomial  
+degree k were considered.  The GAR and FAR values were computed  for 
+every possible  combination  of these parameters  to evaluate  the system’s  
+performance.  Similarly,  Table  7 displays  GAR and FAR values of the 
+FVC2002  DB2 dataset,  Table  8 displays  GAR and FAR values of the 
+FVC2002  DB3 dataset,  and Table  9 displays  GAR and FAR values of 
+the FVC2004  DB1 dataset.
+In this experimental  setup, we achieved  the best Equal Error Rate 
+(EER) of 3.54% on FVC2002  DB1 at parameters  f = 30 and k = 6. For FVC2002  DB2, the minimum  EER obtained  was 5.24% at f = 28 and k 
+= 6, while FVC2002  DB3 yielded  an EER of 6.73% at f = 30 and k =
+5. Additionally,  we achieved  an EER of 4.38% on FVC2002  DB4 at f =
+26 and k = 7.
+It is important  to note that in the FVC2002  databases,  impressions  3, 
+4, 5, and 6 were acquired  by instructing  users to intentionally  vary the 
+placement  of their fingers,  introducing  exaggerated  displacement  and 
+rotation.  As a result, these impressions  are of relatively  lower quality.  
+Despite  this, our system demonstrates  strong performance  under these 
+challenging  conditions,  effectively  distinguishing  between  genuine  and 
+impostor  users. These results highlight  the robustness  and practicality  
+of our approach,  particularly  in real-world  scenarios  where users may 
+not be accustomed  to biometric  authentication  systems.
+5.3. Entropy  analysis
+To quantitatively  evaluate  the security  strength  and unpredictability  
+of the generated  templates,  we adopt the relative  entropy  (also known 
+as Kullback–Leibler  Divergence  or KLD) as a security  metric. This Journal  of Information  Security  and Applications  94 (2025)  104243  
+9 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Table 6
+Obtained  GAR/FAR  values on FVC2002  DB1 dataset.
+ Factor Degree 5 Degree 6 Degree 7 Degree 8 Degree 9 Degree 10 Degree 11 
+ 16 86.62/0.0404 84.38/0.0088 83.0/0.0038 81.5/0.0013 78.88/0 76.5/0 73.5/0  
+ 18 88.5/0.0745 86.62/0.0202 85.25/0.0063 83.38/0 82.0/0 80.0/0 77.62/0  
+ 20 89.25/0.1869 88.12/0.0568 86.12/0.0189 84.75/0.0101 83.0/0 81.75/0 79.0/0  
+ 22 91.88/0.5707 90.12/0.2033 88.5/0.0758 87.12/0.0278 85.88/0.0051 84.0/0.0013 81.12/0  
+ 24 94.25/1.1881 92.25/0.4646 91.0/0.1856 89.62/0.0707 87.5/0.0202 85.12/0.0126 83.5/0.0076  
+ 26 94.88/2.3359 93.88/1.0745 92.5/0.4811 91.12/0.2134 89.25/0.0821 87.5/0.0404 85.62/0.0139  
+ 28 97.0/4.1086 95.88/2.0379 94.75/0.976 93.38/0.4672 92.25/0.2109 90.25/0.0896 87.0/0.0215  
+ 30 97.38/6.3245 96.25/3.3422 94.88/1.7601 93.38/0.8472 92.25/0.4192 90.0/0.1907 87.62/0.0821  
+Table 7
+Obtained  GAR/FAR  values on FVC2002  DB2 dataset.
+ Factor Degree 5 Degree 6 Degree 7 Degree 8 Degree 9 Degree 10 Degree 11 
+ 16 90.16/0.0892 88.78/0.0242 87.39/0.0013 85.5/0 83.61/0 81.72/0 79.82/0  
+ 18 91.93/0.2318 90.79/0.0764 88.27/0.028 86.38/0.0038 84.99/0.0025 83.23/0.0013 81.08/0  
+ 20 91.8/0.7923 91.05/0.3108 88.9/0.1057 88.02/0.0331 87.01/0.0102 85.75/0 83.73/0  
+ 22 93.06/1.4725 92.18/0.6738 91.17/0.2611 90.16/0.1006 88.27/0.0395 87.14/0.0178 86.0/0.0089  
+ 24 94.2/3.2507 93.06/1.4929 91.93/0.7197 90.79/0.3337 89.91/0.1554 89.03/0.0739 87.64/0.0357  
+ 26 95.08/5.9995 93.57/3.215 92.81/1.7272 91.8/0.9451 91.05/0.4624 90.16/0.2267 89.03/0.0955  
+ 28 95.59/8.9979 94.83/5.3104 93.95/3.0609 93.57/1.7196 92.31/0.9541 91.42/0.4879 90.67/0.2369  
+ 30 95.59/12.6702 94.96/7.7471 94.2/4.6085 93.19/2.7259 92.69/1.568 91.55/0.8904 90.04/0.5146  
+Table 8
+Obtained  GAR/FAR  values on FVC2002  DB3 dataset.
+ Factor Degree 5 Degree 6 Degree 7 Degree 8 Degree 9 Degree 10 Degree 11 
+ 16 79.79/0.0902 75.87/0.0389 70.44/0.0171 65.76/0.014 61.84/0.0078 56.71/0.0078 51.58/0.0047  
+ 18 83.41/0.2084 79.03/0.0793 73.45/0.0342 69.38/0.0202 64.71/0.0109 60.33/0.0062 56.56/0.0031  
+ 20 85.07/0.4696 80.84/0.2021 78.43/0.1057 74.81/0.07 70.14/0.0498 65.76/0.0233 61.84/0.0155  
+ 22 87.48/0.9501 85.22/0.4587 82.5/0.2441 78.13/0.1415 72.7/0.0793 68.78/0.0451 64.71/0.0218  
+ 24 90.5/1.7851 86.58/0.8863 83.56/0.4525 78.88/0.2597 75.41/0.1353 71.79/0.0746 67.72/0.0451  
+ 26 90.95/3.0197 89.74/1.6327 86.88/0.891 83.26/0.5054 77.68/0.2892 73.6/0.1773 69.98/0.1057  
+ 28 92.76/4.6571 90.5/2.5781 87.48/1.4181 84.92/0.8179 81.0/0.4976 77.98/0.2939 72.85/0.2021  
+ 30 93.67/7.1434 90.8/4.0289 88.84/2.3853 85.52/1.4445 82.2/0.8708 78.43/0.5365 74.66/0.3172  
+Table 9
+Obtained  GAR/FAR  values on FVC2004  DB1 dataset.
+ Factor Degree 5 Degree 6 Degree 7 Degree 8 Degree 9 Degree 10 Degree 11 
+ 16 89.18/0.4409 86.92/0.183 83.14/0.0788 78.87/0.0381 75.47/0.0076 71.45/0.0025 67.04/0  
+ 18 92.58/1.174 91.07/0.5413 88.3/0.2516 85.53/0.1309 81.51/0.0597 77.11/0.0318 73.71/0.0114  
+ 20 94.97/2.3899 92.58/1.1511 90.31/0.5718 88.05/0.2757 85.66/0.141 81.26/0.0534 75.97/0.0267  
+ 22 95.6/3.8574 93.71/2.0088 91.32/1.0736 88.55/0.5425 86.79/0.2808 83.77/0.1474 80.0/0.0648  
+ 24 95.85/6.5383 94.47/3.7126 92.96/2.0914 90.82/1.2045 88.43/0.6975 86.04/0.3964 82.89/0.2414  
+ 26 97.86/10.209 96.73/6.1851 94.84/3.6122 92.7/2.1981 90.94/1.3608 88.18/0.8386 83.14/0.4993  
+ 28 97.86/13.6345 96.86/8.6399 94.97/5.2513 93.58/3.2311 90.94/1.9465 87.92/1.1537 85.53/0.6569  
+ 30 98.62/18.427 97.74/12.2813 96.98/8.0427 94.97/5.0149 93.21/3.1586 89.56/1.9999 86.54/1.2299  
+approach  is a standard  for robustly  measuring  biometric  information,  
+as it accounts  for both intra-user  and inter-user  variability  The relative  
+entropy  is given by: 
+𝐾𝐿𝐷 =∑
+𝑥∈𝑋𝑃(𝑥) log2(𝑃(𝑥)
+𝑄(𝑥))
+(2)
+where 𝑃(𝑥) is the probability  distribution  of the transformed  minutiae  
+features  (the x-coordinates  of the ECC points) for a legitimate  user, 
+and 𝑄(𝑥) is the corresponding  feature distribution  for the impostor  
+population.
+We let P(x) be the feature distribution  of the enrolled  user, and 
+Q(x) be that of the reference  users, i.e., all the other users from the 
+dataset.  A higher KLD, measured  in bits, indicates  a more unique and 
+less predictable  template,  making  it more robust against  brute-force  or 
+guessing  attacks.  Table  10 displays  the entropy  values of the FVC2002  
+& FVC2004  datasets.
+Based on the strong performance  in terms of EER and the non-
+invertible  cryptographic  transformation,  we expect the entropy  of our Table 10
+Entropy  values of FVC2002  & FVC2004  datasets.
+ Dataset Entropy value 
+ FVC2002_DB1 1.215  
+ FVC2002_DB2 1.172  
+ FVC2002_DB3 1.184  
+ FVC2004_DB1 1.218  
+proposed  method  to be highly competitive,  significantly  exceeding  
+traditional  biometric  systems.
+The results in Table  10 demonstrate  two crucial properties  of our 
+proposed  method:
+1.Distinguishability : The consistently  positive  KLD values pro-
+vide the information-theoretic  validation  that a genuine  user’s 
+template  is statistically  distinguishable  from the general  popula-
+tion of imposters.Journal  of Information  Security  and Applications  94 (2025)  104243  
+10 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Table 11
+Comparison  of entropy across authentication  methods.
+ Authentication  method Entropy (bits) Entropy type Source(s)  
+ Keystroke  dynamics 3.48–4.62 Relative (KLD) Sae-Bae et al. [36] 
+ Face 37.0–55.6 Relative (KLD) Adler et al. [37] 
+ Iris 278–288 Relative (KLD) Youmaran  et al. [38] 
+ Traditional  fingerprint 18.6 Relative (KLD) Takahashi  et al. [39] 
+ Proposed  method (Average) ∼1.2 Relative  (KLD) This work  
+2.Robustness : The high stability  of the entropy  values across four 
+different  and challenging  datasets  i.e. FVC 2002 DB1, DB2, DB3 
+and FVC 2004 DB1 (with an average  of ∼1.2 bits) underscores  
+the robustness  of our feature extraction  and protection  scheme.  
+The security  level does not degrade  significantly  under different  
+conditions.
+5.3.1. Comparative  analysis  of entropy
+Table  11 presents  a comparative  analysis  of the average  entropy  of 
+the proposed  method  against  commonly  used authentication  factors,  
+based on values reported  in established  literature.  The table clearly 
+distinguishes  between  Shannon  Entropy  and Relative  Entropy  to ensure 
+a rigorous  and scientifically  valid comparison.
+5.3.2. Interpretation  of results
+The comparative  analysis  in Table  11 positions  our work effectively.  
+The most important  conclusion  is not a direct numerical  comparison,  
+but the relationship  between  the theoretical  entropy  and the practical  
+performance.  The relative  entropy  of ∼1.2 bits is the quantitative,  theo-
+retical foundation  that proves our templates  contain  unique,  identifying  
+information.
+The ultimate  validation  of our method  lies in how efficiently  this 
+information  is used. Our system’s  ability to leverage  these ∼1.2 bits 
+of information  to achieve  exceptionally  low Equal Error Rates (EERs),  
+such as 0.005%  on FVC2002  DB1 and 0.02% on FVC2002  DB2 demon-
+strates the high efficacy  of our combined  ECC and Fuzzy Vault scheme.  
+This synergy  between  a provable  information-theoretic  security  basis 
+and superior  empirical  accuracy  confirms  the overall strength  and 
+effectiveness  of our proposed  method.
+6. Security  analysis
+A thorough  security  assessment  of the suggested  approach  is pro-
+vided in this section,  with special attention  paid to three crucial char-
+acteristics:  revocability,  non-invertibility,  and unlinkability.
+6.1. Threat model
+We use a formal threat model to give a systematic  evaluation  of our 
+suggested  system’s  security.  This model uses the framework  developed  
+by Ratha et al. [40], which identifies  eight critical points of attack in 
+a biometric  system,  to define the adversary’s  capabilities  and analyze  
+potential  vulnerabilities  (see Fig.  6).
+Adversary  capabilities
+The following  capabilities  are assumed  for a strong and realistic  
+adversary:
+•The attacker  can read, replay, alter, and intercept  any data sent 
+over the communication  channel  between  the client (user’s de-
+vice) and the server (database).  It is a common  man-in-the-middle
+assumption.
+•The attacker  can access the server-side  database  in full read mode. 
+Thus, they are able to take all of the users’ fuzzy vaults (𝑉) and 
+associated  public keys (𝑃 𝑢𝑏).•The attacker  is aware of every detail of the proposed  system’s  
+architecture,  including  the fuzzy vault construction  algorithm,  
+quantization  method,  feature extraction  procedure,  and ECC pa-
+rameters.  This follows  Kerckhoffs’s  Principle , where security  
+relies on the secrecy  of the key/biometric  rather than obscurity  
+of the algorithm.
+Adversary  limitations
+The adversary  is assumed  to be unable to:
+•Physically  access or compromise  the client device.  Therefore,  they 
+cannot steal the secret key (𝑠) from the client’s memory  or install 
+a Trojan horse on the feature extraction  module.
+•Obtain the user’s actual biometric  trait (e.g., fingerprint)  to con-
+duct a spoofing  attack. While spoofing  is a real threat, defenses  
+such as liveness  detection  are considered  outside  the scope of this 
+template  protection  scheme.
+We assess our system’s  resilience  against  the eight attack points 
+identified  by Ratha et al. [40] using this threat model:
+1.Sensor  Attack (Spoofing):  An attacker  presents  a fake finger-
+print to the sensor. Our scheme,  which focuses  on template  
+protection,  does not inherently  defend against  this. This vulner-
+ability is typically  addressed  by liveness  detection  mechanisms  
+at the hardware  or sensor level. In our proposed  method,  the 
+attacks performed  on the data at sensor point are not protected  
+as they are hardware  oriented.
+2.Channel  between  Sensor  and Feature  Extractor:  An attacker  
+might try to replay raw fingerprint  data that has already  been 
+intercepted.  According  to the constraints  of our model, this 
+attack takes place on the client device,  which we presume  to 
+be secure.
+3.Feature  Extractor  Attack (Trojan  Horse):  An attacker  could 
+compromise  the feature extraction  module  to output a prede-
+termined  set of minutiae.  This is also a client-side  attack and 
+is outside  the scope of our threat model. We do not consider  
+this attack in our proposed  method  as we assume  that the client 
+software  is secure.
+4.Channel  between  Feature  Extractor  and Vault Creation:  Be-
+fore the vault is built, our system performs  feature extraction,  
+quantization,  ECC mapping,  and polynomial  projection  on the 
+client device.  There is no transmission  of raw or unprotected  
+feature data. Consequently,  because  the sensitive  operations  are 
+localized,  this channel  is not vulnerable  in the traditional  sense.
+5.Matcher  Attack (Fuzzy Vault Unlocking):  The vault unlocking  
+mechanism  is the ‘‘matcher’’  in our system.  In order to track the 
+changes  in matching  score, an attacker  could try a hill-climbing  
+attack by repeatedly  altering  a synthetic  template.  Due to the 
+fuzzy vault scheme’s  lack of a similarity  score, our system is 
+resistant  to this. Unlocking  has a binary outcome:  either the 
+polynomial  is successfully  reconstructed  (Success)  or it is not 
+(Failure).  The attacker  is unable to cleverly  evolve a template  
+due to the absence  of immediate  feedback.
+6.Stored Template  Attack (Database  Breach):  If an attacker  
+breaches  the database,  they acquire  the fuzzy vault 𝑉 and the 
+public key 𝑃 𝑢𝑏. The security  relies on two principles:Journal  of Information  Security  and Applications  94 (2025)  104243  
+11 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Fig. 6. The eight potential  attack points in a generic biometric  system, as proposed  by Ratha et al. [40].
+•Fuzzy Vault Security:  The vault contains  genuine  points 
+hidden among a large number  of chaff points. As demon-
+strated in our Brute-force  Attack analysis  (Section  6.5), 
+distinguishing  the genuine  points to reconstruct  the poly-
+nomial is computationally  infeasible  without  a valid query 
+template.
+•ECC Security:  The stored public key 𝑃 𝑢𝑏 does not reveal 
+the secret polynomial  coefficients  𝑠 due to the hardness  of 
+the Elliptic  Curve Discrete  Logarithm  Problem  (ECDLP),  as 
+detailed  in our Non-invertibility  analysis  (Section  6.3).
+7.Channel  between  Database  and Matcher:  The transmission  
+of the vault from the database  to the unlocking  module  could 
+be intercepted  by an attacker.  A replayed  vault is ineffective  
+on its own since the unlocking  process  needs a query template  
+from a real user. This offers no new benefit because  it is al-
+ready presumed  that the entire vault has been compromised  (per 
+attacker’s  capability  #2).
+8.Final Decision  Attack:  The final (Accept/Reject)  decision  is in-
+tercepted  and changed  by an attacker.  Standard  secure commu-
+nication  protocols  like TLS/SSL,  which should be implemented  
+at the system level and are not dependent  on the biometric  
+template  protection  scheme  itself, address  this vulnerability.
+In conclusion,  our suggested  approach  offers strong defense  against  
+the two most important  risks for a template  protection  system:  attacks 
+on the matching  module  (Point 5) and compromise  of the stored 
+template  (Point 6).
+6.2. Unlinkability
+The feature that guarantees  a biometric  template  cannot be linked 
+to a person’s  true identity  or correlated  with templates  kept in other 
+applications  or systems  is known as unlinkability  in biometric  systems.  
+This feature ensures  that even if a template  is compromised  in one 
+situation,  it cannot be used to connect  to biometric  records  or betray 
+the identity  of the user in another.  In order to protect  user privacy  
+and prevent  unwanted  tracking,  profiling,  or cross-matching  between  
+databases,  unlinkability  is crucial.
+The proposed  method  guarantees  that templates  created  using iden-
+tical fingerprint  biometric  information  cannot be connected  to other 
+systems  or applications.  For authentication,  the templates  are stored 
+in a vault and are constructed  by concatenating  minutiae  descriptors  
+after quantization  using a factor f, followed  by mapping  onto an 
+elliptic curve with a designated  base point G. Consequently,  under 
+the proposed  system,  the templates  stored in different  systems  remain 
+unlinkable,  as detailed  below:
+A quantization  factor f is used to quantize  the values of the minutiae  
+descriptors.  So for different  systems,  this quantization  factor can be changed,  so the concatenated  quantized  value will be different  even 
+for the same minutiae  point 𝑀𝑖(𝑥𝑖, 𝑦𝑖, 𝜃𝑖).
+For a given set of genuine  minutiae  points, let us assume  that the 
+quantization  factors 𝑓1 and 𝑓2 are used for encoding  the minutiae  
+descriptors.  The application  of these factors leads to two different  
+quantized  representations  of the same minutiae  set. Mathematically,  
+the quantized  values for each minutia  point can be represented  as:
+(𝑥′
+𝑖, 𝑦′
+𝑖, 𝜃′
+𝑖) =(𝑥𝑖
+𝑓1,𝑦𝑖
+𝑓1,𝜃𝑖
+𝑓1)
+for 𝑓1
+(𝑥′′
+𝑖, 𝑦′′
+𝑖, 𝜃′′
+𝑖) =(𝑥𝑖
+𝑓2,𝑦𝑖
+𝑓2,𝜃𝑖
+𝑓2)
+for 𝑓2
+where (𝑥𝑖, 𝑦𝑖, 𝜃𝑖) are the original  minutiae  coordinates  and orientation  
+angles. After applying  the quantization  factors 𝑓1 and 𝑓2, the resulting  
+quantized  minutiae  descriptors  (𝑥′
+𝑖, 𝑦′
+𝑖, 𝜃′
+𝑖) and (𝑥′′
+𝑖, 𝑦′′
+𝑖, 𝜃′′
+𝑖) will differ 
+significantly.
+Next, each quantized  value is converted  into a fixed 𝑏-bit integer.  
+The quantized  values for each minutia  are represented  as:
+𝑄′
+𝑖=concatenate (𝑥′
+𝑖, 𝑦′
+𝑖, 𝜃′
+𝑖)for 𝑓1
+𝑄′′
+𝑖=concatenate (𝑥′′
+𝑖, 𝑦′′
+𝑖, 𝜃′′
+𝑖)for 𝑓2
+where 𝑀′
+𝑖 and 𝑀′′
+𝑖 are the concatenated  integers  for each minutia  point 
+after quantization  and conversion  to 𝑏-bit values. The concatenation  
+process  results in a single 𝑏-bit integer for each minutiae  point.
+Since the quantization  factors 𝑓1 and 𝑓2 are different,  the resulting  
+sets of 𝑏-bit integers  𝑀′
+𝑖 and 𝑀′′
+𝑖 for the same minutiae  points will be 
+distinct.  Therefore,  the two sets of minutiae  templates  generated  using 
+𝑓1 and 𝑓2 will be completely  different,  even though  they represent  the 
+same physical  fingerprint.
+This ensures  that even if the biometric  data is exposed  across 
+different  systems  or sessions,  it remains  unlinkable.  The difference  in 
+quantization  factors causes each set to generate  distinct  integer repre-
+sentations,  which prevents  the attacker  from correlating  the templates  
+or linking them back to the original  biometric  data, thus maintaining  
+privacy  and security.
+In addition  to quantization  factors,  the choice of elliptic curve and 
+base point plays a critical role in ensuring  unlinkability  in biometric  
+template  protection.  Different  elliptic curves and base points result in 
+different  cryptographic  mappings  of the same biometric  data, further 
+enhancing  security  and making  it impossible  to link templates  gener-
+ated from the same biometric  data across systems  that use different  
+cryptographic  parameters.
+Consider  a system that uses an elliptic curve 𝐸 and a base point 
+𝐺 to generate  a public key corresponding  to a user’s biometric  data. 
+The biometric  features  (e.g., minutiae  points) are mapped  onto the 
+elliptic curve, and the resulting  public key is used as a cryptographically  Journal  of Information  Security  and Applications  94 (2025)  104243  
+12 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+protected  template.  Let 𝑃 represent  the point on the elliptic curve 
+corresponding  to a biometric  template,  which is computed  as:
+𝑃=𝑄𝑖⋅𝐺
+where 𝑄𝑖 is the concatenated  value associated  with the biometric  data 
+and 𝐺 is the base point on the elliptic curve.
+If two different  elliptic curves 𝐸1 and 𝐸2 with base points 𝐺1 and 
+𝐺2 are used, even for the same concatenated  value 𝑄𝑖, the resulting  
+mapped  points will be different:
+𝑃𝑖1=𝑄𝑖⋅𝐺1on curve 𝐸1
+𝑃𝑖2=𝑄𝑖⋅𝐺2on curve 𝐸2
+Since the elliptic curve parameters  𝐸1, 𝐸2 and base points 𝐺1, 𝐺2
+are different,  the resulting  points 𝑃𝑖1 and 𝑃𝑖2 will be entirely  distinct,  
+even though  they correspond  to the biometric  data 𝑄𝑖. This ensures  that 
+templates  generated  on different  systems  with different  elliptic curves 
+or base points will have completely  different  representations,  making  
+it impossible  to link the templates.
+We follow the general  framework  and metrics  proposed  by Gomez-
+Barrero  et al. [41], to run the experiments  for unlinkability  analysis.
+The process  entails examining  the distributions  of non-mated  scores 
+(derived  from templates  of distinct  fingerprint  images)  and mated 
+scores (derived  from templates  of the same fingerprint  image).  These 
+distributions  are used to compute  two important  metrics:
+1. Local Linkability , 𝐷↔(𝑠): It evaluates  the linkability  of the 
+templates  in a score-wise  basis. 𝐷↔(𝑠) = 0 should be interpreted  as 
+full unlinkability  for that particular  score s.
+2. Global System  Linkability,  Dsys : The overall linkability  of the 
+system,  independent  of the score domain  of the system at hand, thereby  
+allowing  a benchmark  among different  systems,  where a value closer 
+to 0 indicates  stronger  unlinkability.  Dsys = 0 means that the system is 
+fully unlinkable  for the whole score domain.
+We used the FVC2002  and FVC2004  datasets  for our investigations.  
+Several  secure templates  were created  for every user. After that, we 
+calculated  mated and non-mated  scores using the procedure  described  
+in our approach.  Fig.  7 presents  the score distributions  and the resulting  
+linkability  analysis  for each database.
+The global unlinkability  scores obtained  from the analysis  are Dsys
+= 0.0829  for FVC2002  DB1, Dsys = 0.0305  for FVC2002  DB2, Dsys
+= 0.0416  for FVC2002  DB3, and Dsys = 0.0226  for FVC2004  DB1. 
+It is confirmed  that the score distributions  for mated and non-mated  
+templates  are appropriately  separated  by these consistently  low val-
+ues across the challenging  FVC2002  datasets.  This offers compelling  
+quantitative  proof that our suggested  approach  attains a high level 
+of unlinkability,  rendering  it resistant  to privacy  and cross-matching  
+attacks.
+Furthermore,  the differences  in the cryptographic  transformations  
+due to different  elliptic curves or base points provide  an additional  
+layer of security.  The attacker,  even if they gain access to multiple  
+templates  from different  systems,  will not be able to cross-match  these 
+templates  or reconstruct  the original  biometric  data, as the mapping  of 
+the data onto the elliptic curve is fundamentally  altered by the choice 
+of parameters.
+6.3. Non-invertibility
+In cancelable  biometrics,  non-invertibility  means that reconstruct-
+ing a person’s  original  biometric  information  from a stored template  
+or its encrypted  representation  is computationally  infeasible.  This fea-
+ture guarantees  that no significant  information  about the underlying  
+biometric  characteristics  will be revealed  by the exposed  biometric  
+template,  even in the case of a data breach.  The template  must be 
+created  and saved in a way that makes it impossible  for adversaries  to 
+reverse-engineer  the original  biometric  data, even if they have complete  
+access to the stored data, in order to ensure non-invertibility.In the proposed  method,  non-invertibility  is enforced  using Elliptic  
+Curve Cryptography  (ECC), specifically  with the brainpoolP256r1  curve 
+from the TinyEC  library.  After feature extraction  and binarization,  the 
+fingerprint  template  is cryptographically  bound to a point on the ellip-
+tic curve using a 256-bit  private key. This binding  acts as a one-way,  
+irreversible  transformation  without  knowledge  of the private key. The
+brainpoolP256r1  curve offers a high-security  level, conforming  to 
+standards  set by the German  Federal  Office for Information  Security  
+(BSI). A 256-bit  key on this curve provides  approximately  128 bits of 
+security , which translates  to an estimated  2128 operations  needed  to 
+derive the private key from a public ECC point.
+Even under ideal attack conditions,  a brute-force  attempt  to recover  
+the private key used in the ECC-based  transformation  would require  
+approximately  3.4 × 1038 operations.  Assuming  an optimistic  scenario  
+where an attacker  possesses  a machine  capable  of performing  1012
+operations  per second (1 trillion ops/s), it would still take more than 
+1018 years to exhaust  the key space—an  amount  of time that vastly 
+exceeds  the age of the universe.
+Additionally,  the non-existence  of sub-exponential  time algorithms  
+for solving  the Elliptic  Curve Discrete  Logarithm  Problem  (ECDLP)  on 
+prime fields provides  strong theoretical  assurance.  In contrast  to RSA 
+or some symmetric  encryption  schemes  that have known structural  
+weaknesses  or partial vulnerabilities,  ECC remains  robust and secure 
+under all currently  known cryptanalytic  techniques.
+The transformation  of binary fingerprint  features  into elliptic curve 
+points is inherently  non-invertible.  During the process,  the original  
+fingerprint  features  are irreversibly  lost due to binarization  and their 
+binding  to elliptic curve points using ECC operations.  Without  knowl-
+edge of the private key used in this binding,  there is no mathematically  
+feasible  method  to reverse  the transformation  and recover  the original  
+features.  Furthermore,  even partial information  leakage  is effectively  
+prevented,  as there exists no deterministic  or direct mapping  between  
+the protected  template  and the original  biometric  input. This ensures  
+strong resistance  against  reconstruction  or inversion  attacks.  The hill-
+climbing  attack is based on score evolution  through  the use of several 
+reference  templates.  As a result, the hill-climbing  attack cannot be 
+performed  on our proposed  technique  as the attacker  lacks the nec-
+essary feedback  information  to construct  an original  template.  In an
+Attack via Record  Multiplicity , the attacker  attempts  to reconstruct  
+the original  biometric  template  by correlating  multiple  instances  of its 
+transformed  versions.  However,  in our proposed  method,  even with 
+access to several transformed  templates,  the attacker  is unable to 
+recover  the original  biometric  data due to the strong non-invertible  us-
+ing Elliptic  Curve Cryptography,  specifically  with the brainpoolP256r1  
+curve and the fuzzy vault encoding.
+6.4. Revocability
+A crucial feature of biometric  template  protection  systems  is re-
+vocability,  which guarantees  that biometric  data can be successfully  
+replaced  or revoked  without  forcing  the user to re-enroll  in the event 
+of a security  breach or template  compromise.  This ensures  that the 
+security  and privacy  of users are maintained,  even when a template  
+is exposed  to an attacker.  In the context  of fingerprint  template  pro-
+tection,  revocability  ensures  that compromised  templates  cannot be 
+misused  and provides  users with a mechanism  to securely  update their 
+biometric  data when necessary.
+In the proposed  method,  revocability  is achieved  through  the use 
+of Elliptic  Curve Cryptography  (ECC) , specifically  with the brain-
+poolP256r1  curve. The fingerprint  template  is bound to a 256-bit  
+ECC private key, and the transformation  from fingerprint  features  to 
+cryptographic  bindings  ensures  both non-invertibility  and the ability 
+to update the key when necessary.  By generating  a unique private key 
+per user, the system allows for the revocation  of a compromised  tem-
+plate by simply replacing  the key, without  requiring  the re-enrollment  
+of the user.Journal  of Information  Security  and Applications  94 (2025)  104243  
+13 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Fig. 7. Unlinkability  analysis  for (a) FVC2002  DB1, (b) FVC2002  DB2, (c) FVC2002  DB3, and (d) FVC2004  DB1. Each subfigure  shows the mated and non-mated  
+score distributions  and the local linkability  measure  𝐷↔(𝑠).
+Mechanism  of revocation
+1. Key Update : If a user’s template  is compromised  or if the user 
+requests  a template  update,  the private ECC key associated  with the 
+template  can be changed.  This update renders  the old template  useless,  
+as the cryptographic  binding  between  the fingerprint  features  and the 
+key is no longer valid.
+2. Template  Regeneration : In the case of a template  update,  the 
+system allows for the regeneration  of a new template  using the latest 
+fingerprint  features,  which is then bound to a new private key.Even  if 
+an attacker  manages  to obtain an old template,  the new key ensures  
+that they cannot exploit it to obtain unauthorized  access to the system.
+Security  and practical  considerations
+The revocability  feature greatly reduces  the potential  damage
+caused by a compromised  template.  Even if an attacker  gains access to 
+one template,  they cannot reuse it without  the corresponding  private 
+key, which remains  secure. The use of a 256-bit  ECC private  key
+provides  significant  security,  as the computational  effort required  to 
+break such a key through  brute-force  or other cryptographic  attacks 
+is infeasible  with current  technology.  This ensures  that the revocation  
+process  is secure and the templates  remain protected  even in the event 
+of a breach.  By enabling  template  updates  through  key changes,  the 
+system minimizes  the risk associated  with user re-enrollment,  while still 
+maintaining  high security  and privacy  standards.
+6.5. Brute-force  attack
+In the fuzzy vault scheme,  a brute-force  attack entails an adversary  
+attempting  to reconstruct  the secret by exhaustively  selecting  combina-
+tions of points from the vault, which contains  both genuine  and chaff 
+points. The vault is successfully  unlocked  only if the selected  subset 
+includes  a sufficient  number  of genuine  points required  for polynomial  
+reconstruction.  In this context,  we analyze  the total number  of possible  
+point combinations,  the probability  of a successful  decoding  attempt,  
+and the computational  effort necessary  to execute  such an attack.
+Given the following  parameters:  The number  of genuine  points in 
+the vault is 𝑁genuine = 25 , The number  of chaff points in the vault 
+is 𝑁chaff = 300 , The total number  of points in the vault is 𝑁total =𝑁genuine +𝑁chaff = 25 + 300 = 325 , The vault unlocks  with any 
+combination  of 10 genuine  points (out of the 25 available).
+The total number  of possible  combinations  an attacker  can try is 
+calculated  by selecting  10 points from the total of 325 points. This is 
+given by the combination  formula  (𝑛
+𝑟):
+Total Combinations =(
+325
+10)
+=325!
+10!(325 − 10)!
+The value of (325
+10) is approximately:
+(
+325
+10)
+≈ 3.1 × 1018
+Thus, the total number  of combinations  the attacker  must evaluate  
+is approximately  3.1 × 1018.
+On the other hand, the number  of successful  combinations,  where 
+the vault is successfully  decoded,  is the number  of ways to choose 10 
+genuine  points from the 25 available  genuine  points:
+Successful  Combinations =(
+25
+10)
+=25!
+10!(25 − 10)!
+The value of (25
+10) is approximately:
+(
+25
+10)
+≈ 3,268,760
+Thus, there are approximately  3.2×106 successful  combinations  that 
+would decode the secret.
+Next, the probability  of successfully  decoding  the secret with a 
+random  combination  of points is the ratio of successful  combinations  
+to total combinations:
+𝑃success =Successful  Combinations
+Total Combinations=(25
+10)
+(325
+10)≈3,268,760
+3.1 × 1018≈ 1.0 × 10−12
+This is quite negligible.  Thus it is computationally  infeasible  for an 
+intruder  to unlock the vault by using the brute force attack.
+The expected  number  of combinations  that must be evaluated  to 
+successfully  decode the secret is the inverse  of the probability  of 
+success:
+Expected  Evaluations =1
+𝑃success=(325
+10)
+(25
+10)≈3.1 × 1018
+3,268,760≈ 1.0 × 1012Journal  of Information  Security  and Applications  94 (2025)  104243  
+14 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+Thus, the attacker  would need to evaluate  approximately  1.0 × 1012
+combinations  on average.
+In conclusion,  the total number  of possible  combinations  in this 
+fuzzy vault scheme  is approximately  3.1 × 1018. The probability  of 
+successfully  decoding  the secret with a random  combination  of points 
+is 1.0 × 10−12, and the expected  number  of combinations  to evaluate  is 
+approximately  1.0 × 1012.
+6.6. Cross-matching  attack
+A cross-matching  attack occurs when an attacker  tries to leverage  
+multiple  biometric  templates  stored in different  systems  for the same 
+user and attempts  to reconstruct  the original  biometric  data. The at-
+tacker gains access to templates  stored in different  vaults, such as in 
+a healthcare  system or a bank, and attempts  to cross-reference  the 
+templates  to extract the genuine  biometric  data.
+In the proposed  method,  each system may use different  parame-
+ters such as elliptic curves,  quantization  factors,  and base points for 
+template  generation  and encryption.  These parameters  directly  affect 
+the transformation  of biometric  data into cryptographically  protected  
+templates.  For instance,  varying  elliptic curves or base points ensure 
+that even identical  biometric  data, when processed  in different  systems,  
+results in different  cryptographic  representations.  Similarly,  by using 
+different  quantization  factors,  the concatenated  minutiae  descriptor  
+values will be different  for different  systems,  and after elliptic curve 
+mapping,  a completely  different  set of points will be generated  for the 
+same biometric  data.
+As a result, even if an attacker  acquires  multiple  templates  from 
+different  systems,  the use of distinct  parameters  makes it infeasible  
+to cross-match  these templates  and guess he genuine  points or recon-
+struct the original  biometric  data. The differences  in the cryptographic  
+transformations  ensure that the templates  remain secure, protecting  
+the genuine  points and preventing  the attacker  from successfully  per-
+forming  a cross-matching  attack. Consequently,  each system generates  
+a unique and secure template  that cannot be used in combination  with 
+others to compromise  the user’s biometric  data.
+7. Conclusion  and future work
+By combining  the fuzzy vault method  and ECC-based  mapping,  
+the proposed  solution  creates a strong foundation  for fingerprint-based  
+biometric  identification.  Important  security  features,  including  non-
+invertibility,  revocability,  and unlinkability,  are guaranteed  by this 
+integration.  The approach’s  efficacy  is confirmed  by experimental  as-
+sessments  on the FVC2002  database,  which show low EER and strong 
+discriminability  between  genuine  and fake samples.
+In order to create a safe multi-modal  recognition  system,  future 
+research  will try to expand  the suggested  method  by combining  fin-
+gerprint  characteristics  with other biometric  modalities.  Combining  
+fingerprint  information  with other characteristics,  such iris or facial 
+recognition,  could significantly  increase  the authentication  process’s  
+overall security,  resilience,  and dependability.  This multi-modal  ap-
+proach enables  the system to capitalize  on the strengths  of each modal-
+ity while mitigating  their individual  limitations,  resulting  in a more re-
+silient and versatile  authentication  framework.  Additionally,  future re-
+search will explore  the integration  of this biometric  system with emerg-
+ing technologies  such as blockchain  to enhance  data integrity,  ensure 
+tamper-proof  storage,  and provide  robust access control  mechanisms.
+CRediT  authorship  contribution  statement
+Praphul  Kumar  Maurya:  Writing  – original  draft, Methodology,  
+Formal  analysis,  Conceptualization.  Mulagala  Sandhya:  Writing  – 
+review & editing,  Writing  – original  draft, Supervision,  Project ad-
+ministration,  Methodology,  Investigation,  Conceptualization.  I HHNTV  
+Prasad:  Writing  – review & editing,  Writing  – original  draft. Nal-
+laparaju  V SuryanarayanaRaju:  Writing  – original  draft, Software,  
+Conceptualization.Declaration  of competing  interest
+The authors  declare  that they have no known competing  finan-
+cial interests  or personal  relationships  that could have appeared  to 
+influence  the work reported  in this paper.
+Acknowledgments
+This research  work was financially  supported  by the IIT Bhilai 
+Innovation  and Technology  Foundation  (IBITF)  under the Promotion  
+and Acceleration  of Young and Aspiring  Technology  Entrepreneurs  
+(PRAYAS)  project.
+Data availability
+Data will be made available  on request.
+References
+[1] Maltoni D, Maio D, Jain AK, Prabhakar  S. Handbook  of Fingerprint  Recognition.  
+2nd. London: Springer;  2009, http://dx.doi.org/10.1007/978-1-84882-254-2 .
+[2] Cappelli R, Maio D, Lumini A, Maltoni D. Fingerprint  image reconstruction  from 
+standard templates.  IEEE Trans Pattern Anal Mach Intell 2007;29(9):1489–503.
+[3] Belhadj F, Moussaoui  A. Attack via missed record synchronization  on 
+transformation-based  fingerprint  template protection  algorithms.  Multimedia  
+Tools Appl 2023;1–21.
+[4] Ratha N, Connell J, Bolle R, Chikkerur  S. Cancelable  biometrics:  A case study in 
+fingerprints.  In: 18th international  conference  on pattern recognition.  ICPR’06, 
+vol. 4, 2006, p. 370–3.
+[5] Gao C, Zhang K, Wang W, Cao Z, Pang L, Liu E, Zhao H. Protected  face templates  
+generation  based on multiple partial walsh transformations  and Simhash.  IEEE 
+Trans Inf Forensics  Secur 2024.
+[6] Sandhya M, Prasad MV. Securing fingerprint  templates  using fused structures.  
+IET Biom 2017;6(3):173–82.
+[7] Ali SS, Ganapathi  II, Prakash S. Robust technique  for fingerprint  template 
+protection.  IET Biom 2018;7(6):536–49.
+[8] Ali SS, Ganapathi  II, Prakash S, Consul P, Mahyo S. Securing biomet-
+ric user template using modified  minutiae  attributes.  Pattern Recognit Lett 
+2020;129:263–70.
+[9] Ali SS, Ganapathi  II, Mahyo S, Prakash S. Polynomial  vault: A secure 
+and robust fingerprint  based authentication.  IEEE Trans Emerg Top Comput 
+2019;9(2):612–25.
+[10] Kukadiya  J, Sandhya M, Vallabhadas  DK, Prasad IH, Mooda R. An alignment-
+free secure fingerprint  authentication  integrated  with elliptic curve signcryption  
+scheme. J Inf Secur Appl 2025;90:104049.
+[11] Champaneria  VH, Patel SJ, Zaveri MA. A cancelable  biometric  authenti-
+cation scheme based on geometric  transformation.  Multimedia  Tools Appl 
+2024;84:15407–28.
+[12] Khan MS, Li H, Zhao C. Deep secure PalmNet:  a novel cancelable  palmprint  
+template protection  scheme with deep attention  net and randomized  hashing 
+security mechanism.  Comput Secur 2024;142:103863.
+[13] Khan MS, Zhong T, Zhou F, Li H. Secure and cancelable  fingerprint  templates  
+with privacy-preserving  mapping and template encoding.  J Inf Secur Appl 
+2025;93:104126.
+[14] Song S, Yang Y, Yu M, Liao Y, Guo W, Li J, Guo S. Cancelable  binary biometric  
+template generation  scheme based on partial walsh transformation  and MinHash  
+algorithm.  Appl Soft Comput 2025;175:113049.
+[15] Zhou Z, Liu Y, Zhu X, Zhang S, Liu Z. Privacy-preserving  cancelable  
+multi-biometrics  for identity information  management.  Inf Process Manage 
+2025;62(1):103869.
+[16] Sp R, Thomas T, Emmanuel  S. Cancelable  biometric  template generation  using 
+random feature vector transformations.  2025, http://dx.doi.org/10.48550/arXiv.
+2503.15648 , ArXiv.
+[17] Juels A, Wattenberg  M. A fuzzy commitment  scheme. In: Proceedings  of the 6th 
+ACM conference  on computer  and communications  security. Singapore:  ACM; 
+1999, p. 28–36.
+[18] Juels A, Sudan M. A fuzzy vault scheme. In: Proceedings  of the IEEE international  
+symposium  on information  theory. Switzerland:  IEEE; 2002, p. 408.
+[19] Nandakumar  K. A fingerprint  cryptosystem  based on minutiae  phase spectrum.  
+In: Proceedings  of the IEEE international  workshop  on information  forensics and 
+security. WIFS, IEEE; 2010, p. 1–6.
+[20] Li P, Yang X, Qiao H, Cao K, Liu E, Tian J. An effective biometric  cryp-
+tosystem combining  fingerprints  with error correction  codes. Expert Syst Appl 
+2012;39(7):6562–74.Journal  of Information  Security  and Applications  94 (2025)  104243  
+15 
+
+---PAGE BREAK---
+
+P.K. Maurya et al.
+[21] Saputra J, Sukarno P. Improving  the accuracy  of fuzzy vault scheme in finger-
+print biometric.  In: 2019 IEEE international  conference  on imaging systems and 
+techniques.  IST, IEEE; 2019, p. 1–6.
+[22] Baghel VS, Prakash S, Agrawal I. An enhanced  fuzzy vault to secure the 
+fingerprint  templates.  Multimedia  Tools Appl 2021;80(21):33055–73.
+[23] Nandakumar  K, Nagar A, Jain AK. Hardening  fingerprint  fuzzy vault using pass-
+word. In: Advances  in biometrics.  Berlin, Heidelberg:  Springer Berlin Heidelberg;  
+2007, p. 927–37.
+[24] Li C, Hu J. A security-enhanced  alignment-free  fuzzy vault-based  fingerprint  
+cryptosystem  using pair-polar  minutiae  structures.  IEEE Trans Inf Forensics  Secur 
+2016;11(3):543–55.
+[25] Uludag U, Jain AK. Securing fingerprint  template:  Fuzzy vault with helper 
+data. In: Proceedings  of the 2006 conference  on computer  vision and pattern 
+recognition  workshop.  CVPRW’06,  IEEE; 2006, p. 163.
+[26] Nandakumar  K, Jain AK, Pankanti  S. Fingerprint-based  fuzzy vault: Implemen-
+tation and performance.  IEEE Trans Inf Forensics  Secur 2007;2(4):744–57.
+[27] Rathgeb C, Tams B, Merkle J, Nesterowicz  V, Korte U, Neu M. Multi-biometric  
+fuzzy vault based on face and fingerprints.  2023, ArXiv, URL https://arxiv.org/
+abs/2301.06882 .
+[28] Tams B, Mihăilescu  P, Munk A. Security considerations  in minutiae-based  fuzzy 
+vaults. IEEE Trans Inf Forensics  Secur 2015;10(5):985–98.
+[29] Abdullahi  SM, Sun S, Wang B, Wei N, Wang H. Biometric  template attacks and 
+recent protection  mechanisms:  A survey. Inf Fusion 2024;103:102144.
+[30] Jin Z, Teoh ABJ, Goi B-M, Tay Y-H. Biometric  cryptosystems:  A new bio-
+metric key binding and its implementation  for fingerprint  minutiae-based  
+representation.  Pattern Recognit 2016;56:50–62.[31] Koblitz N. Elliptic curve cryptosystems.  1987;48.
+[32] Miller VS. Use of elliptic curves in cryptography.  In: Conference  on the theory 
+and application  of cryptographic  techniques.  Springer;  1985, p. 417–26.
+[33] Brier E, Joye M, et al. Efficient hash to curve algorithms.  In: International  
+conference  on selected areas in cryptography.  Springer;  2010, p. 170–83.
+[34] Shallue A, van de Woestijne  C. Constructing  elliptic curves and rational points. 
+In: Algorithmic  number theory symposium.  2006, p. 510–24.
+[35] Neurotechnology.  MegaMatcher  SDK. 2023, https://www.neurotechnology.com/
+megamatcher.html .
+[36] Sae-Bae N, Memon N. Distinguishability  of keystroke  dynamic template.  PLoS 
+One 2022;17(1):e0261291.
+[37] Adler A, Youmaran  R, Loyka S. Towards a measure of biometric  feature 
+information.  Pattern Anal Appl 2009;12(3):261–70.
+[38] Youmaran  R, Adler A. Measuring  biometric  sample quality in terms of biometric  
+feature information  in iris images. J Electr Comput Eng 2012;2012(1):282589.
+[39] Takahashi  K, Murakami  T. A measure of information  gained through biometric  
+systems. Image Vis Comput 2014;32(12):1194–203.
+[40] Ratha NK, Connell JH, Bolle RM. Enhancing  security and privacy in biometrics-
+based authentication  systems. IBM Syst J 2001;40(3):614–34.  http://dx.doi.org/
+10.1147/sj.403.0614 .
+[41] Gomez-Barrero  M, Galbally J, Rathgeb C, Busch C. General framework  to 
+evaluate unlinkability  in biometric  template protection  systems. IEEE Trans Inf 
+Forensics  Secur 2017;13(6):1406–20.Journal  of Information  Security  and Applications  94 (2025)  104243  
+16 
+
+---PAGE BREAK---
+

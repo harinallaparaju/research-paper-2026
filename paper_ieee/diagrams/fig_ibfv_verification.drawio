@@ -1,0 +1,124 @@
+<mxfile host="app.diagrams.net" modified="2026-04-06" agent="IBFV Paper" version="24.0.0" type="device">
+  <diagram id="ibfv-verification" name="IBFV Verification Pipeline">
+    <mxGraphModel dx="1400" dy="520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="520" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ===== STORED TEMPLATE ===== -->
+        <mxCell id="stored" value="&lt;b&gt;Stored Template&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;(&lt;i&gt;V&lt;/i&gt;, &lt;i&gt;S&lt;/i&gt;, &lt;b&gt;h&lt;/b&gt;, &lt;i&gt;H&lt;/i&gt;(&lt;b&gt;k&lt;/b&gt;), &lt;i&gt;B&lt;/i&gt;&lt;sub&gt;&lt;i&gt;s&lt;/i&gt;&lt;/sub&gt;)&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#E0E0E0;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="25" y="225" width="100" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== FINGERPRINT QUERY PATH (top) ===== -->
+        <mxCell id="fp_label" value="&lt;b&gt;Fingerprint Query&lt;/b&gt;" style="text;html=1;align=left;fontSize=10;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="22" y="18" width="130" height="16" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="fp_q" value="Query&lt;br&gt;Fingerprint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="25" y="40" width="85" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="fp_pipe" value="Quantize &#8594; EC Map&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Same as enrollment&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="150" y="40" width="115" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="fp_match" value="FP Match&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;X&lt;sub&gt;FP&lt;/sub&gt; = matching vault points&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="305" y="37" width="135" height="42" as="geometry"/>
+        </mxCell>
+        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="fp_q" target="fp_pipe" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="fp_pipe" target="fp_match" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===== IRIS QUERY PATH (middle) ===== -->
+        <mxCell id="ir_label" value="&lt;b&gt;Iris Query&lt;/b&gt;" style="text;html=1;align=left;fontSize=10;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="22" y="100" width="80" height="16" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ir_q" value="Query&lt;br&gt;Iris" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="25" y="122" width="85" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="ir_recover" value="Key Recovery&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Fuzzy commitment decode&lt;br&gt;&#177;16 rotation shifts&lt;br&gt;Majority vote per block&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="150" y="112" width="130" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="ir_q" target="ir_recover" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===== DECISION DIAMOND ===== -->
+        <mxCell id="diamond" value="Iris key&lt;br&gt;recovered?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="112" width="105" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="ir_recover" target="diamond" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===== YES PATH (iris success) ===== -->
+        <mxCell id="yes_label" value="Yes (~54%)" style="text;html=1;fontSize=8;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="442" y="126" width="60" height="14" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="derive" value="Derive Virtual&lt;br&gt;Coordinates&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;&lt;i&gt;v&lt;/i&gt;&lt;sub&gt;&lt;i&gt;j&lt;/i&gt;&lt;/sub&gt; = H(&#954;, &lt;i&gt;j&lt;/i&gt;) mod &lt;i&gt;p&lt;/i&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="505" y="112" width="115" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="bonus_match" value="Bonus Match&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;X&lt;sub&gt;Iris&lt;/sub&gt; = &lt;i&gt;K&lt;/i&gt; guaranteed-&lt;br&gt;genuine points&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="112" width="120" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="d1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1;" edge="1" source="diamond" target="derive" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="d2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="derive" target="bonus_match" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===== NO PATH (fallback) ===== -->
+        <mxCell id="no_label" value="No (~46%)" style="text;html=1;fontSize=8;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="348" y="186" width="60" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="fallback" value="Fallback: X = X&lt;sub&gt;FP&lt;/sub&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Identical to unimodal&lt;br&gt;(zero penalty)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=9;strokeDasharray=4 4;" vertex="1" parent="1">
+          <mxGeometry x="315" y="210" width="130" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeDasharray=4 4;" edge="1" source="diamond" target="fallback" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===== COMBINE ===== -->
+        <mxCell id="combine" value="Combine&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;X = X&lt;sub&gt;FP&lt;/sub&gt; &#8746; X&lt;sub&gt;Iris&lt;/sub&gt;&lt;br&gt;|X| = |X&lt;sub&gt;FP&lt;/sub&gt;| + &lt;i&gt;K&lt;/i&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=9;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="830" y="60" width="115" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="f1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="fp_match" target="combine" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="800" y="58"/><mxPoint x="800" y="84"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="f2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="bonus_match" target="combine" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="800" y="136"/><mxPoint x="800" y="84"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Fallback also goes to Lagrange -->
+        <mxCell id="f3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeDasharray=4 4;" edge="1" source="fallback" target="lagrange" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="380" y="280"/><mxPoint x="1000" y="280"/><mxPoint x="1000" y="190"/></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ===== LAGRANGE + VERIFY ===== -->
+        <mxCell id="lagrange" value="Lagrange&lt;br&gt;Interpolation&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Try (&lt;i&gt;k&lt;/i&gt;+1)-subsets of X&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="985" y="60" width="115" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="g1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;" edge="1" source="combine" target="lagrange" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="verify" value="Verify&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;&lt;i&gt;s&lt;/i&gt;&#770; &#183; &lt;i&gt;G&lt;/i&gt; = &lt;i&gt;S&lt;/i&gt; ?&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="60" width="80" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="g2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="lagrange" target="verify" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Accept / Reject -->
+        <mxCell id="accept" value="&lt;b&gt;Accept&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="48" width="70" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="rej" value="Reject" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=10;strokeDasharray=4 4;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="88" width="70" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="h1" value="Match" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;fontSize=8;" edge="1" source="verify" target="accept" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="h2" value="No match" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeDasharray=4 4;fontSize=8;" edge="1" source="verify" target="rej" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Separator -->
+        <mxCell id="sep" value="" style="line;strokeWidth=1;strokeColor=#CCCCCC;strokeDasharray=2 2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="95" width="785" height="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Annotation: key insight -->
+        <mxCell id="insight" value="&lt;font style=&quot;font-size:8px&quot;&gt;&lt;b&gt;Key property:&lt;/b&gt; If iris fails, fallback path (dashed)&lt;br&gt;is identical to unimodal &#8212; zero penalty.&lt;/font&gt;" style="text;html=1;fontSize=8;fontColor=#555555;align=left;" vertex="1" parent="1">
+          <mxGeometry x="500" y="266" width="250" height="28" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

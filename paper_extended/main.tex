@@ -1,0 +1,1603 @@
+% ============================================================================
+% IBFV: Iris-Boosted Fuzzy Vault for Multimodal Biometric Template Protection
+% Elsevier Journal Format (elsarticle)
+% ============================================================================
+\documentclass[3p,twocolumn]{elsarticle}
+
+% --- Packages ---
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{subcaption}
+\usepackage{pifont}
+\usepackage{lineno}
+
+% (TikZ removed — figures are now matplotlib PDFs)
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+
+% --- Custom commands ---
+\newcommand{\IBFV}{\textsf{IBFV}}
+\newcommand{\DIBFV}{\textsf{D-IBFV}}
+\newcommand{\EER}{\mathrm{EER}}
+\newcommand{\GAR}{\mathrm{GAR}}
+\newcommand{\FAR}{\mathrm{FAR}}
+\newcommand{\FRR}{\mathrm{FRR}}
+\newcommand{\FHD}{\mathrm{FHD}}
+\newcommand{\GFp}{\mathrm{GF}(p)}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+
+% --- Journal name (update as needed) ---
+\journal{Journal of Information Security and Applications}
+
+\begin{document}
+
+\begin{frontmatter}
+
+% ============================================================================
+% TITLE
+% ============================================================================
+\title{Decentralized Iris-Boosted Fuzzy Vault: Zero-Penalty Multimodal Template Protection with Threshold-Distributed Storage}
+
+% ============================================================================
+% AUTHORS
+% ============================================================================
+\author[nitw]{Nallaparaju V. Suryanarayana Raju\corref{cor1}}
+\ead{nv24csm2s04@student.nitw.ac.in}
+
+\author[nitw]{Mulagala Sandhya}
+\ead{m.sandhya@nitw.ac.in}
+
+\cortext[cor1]{Corresponding author}
+
+\affiliation[nitw]{organization={Department of Computer Science and Engineering, National Institute of Technology, Warangal},
+            state={Telangana},
+            country={India}}
+
+% ============================================================================
+% ABSTRACT
+% ============================================================================
+\begin{abstract}
+Adding a second biometric modality to a fuzzy vault should never make the system worse---yet in every existing multimodal scheme, it can: the auxiliary modality gates decoding, so iris failure rejects the user even when the fingerprint alone would suffice.
+
+We propose the \emph{Iris-Boosted Fuzzy Vault} (\IBFV{}), which replaces this gating with boosting. \IBFV{} derives $K$ bonus polynomial evaluation points from a stabilized iris key and injects them into the fingerprint vault. Successful iris recovery adds guaranteed-genuine points that shrink the interpolation search space; failure reverts to the unimodal path at zero cost. We formally prove $\EER_{\IBFV} \leq \EER_{\text{Uni}}$ and validate this across 960+ configurations on four FVC databases paired with CASIA-Iris-Interval, achieving up to 61.3\% relative EER reduction. All four alternative multimodal architectures tested degrade performance.
+
+To eliminate single-server trust, we extend \IBFV{} to \DIBFV{}: each vault is split via $(t,n)$-Shamir Secret Sharing and distributed across IPFS nodes with blockchain-anchored integrity records, provably leaking zero information from fewer than $t$ shares. Experiments on Ethereum and Hyperledger Fabric confirm sub-second enrollment, sub-100\,ms verification, and lossless reconstruction across 30{,}000 trials. \DIBFV{} is the first scheme to combine zero-penalty multimodal fusion with threshold-distributed template protection, satisfying all three ISO/IEC~24745 requirements.
+\end{abstract}
+
+\begin{keyword}
+Biometric template protection \sep fuzzy vault \sep elliptic curve cryptography \sep multimodal biometrics \sep iris recognition \sep fingerprint \sep blockchain \sep Shamir secret sharing \sep decentralized identity
+\end{keyword}
+
+\end{frontmatter}
+
+%% Uncomment for line numbers during review:
+%% \linenumbers
+
+% ============================================================================
+% I. INTRODUCTION
+% ============================================================================
+\section{Introduction}
+\label{sec:introduction}
+
+Biometric authentication is increasingly deployed in border control, financial services, and national identity programs~\cite{jain2004multibiometrics}. Unlike passwords, biometric traits are permanent: once a stored template is compromised, the underlying trait cannot be revoked. ISO/IEC~24745~\cite{iso24745} mandates three properties for biometric template protection (BTP): \emph{irreversibility}, \emph{unlinkability}, and \emph{revocability}.
+
+The fuzzy vault~\cite{juels2002fuzzy} is a widely studied BTP primitive that hides a secret polynomial among chaff points; recovery requires a sufficiently similar biometric query to identify enough genuine points for Lagrange interpolation~\cite{rathgeb2011survey}. Maurya~\textit{et~al.}~\cite{maurya2025enhancing} advanced the scheme by mapping quantized minutiae to elliptic curve (EC) points over Brainpool~P256r1~\cite{rfc5639}, achieving EER as low as 0.005\% on FVC2002~DB1 with vault entropy exceeding 7.7~bits per coordinate. However, unimodal fingerprint systems remain vulnerable to spoof attacks and degrade on challenging data (EER~5.0\% on FVC2002~DB3).
+
+Multimodal fusion improves accuracy and spoof resistance~\cite{ross2003information}, but integrating it into template protection is harder: the cryptographic binding must accommodate heterogeneous features while preserving security. Existing multimodal fuzzy vaults~\cite{nandakumar2008multibiometric,moon2010multibiometric} share a structural flaw: the second modality \emph{gates} decoding. Under AND-fusion, $\GAR_{\text{AND}} = \GAR_{\text{FP}} \times \GAR_{\text{Iris}} \leq \GAR_{\text{FP}}$, so failure in the auxiliary modality rejects genuine users even when the fingerprint alone suffices. For iris subsystems with $\GAR_{\text{Iris}} \approx 62\%$, over a third of genuine users are penalized.
+
+We propose the \emph{Iris-Boosted Fuzzy Vault} (\IBFV{}), which uses the iris as an \emph{optional booster} rather than a mandatory gate. A stabilized iris key seeds a PRF to derive $K$ bonus polynomial evaluation points injected into the vault. If iris recovery succeeds, the decoder receives $K$ guaranteed-genuine points that reduce the interpolation search space; if it fails, decoding proceeds identically to the unimodal system with zero penalty. We prove $\Pr[\text{Accept}_{\IBFV}] \geq \Pr[\text{Accept}_{\text{Uni}}]$ for all configurations (Theorem~\ref{thm:zero_penalty}).
+
+Centralized vault storage remains a single point of failure. High-profile breaches---Aadhaar (1.1~billion records, 2018), the U.S.\ OPM (5.6~million fingerprints, 2015)---demonstrate the risk. We extend \IBFV{} to a \emph{Decentralized} variant (\DIBFV{}) that splits each vault via $(t,n)$-Shamir Secret Sharing~\cite{shamir1979how} over $\mathrm{GF}(257)$, stores shares on IPFS~\cite{benet2014ipfs}, and records CIDs on a blockchain ledger.
+
+Our contributions:
+\begin{itemize}
+    \item A multimodal fuzzy vault with a provable zero-penalty guarantee---the first where the auxiliary modality never degrades performance---validated across 960+ configurations on four FVC databases with five architectures.
+    \item Security analysis satisfying all three ISO/IEC~24745 requirements against Ratha~\textit{et~al.}'s eight-point threat model~\cite{ratha2001enhancing}, with ECDLP-based irreversibility ($\sim\!2^{128}$ operations).
+    \item A decentralized extension (\DIBFV{}) with threshold-distributed storage on IPFS and blockchain, with formal proofs of share confidentiality and exact reconstruction.
+    \item Multi-platform system benchmarks on Ganache (EVM) and Hyperledger Fabric~2.5 confirming enrollment under 806\,ms, verification under 71\,ms, and zero-bit-error reconstruction across 30{,}000 trials.
+\end{itemize}
+
+Section~\ref{sec:related} surveys related work. Section~\ref{sec:preliminaries} reviews preliminaries. Section~\ref{sec:proposed} presents \IBFV{}. Section~\ref{sec:decentralized} describes \DIBFV{}. Section~\ref{sec:security} provides security analysis. Sections~\ref{sec:experiments} and~\ref{sec:system_experiments} report biometric and system-level experiments. Section~\ref{sec:conclusion} concludes.
+
+% ============================================================================
+% II. RELATED WORK
+% ============================================================================
+\section{Related Work}
+\label{sec:related}
+
+\subsection{Biometric Template Protection}
+
+BTP approaches fall into two categories. \emph{Cancelable biometrics}~\cite{ratha2007generating} apply intentional, repeatable transformations to features before storage; Teoh~\textit{et~al.}~\cite{teoh2004random} introduced random multispace quantization for face and palm data. These methods provide revocability but may reduce discriminability. \emph{Biometric cryptosystems}~\cite{jain2008biometric} bind a cryptographic key to biometric data. Dodis~\textit{et~al.}~\cite{dodis2008fuzzy} formalized this as \emph{fuzzy extractors}; the fuzzy vault~\cite{juels2002fuzzy} and fuzzy commitment~\cite{hao2006combining} are the most studied instantiations. Rathgeb and Uhl~\cite{rathgeb2011survey} survey both paradigms, noting that biometric cryptosystems offer stronger provable security but face greater challenges with noisy data.
+
+\subsection{Fuzzy Vault Schemes}
+
+The fuzzy vault~\cite{juels2002fuzzy} hides a degree-$k$ secret polynomial among chaff points; decoding requires $\geq k{+}1$ genuine points for Lagrange interpolation. Clancy~\textit{et~al.}~\cite{clancy2003secure} first applied it to fingerprint minutiae. Uludag~\textit{et~al.}~\cite{uludag2005fuzzy} added alignment helper data (EER 4.0\% on FVC2002~DB2); Nandakumar~\textit{et~al.}~\cite{nandakumar2007fuzzy} reduced EER to $\sim$2\% via high-curvature alignment. Tams~\cite{tams2013attacks} analyzed record-multiplicity attacks, underscoring the need for enrollment-independent vault structures.
+
+Maurya~\textit{et~al.}~\cite{maurya2025enhancing} replaced traditional $\mathrm{GF}(2^{16})$ encoding with ECC over Brainpool~P256r1~\cite{rfc5639}, achieving EER as low as 0.005\% (FVC2002~DB1) and vault entropy $>$7.7~bits per coordinate. Our work builds on this ECC vault as the unimodal baseline.
+
+\subsection{Multimodal Biometric Fusion}
+
+Multimodal systems fuse information from multiple sources to improve accuracy and spoof resistance~\cite{ross2003information,jain2004multibiometrics}. Nandakumar and Jain~\cite{nandakumar2008multibiometric} fused fingerprint and iris within a single fuzzy vault, but both modalities must be correct for decoding, introducing a gating penalty. Moon~\textit{et~al.}~\cite{moon2010multibiometric} combined face and fingerprint similarly; the face module remains mandatory. Kelkboom~\textit{et~al.}~\cite{kelkboom2011multialgorithm} fused multiple fingerprint algorithms within a fuzzy commitment framework but did not consider cross-modal fusion.
+
+We additionally evaluate three tight-coupling strategies (Section~\ref{sec:arch_bcd_results}): polynomial blinding, dense chaff seeding ($20\times$), and AES-256-GCM vault encryption. All three require the iris for decoding and exhibit the AND-fusion penalty.
+
+\subsection{Iris Recognition and Fuzzy Commitment}
+
+Daugman~\cite{daugman2004how} established iris recognition via multi-scale Gabor encoding into binary iris codes, with fractional Hamming distance (FHD) as the matching metric. Hao~\textit{et~al.}~\cite{hao2006combining} combined iris codes with error-correcting codes via fuzzy commitment, binding a 140-bit key to a 2048-bit code with up to 25\% error tolerance. We employ a repetition-code fuzzy commitment with bit interleaving over the full 131,072-bit iris code (Section~\ref{sec:iris_commitment}), distributing spatially correlated errors across blocks for effective majority-vote decoding.
+
+\subsection{Blockchain-Based Biometric Systems}
+\label{sec:blockchain_bio}
+
+Delgado-Mohatar~\textit{et~al.}~\cite{delgado2020blockchain} surveyed opportunities and challenges of storing biometric templates on blockchain, noting high on-chain storage costs as a key barrier. Acquah~\textit{et~al.}~\cite{acquah2020securing} identified off-chain storage with on-chain hash anchoring as the scalable pattern. Goel~\textit{et~al.}~\cite{goel2019securing} secured CNN-based biometric feature extraction and template matching via blockchain with Shamir-based key recovery, but stored unprotected template data. Lee and Jeong~\cite{lee2021securing} proposed BDAS, a blockchain-based biometric authentication system that fragments templates across a distributed ledger for decentralized management. Sharma~\textit{et~al.}~\cite{sharma2024multimodal} combined fingerprint/iris via cancelable transforms on blockchain (EER~$\sim$8\%), and Sharma and Dwivedi~\cite{sharma2026fabric} deployed on Fabric without formal vault splitting. Yun~\textit{et~al.}~\cite{yun2024biorollup} proposed Bio-Rollup, integrating zk-SNARK-based auditing with layer-2 blockchain scaling for biometric query privacy, but without cryptographic vault protection. Prakasha~\textit{et~al.}~\cite{prakasha2025privacy} surveyed privacy-preserving biometric authentication on blockchain, highlighting the need for stronger template protection and scalable decentralized architectures.
+
+\subsection{Summary and Gap Analysis}
+
+Table~\ref{tab:related_gap} summarizes the distinctions. All existing multimodal schemes require the auxiliary modality for decoding; failure implies rejection. \IBFV{} is the first to decouple this trade-off: the iris provides a strict boost when available and zero penalty when unavailable. To the best of our knowledge, no existing blockchain-based biometric scheme combines formal vault-level splitting with zero-penalty multimodal fusion. \DIBFV{} is the first to do so.
+
+\begin{table*}[t]
+\centering
+\caption{Gap analysis: multimodal fuzzy vault and blockchain-based biometric architectures.}
+\label{tab:related_gap}
+\begin{tabular}{@{}l c c c c c@{}}
+\toprule
+\textbf{Scheme} & \textbf{Aux.\ Required} & \textbf{Gating Penalty} & \textbf{Zero-Penalty} & \textbf{Decentralized}\\
+\midrule
+Nandakumar~\cite{nandakumar2008multibiometric} & Yes & Yes & No & No\\
+Moon~\cite{moon2010multibiometric} & Yes & Yes & No & No\\
+Kelkboom~\cite{kelkboom2011multialgorithm} & Yes & Yes & No & No\\
+Arch.\ A (AND-fusion) & Yes & Yes & No & No\\
+Arch.\ B (Blinding) & Yes & Yes & No & No\\
+Arch.\ C (Dense Chaff) & Yes & Yes & No & No\\
+Arch.\ D (AES Encrypt) & Yes & Yes & No & No\\
+\midrule
+Delgado-Mohatar~\cite{delgado2020blockchain} & --- & --- & --- & Yes\\
+Sharma~\cite{sharma2024multimodal} & Yes & Yes & No & Yes\\
+Lee (BDAS)~\cite{lee2021securing} & --- & --- & --- & Yes\\
+Yun (Bio-Rollup)~\cite{yun2024biorollup} & --- & --- & --- & Yes\\
+Sharma \& Dwivedi~\cite{sharma2026fabric} & --- & --- & --- & Yes\\
+\midrule
+\IBFV{} (ours) & \textbf{No} & \textbf{No} & \textbf{Yes} & No\\
+\DIBFV{} (ours) & \textbf{No} & \textbf{No} & \textbf{Yes} & \textbf{Yes}\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% ============================================================================
+% III. PRELIMINARIES
+% ============================================================================
+\section{Preliminaries}
+\label{sec:preliminaries}
+
+This section reviews the building blocks: elliptic curve cryptography (\ref{sec:ecc_background}), the fuzzy vault (\ref{sec:fuzzy_vault_concept}--\ref{sec:ecc_vault}), iris extraction and commitment (\ref{sec:iris_extraction}--\ref{sec:iris_commitment}), Shamir's Secret Sharing (\ref{sec:shamir_background}), and blockchain/IPFS infrastructure (\ref{sec:blockchain_background}).
+
+\subsection{Elliptic Curve Cryptography}
+\label{sec:ecc_background}
+
+An elliptic curve $E$ over a prime field $\GFp{}$ is defined by the short Weierstrass equation $y^2 = x^3 + ax + b \pmod{p}$. The points on $E$, together with the point at infinity $\mathcal{O}$, form an abelian group. Security rests on the \emph{Elliptic Curve Discrete Logarithm Problem} (ECDLP): given $G$ and $Q = s \cdot G$, finding $s$ requires $O(\sqrt{n}) \approx 2^{128}$ operations for a 256-bit group. We use Brainpool~P256r1~\cite{rfc5639} ($p = 256$~bits, cofactor~$h = 1$). The key property is that recovering a quantized minutia $q$ from the vault point $P.x$ (where $P = q \cdot G$) requires solving ECDLP.
+
+\subsection{Fuzzy Vault Concept}
+\label{sec:fuzzy_vault_concept}
+
+The fuzzy vault~\cite{juels2002fuzzy} binds a secret to a noisy, unordered set (Fig.~\ref{fig:fuzzy_vault_concept}). A degree-$k$ polynomial $p(x)$ is evaluated at biometric-derived coordinates; the resulting points are hidden among randomly generated chaff that do not lie on $p(x)$. Unlocking requires $\geq k{+}1$ genuine matches for Lagrange interpolation. Security relies on the indistinguishability of genuine and chaff points.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig_fuzzy_vault_concept.pdf}
+    \caption{Fuzzy vault: (a)~Locking---genuine points lie on $p(x)$, chaff are scattered. (b)~Unlocking---query matches enable Lagrange interpolation.}
+    \label{fig:fuzzy_vault_concept}
+\end{figure}
+
+\subsection{ECC-Based Fuzzy Vault}
+\label{sec:ecc_vault}
+
+We adopt the ECC vault construction of~\cite{maurya2025enhancing}. Let $E$ be the Brainpool~P256r1 elliptic curve over $\GFp{}$ with generator $G$ and prime order $n$.
+
+\subsubsection{Locking (Enrollment)}
+Given a set of fingerprint minutiae $\mathcal{M} = \{m_1, \ldots, m_t\}$, the vault is constructed as follows:
+
+\begin{enumerate}
+    \item \textbf{Quantization}: Each minutia $m_i = (x_i, y_i, \theta_i)$ is quantized by a factor $f$: $q_i = (\lfloor x_i/f \rfloor \bmod 64) \| (\lfloor y_i/f \rfloor \bmod 64) \| (\lfloor \theta_i/f \rfloor \bmod 64)$, producing an 18-bit integer. Duplicate quantized values are removed, yielding $\mathcal{Q} = \{q_1, \ldots, q_g\}$ with $g \leq t$.
+    \item \textbf{EC Mapping}: Each $q_i$ is mapped to an EC point $P_i = q_i \cdot G$, a one-way mapping protected by ECDLP.
+    \item \textbf{Polynomial Generation}: A random polynomial $p(x) = \sum_{j=0}^{k} a_j x^j$ of degree $k$ is generated over $\GFp{}$, with coefficients $a_j \in [10, 63]$ (6 bits each). The secret key is $s = \left(\bigoplus_{j=0}^{k} \text{bin}_6(a_j)\right) \bmod n$, and the public key is $S = s \cdot G$.
+    \item \textbf{Genuine Point Projection}: Each genuine minutia is projected onto the polynomial: $\mathcal{G} = \{(P_i.x, \; p(P_i.x))\}_{i=1}^{g}$.
+    \item \textbf{Chaff Generation}: $5g$ chaff points are generated: $\mathcal{C} = \{(c_j.x, r_j)\}_{j=1}^{5g}$ where $r_j \neq p(c_j.x)$, \ie{}, chaff points do \emph{not} lie on $p(x)$.
+    \item \textbf{Vault Assembly}: All $6g$ points are randomly shuffled: $\mathcal{V} = \text{shuffle}(\mathcal{G} \cup \mathcal{C})$. The vault stores $(\mathcal{V}, S)$.
+\end{enumerate}
+
+The security of the vault relies on the indistinguishability of genuine and chaff points: without knowing which points lie on $p(x)$, an adversary must try $\binom{6g}{k+1}$ subsets.
+
+\subsubsection{Unlocking (Verification)}
+Given query minutiae $\mathcal{M}'$, quantize to $\mathcal{Q}'$ and find matching x-coordinates $\mathcal{X}_m = \{x : (x,y) \in \mathcal{V}, \exists q' \in \mathcal{Q}' \text{ s.t. } (q' \cdot G).x = x\}$. If $|\mathcal{X}_m| \geq k+1$, for each $(k{+}1)$-subset of $\mathcal{X}_m$, perform Lagrange interpolation to reconstruct a candidate polynomial $\hat{p}(x)$, compute $\hat{s}$, and verify $\hat{s} \cdot G \stackrel{?}{=} S$. The vault is successfully unlocked if any subset yields a matching public key.
+
+\subsection{Iris Code Extraction}
+\label{sec:iris_extraction}
+
+We implement a custom pipeline following Daugman~\cite{daugman2004how} and Masek~\cite{masek2003thesis}, operating on $320 \times 280$ NIR images from CASIA-Iris-Interval. \textbf{Segmentation}: The pupil is detected by intensity thresholding with contour refinement; the iris outer boundary is located via an integrodifferential-style radial gradient search. A noise mask excludes the pupil interior, specular reflections, and eyelid occlusions (detected via column-wise variance analysis on the normalized strip). \textbf{Normalization}: The annular iris region is unwrapped to a $64 \times 512$ strip using Daugman's rubber-sheet model; the noise mask is simultaneously remapped. \textbf{Encoding}: The strip is CLAHE-enhanced and encoded with 1D Log-Gabor filters at two center wavelengths (18 and 36~pixels, $\sigma/f = 0.30$), producing a phase-quantized code of $64 \times 512 \times 2 \times 2 = 131{,}072$ bits. Fragile bits---near phase boundaries where the response amplitude falls below $0.55\times$ the median---are masked~\cite{hollingsworth2009fragile}. Mean validity coverage is $\approx 26\%$. \textbf{Matching}: Iris codes are compared via fractional Hamming distance (FHD) over mutually valid bits, with circular bit-shifts ($\pm 32$ columns) compensating for rotational misalignment.
+
+\subsection{Iris Fuzzy Commitment with Bit Interleaving}
+\label{sec:iris_commitment}
+
+We extract a stable binary key from iris codes using a repetition-code fuzzy commitment. Let $\mathbf{c} \in \{0,1\}^{N}$ denote an $N$-bit iris code ($N = 131{,}072$ in our implementation) and let $B_s$ denote the \emph{block size} (number of bits per block). The number of blocks is $n_b = \lfloor N / B_s \rfloor$, each contributing one key bit, yielding an $n_b$-bit key.
+
+\subsubsection{Enrollment}
+\begin{enumerate}
+    \item Partition the code into $n_b$ blocks using \emph{interleaved} assignment: bit $j$ belongs to block $(j \bmod n_b)$, distributing spatially correlated errors across blocks rather than concentrating them in contiguous regions.
+    \item Generate a random $n_b$-bit key $\mathbf{k} = (k_0, \ldots, k_{n_b-1})$.
+    \item Construct a repetition codeword $\mathbf{w}$: position $j$ is set to $k_{j \bmod n_b}$.
+    \item Compute helper data $\mathbf{h} = \mathbf{c} \oplus \mathbf{w}$ and store $(\mathbf{h}, H(\mathbf{k}))$ where $H$ is SHA-256.
+\end{enumerate}
+
+\subsubsection{Recovery}
+Given query code $\mathbf{c}'$, for each rotation shift $\delta \in [-32, +32]$ (compensating for head tilt):
+\begin{enumerate}
+    \item Compute $\tilde{\mathbf{c}} = \text{rotate}(\mathbf{c}', \delta)$ and $\tilde{\mathbf{w}} = \tilde{\mathbf{c}} \oplus \mathbf{h}$.
+    \item For each block $i$, recover $\hat{k}_i$ by majority vote over the block's valid positions (excluding masked bits). With $B_s = 255$, the error correction capacity per block is $(B_s - 1)/2 = 127$ bit errors (up to 49.8\% error rate per block). Since genuine iris pairs exhibit FHD~$\approx 0.20$ (i.e., $\sim$51 errors per 255-bit block on average), majority vote succeeds for most blocks; however, all $n_b = 514$ blocks must decode correctly for key recovery, yielding an overall GAR of $\sim$62\%.
+    \item If $H(\hat{\mathbf{k}}) = H(\mathbf{k})$, recovery succeeds; return $\hat{\mathbf{k}}$.
+\end{enumerate}
+
+\subsection{Shamir's Secret Sharing}
+\label{sec:shamir_background}
+
+Shamir's $(t,n)$-threshold Secret Sharing~\cite{shamir1979how} distributes a secret $s \in \mathrm{GF}(q)$ among $n$ parties by evaluating a random degree-$(t{-}1)$ polynomial $f(x)$ with $f(0) = s$ at $n$ distinct points. Any $t$ shares suffice for Lagrange reconstruction of $s$; $t{-}1$ or fewer shares reveal zero information about $s$ (information-theoretic security). We operate over $\mathrm{GF}(257)$---the smallest prime field containing all 256 byte values---applying Shamir sharing independently to each byte of the serialized vault.
+
+\subsection{Blockchain and IPFS Infrastructure}
+\label{sec:blockchain_background}
+
+\subsubsection{Hyperledger Fabric}
+Hyperledger Fabric~\cite{androulaki2018hyperledger} is a permissioned blockchain with pluggable consensus (Raft, BFT) and chaincode execution. Its execute-order-validate model achieves $>$2{,}000~TPS in optimized batch-transaction benchmarks~\cite{androulaki2018hyperledger}; per-invocation latency for complex chaincode (including IPFS I/O) is higher, as confirmed in Section~\ref{sec:throughput}. In \DIBFV{}, Fabric provides the tamper-evident CID ledger for permissioned deployments.
+
+\subsubsection{EVM-Compatible Platforms}
+Ethereum~\cite{buterin2014ethereum} and its Layer-2 derivatives (Polygon~PoS~\cite{polygon2021}, Arbitrum, Optimism) provide permissionless smart-contract execution. Any EVM-compatible chain can deploy the same Solidity contract. We use a local Ganache EVM instance as a controlled baseline.
+
+\subsubsection{IPFS}
+IPFS~\cite{benet2014ipfs} is a content-addressed storage network where each object is identified by its SHA-256 hash (CID), providing integrity verification and decentralized availability. Each Shamir share is stored as an IPFS object; the CIDs are recorded on the blockchain.
+
+% ============================================================================
+% IV. PROPOSED ARCHITECTURE: IBFV
+% ============================================================================
+\section{Proposed Architecture: \IBFV{}}
+\label{sec:proposed}
+
+\subsection{Motivation: The AND-Fusion Penalty}
+\label{sec:motivation}
+
+Consider a conventional multimodal fuzzy vault where the iris is used as a mandatory gate (\eg{}, Architecture~A in our experiments). Let $\GAR_{\text{FP}}$ and $\GAR_{\text{Iris}}$ denote the genuine acceptance rates of the fingerprint and iris subsystems, respectively. Under AND-fusion:
+\begin{equation}
+    \GAR_{\text{AND}} = \GAR_{\text{FP}} \times \GAR_{\text{Iris}} \leq \GAR_{\text{FP}}
+    \label{eq:and_penalty}
+\end{equation}
+Since $\GAR_{\text{Iris}} < 1$ in practice (our measurements show $\GAR_{\text{Iris}} \approx 62\%$ for Setup~1), the AND-fusion GAR in~(\ref{eq:and_penalty}) is always lower than the unimodal fingerprint GAR. Fig.~\ref{fig:and_vs_ibfv} illustrates the difference between AND-fusion (gating) and \IBFV{} (boosting).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig_and_vs_ibfv.pdf}
+    \caption{AND-fusion vs.\ \IBFV{}. (a)~AND-fusion gates decoding on the iris; failure blocks the user. (b)~\IBFV{} uses the iris as an optional booster: success adds $K$ bonus points; failure falls back to unimodal decoding with zero penalty.}
+    \label{fig:and_vs_ibfv}
+\end{figure}
+
+\subsection{IBFV Enrollment}
+\label{sec:ibfv_enrollment}
+
+Given fingerprint minutiae $\mathcal{M}$ and iris code $(\mathbf{c}, \mathbf{mask})$, the enrollment procedure (Algorithm~\ref{alg:enrollment}, Fig.~\ref{fig:ibfv_enrollment}) proceeds as follows:
+
+\begin{enumerate}
+    \item Execute the standard ECC vault enrollment (Section~\ref{sec:ecc_vault}) to obtain genuine points $\mathcal{G}_{\text{FP}}$, polynomial $p(x)$, and public key $S$.
+    \item Perform iris fuzzy commitment enrollment (Section~\ref{sec:iris_commitment}) with block size $B_s$ to obtain commitment $(\mathbf{h}, H(\mathbf{k}))$ and key hash $\kappa = H(\mathbf{k})$.
+    \item \textbf{Derive virtual x-coordinates}: For $j = 0, \ldots, K{-}1$:
+    \begin{equation}
+        v_j = \text{SHA-256}\!\left(\texttt{"ibfv\_vpt:"} \| j \| \texttt{":"} \| \kappa\right) \bmod p
+        \label{eq:virtual_x}
+    \end{equation}
+    ensuring $v_j \notin \{P_i.x : P_i \in \mathcal{G}_{\text{FP}}\}$ and $v_j \neq v_\ell$ for $j \neq \ell$.
+    \item \textbf{Compute bonus points}: $\mathcal{G}_{\text{Iris}} = \{(v_j, p(v_j))\}_{j=0}^{K-1}$.
+    \item \textbf{Generate chaff}: $5|\mathcal{G}_{\text{FP}}|$ chaff points (chaff count based on fingerprint points only).
+    \item \textbf{Construct vault}: $\mathcal{V} = \text{shuffle}(\mathcal{G}_{\text{FP}} \cup \mathcal{G}_{\text{Iris}} \cup \mathcal{C})$.
+\end{enumerate}
+
+The stored vault is $(\mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s)$.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig_ibfv_enrollment.pdf}
+    \caption{\IBFV{} enrollment pipeline. The fingerprint path maps minutiae to EC points on Brainpool~P256r1. The iris path extracts a key via fuzzy commitment, seeding a PRF to derive $K$ bonus points. All points are merged with chaff.}
+    \label{fig:ibfv_enrollment}
+\end{figure}
+
+\begin{algorithm}[t]
+\caption{\IBFV{} Enrollment}
+\label{alg:enrollment}
+\begin{algorithmic}[1]
+\REQUIRE Minutiae $\mathcal{M}$, iris code $(\mathbf{c}, \mathbf{mask})$, params $(f, k, K, B_s)$
+\ENSURE Vault $(\mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s)$
+\STATE $\mathcal{Q} \leftarrow \textsc{Quantize}(\mathcal{M}, f)$
+\STATE $\{P_i\} \leftarrow \{q \cdot G : q \in \mathcal{Q}\}$ \COMMENT{EC mapping}
+\STATE $p(x) \leftarrow$ random degree-$k$ polynomial over $\GFp{}$
+\STATE $s \leftarrow \text{bin}(p) \bmod n$; $S \leftarrow s \cdot G$
+\STATE $\mathcal{G}_\text{FP} \leftarrow \{(P_i.x,\; p(P_i.x))\}_{i=1}^{g}$
+\STATE $(\mathbf{h}, \kappa) \leftarrow \textsc{IrisEnroll}(\mathbf{c}, \mathbf{mask}, B_s)$
+\FOR{$j = 0$ \TO $K{-}1$}
+    \STATE $v_j \leftarrow \text{SHA256}(\texttt{"ibfv\_vpt:"} \| j \| \texttt{":"} \| \kappa) \bmod p$
+\ENDFOR
+\STATE $\mathcal{G}_\text{Iris} \leftarrow \{(v_j,\; p(v_j))\}_{j=0}^{K-1}$
+\STATE $\mathcal{C} \leftarrow \textsc{GenChaff}(5g)$ \COMMENT{$5\times$ FP count}
+\STATE $\mathcal{V} \leftarrow \textsc{Shuffle}(\mathcal{G}_\text{FP} \cup \mathcal{G}_\text{Iris} \cup \mathcal{C})$
+\RETURN $(\mathcal{V}, S, \mathbf{h}, \kappa, B_s)$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{IBFV Verification}
+\label{sec:ibfv_verification}
+
+Given query fingerprint $\mathcal{M}'$ and iris code $(\mathbf{c}', \mathbf{mask}')$, verification (Algorithm~\ref{alg:verification}, Fig.~\ref{fig:ibfv_verification}) proceeds:
+
+\begin{enumerate}
+    \item Quantize query minutiae → find FP-matching vault points: $\mathcal{X}_{\text{FP}} = \{(x,y) \in \mathcal{V} : x \in \text{EC}(\mathcal{Q}')\}$.
+    \item Attempt iris key recovery (Section~\ref{sec:iris_commitment}).
+    \item \textbf{If iris succeeds} (key $\hat{\mathbf{k}}$ recovered):
+    \begin{enumerate}
+        \item Derive virtual x-coordinates $\{v_0, \ldots, v_{K-1}\}$ using~(\ref{eq:virtual_x}).
+        \item Find bonus matches: $\mathcal{X}_{\text{Iris}} = \{(x,y) \in \mathcal{V} : x \in \{v_j\}\}$.
+        \item Total candidate set: $\mathcal{X} = \mathcal{X}_{\text{FP}} \cup \mathcal{X}_{\text{Iris}}$.
+        \item \textbf{Smart decoding}: Try $(k{+}1)$-subsets of $\mathcal{X}$ that include \emph{all} $K$ bonus points first (since these are guaranteed genuine), reducing the search from $\binom{|\mathcal{X}|}{k+1}$ to $\binom{|\mathcal{X}_{\text{FP}}|}{k+1-K}$.
+    \end{enumerate}
+    \item \textbf{If iris fails}: Set $\mathcal{X} = \mathcal{X}_{\text{FP}}$ and proceed with standard Lagrange interpolation---identical to the unimodal vault.
+\end{enumerate}
+
+\noindent\textbf{Complexity reduction.} The smart decoding strategy exploits the fact that all $K$ bonus points are \emph{guaranteed genuine} (they were derived from the correct iris key). Instead of enumerating all $\binom{|\mathcal{X}|}{k+1}$ subsets, the decoder fixes the $K$ bonus points and selects only the remaining $k+1-K$ points from the fingerprint candidate set $\mathcal{X}_{\text{FP}}$. This reduces the search space by a factor of:
+\begin{equation}
+    \frac{\binom{|\mathcal{X}_{\text{FP}}| + K}{k+1}}{\binom{|\mathcal{X}_{\text{FP}}|}{k+1-K}}
+    \label{eq:complexity_reduction}
+\end{equation}
+For typical parameters ($|\mathcal{X}_{\text{FP}}| = 12$, $k = 10$, $K = 4$), this ratio is $\binom{16}{11}/\binom{12}{7} = 4368/792 = 5.5\times$, yielding a proportional speed-up in verification time while simultaneously \emph{increasing} the probability of selecting a valid $(k{+}1)$-subset.
+
+\begin{algorithm}[t]
+\caption{\IBFV{} Verification}
+\label{alg:verification}
+\begin{algorithmic}[1]
+\REQUIRE Query $(\mathcal{M}', \mathbf{c}', \mathbf{mask}')$, vault $(\mathcal{V}, S, \mathbf{h}, \kappa, B_s)$
+\ENSURE Accept / Reject
+\STATE $\mathcal{Q}' \leftarrow \textsc{Quantize}(\mathcal{M}', f)$
+\STATE $\mathcal{X}_\text{FP} \leftarrow \{(x,y) \in \mathcal{V} : x \in \text{EC}(\mathcal{Q}')\}$
+\STATE $\hat{\mathbf{k}} \leftarrow \textsc{IrisRecover}(\mathbf{c}', \mathbf{mask}', \mathbf{h}, \kappa, B_s)$
+\IF{$\hat{\mathbf{k}} \neq \bot$}
+    \FOR{$j = 0$ \TO $K{-}1$}
+        \STATE $v_j \leftarrow \text{SHA256}(\texttt{"ibfv\_vpt:"} \| j \| \texttt{":"} \| H(\hat{\mathbf{k}})) \bmod p$
+    \ENDFOR
+    \STATE $\mathcal{X}_\text{Iris} \leftarrow \{(x,y) \in \mathcal{V} : x \in \{v_j\}\}$
+    \STATE $\mathcal{X} \leftarrow \mathcal{X}_\text{FP} \cup \mathcal{X}_\text{Iris}$
+\ELSE
+    \STATE $\mathcal{X} \leftarrow \mathcal{X}_\text{FP}$ \COMMENT{Fallback: no penalty}
+\ENDIF
+\FOR{each $(k{+}1)$-subset $\mathcal{S} \subseteq \mathcal{X}$}
+    \STATE $\hat{p} \leftarrow \textsc{LagrangeInterp}(\mathcal{S})$
+    \STATE $\hat{s} \leftarrow \text{bin}(\hat{p}) \bmod n$
+    \IF{$\hat{s} \cdot G = S$}
+        \RETURN \textbf{Accept}
+    \ENDIF
+\ENDFOR
+\RETURN \textbf{Reject}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig_ibfv_verification.pdf}
+    \caption{\IBFV{} verification pipeline. If iris recovery succeeds ($\sim$62\%), $K$ bonus points reduce the search space. If it fails, the system falls back to unimodal decoding (dashed path).}
+    \label{fig:ibfv_verification}
+\end{figure}
+
+\subsection{Zero-Penalty Theorem}
+\label{sec:zero_penalty}
+
+\begin{theorem}[Zero-Penalty Guarantee]
+\label{thm:zero_penalty}
+For any parameter configuration $(f, k)$ and any biometric sample pair $(\mathcal{M}', \mathbf{c}')$, the \IBFV{} verification outcome satisfies:
+\begin{equation}
+    \Pr[\text{Accept}_{\IBFV}] \geq \Pr[\text{Accept}_{\text{Uni}}]
+\end{equation}
+where the probability is over the randomness in vault construction.
+\end{theorem}
+
+\begin{proof}
+The \IBFV{} verification process has two exclusive branches:
+\begin{itemize}
+    \item \textbf{Iris succeeds}: The candidate set $|\mathcal{X}| = |\mathcal{X}_{\text{FP}}| + K \geq |\mathcal{X}_{\text{FP}}|$, and all $K$ bonus points are on the polynomial. Since the unimodal decoder receives only $\mathcal{X}_{\text{FP}}$ while \IBFV{} receives $\mathcal{X}_{\text{FP}} \cup \mathcal{X}_{\text{Iris}}$, every $(k{+}1)$-subset available to the unimodal decoder is also available to \IBFV{}, plus additional subsets containing bonus points. If the unimodal decoder accepts, so does \IBFV{}.
+    \item \textbf{Iris fails}: The fallback path uses $\mathcal{X} = \mathcal{X}_{\text{FP}}$ with identical Lagrange interpolation, producing the same outcome as the unimodal decoder.
+\end{itemize}
+In neither case does \IBFV{} reject when the unimodal decoder would accept. \qed
+\end{proof}
+
+\begin{corollary}
+$\FRR_{\IBFV} \leq \FRR_{\text{Uni}}$ for all $(f,k)$. If the iris impostor acceptance rate is zero, bonus points are never injected for impostors, so $\FAR_{\IBFV} \leq \FAR_{\text{Uni}}$ and therefore $\EER_{\IBFV} \leq \EER_{\text{Uni}}$. In practice at $B_s = 255$, the iris impostor FAR is $\sim$0.10\% (Section~\ref{sec:iris_gar_results}), so a small fraction of impostors receive bonus points, potentially elevating $\FAR_{\IBFV}$ above $\FAR_{\text{Uni}}$ by up to 0.07~pp on easy databases. The EER guarantee holds exactly when the iris impostor FAR is zero, and approximately when it is near-zero.
+\end{corollary}
+
+% ============================================================================
+% V. DECENTRALIZED STORAGE LAYER: D-IBFV
+% ============================================================================
+\section{Decentralized Storage Layer: \DIBFV{}}
+\label{sec:decentralized}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_dibfv_architecture.pdf}
+\caption{Complete \DIBFV{} architecture. \textbf{Top}: Enrollment pipeline---biometric data enters the \IBFV{} enrollment, the vault is split via $(t,n)$-Shamir, shares are uploaded to IPFS, and CIDs are stored on the blockchain. \textbf{Bottom}: Verification pipeline---CIDs are retrieved from the blockchain, $t$ shares fetched from IPFS, the vault reconstructed, and biometric verification performed. The reconstructed vault is erased after use.}
+\label{fig:dibfv_architecture}
+\end{figure*}
+
+\subsection{Motivation}
+\label{sec:decentral_motivation}
+
+The \IBFV{} vault is a high-value target: a single breach exposes all users' protected templates. While the vault's cryptographic properties prevent biometric recovery, possession enables offline polynomial reconstruction attacks (Section~\ref{sec:brute_force}). \DIBFV{} splits each vault into $n$ shares via $(t,n)$-Shamir Secret Sharing and distributes them across independent nodes, targeting: (i)~confidentiality ($t{-}1$ nodes reveal nothing), (ii)~availability ($t$-of-$n$ suffices, tolerating $n{-}t$ failures), and (iii)~tamper-evidence via IPFS content addressing and blockchain CID anchoring.
+
+\subsection{Vault Serialization}
+\label{sec:vault_serial}
+
+The vault $(\mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s)$ is deterministically serialized into a byte string $\mathbf{b} \in \{0,\ldots,255\}^L$ comprising: an 8-byte header; $|\mathcal{V}| \times 64$ bytes of vault point coordinates; 64 bytes for $S$; $\lceil N/8 \rceil$ bytes of iris helper data; 32 bytes for $H(\mathbf{k})$; 4 bytes of parameters; and a 32-byte SHA-256 integrity trailer. For typical parameters ($g = 20$, $K = 4$, chaff = $5g$), $L \approx 24$~KB.
+
+\subsection{Shamir Vault Splitting}
+\label{sec:shamir_split}
+
+Each byte $b_i$ of the serialized vault $\mathbf{b} = (b_0, \ldots, b_{L-1})$ is independently shared using $(t,n)$-Shamir Secret Sharing over $\mathrm{GF}(257)$:
+
+\begin{algorithm}[t]
+\caption{\DIBFV{} Vault Splitting}
+\label{alg:vault_split}
+\begin{algorithmic}[1]
+\REQUIRE Serialized vault $\mathbf{b} \in \{0,\ldots,255\}^L$, threshold $t$, share count $n$
+\ENSURE Shares $\{\mathbf{s}_1, \ldots, \mathbf{s}_n\}$ where $\mathbf{s}_j \in \mathrm{GF}(257)^L$
+\FOR{$i = 0$ \TO $L{-}1$}
+    \STATE Sample $a_1^{(i)}, \ldots, a_{t-1}^{(i)} \stackrel{\$}{\leftarrow} \mathrm{GF}(257)$
+    \STATE $f_i(x) \leftarrow b_i + a_1^{(i)} x + \cdots + a_{t-1}^{(i)} x^{t-1} \pmod{257}$
+    \FOR{$j = 1$ \TO $n$}
+        \STATE $s_{j,i} \leftarrow f_i(j) \bmod 257$
+    \ENDFOR
+\ENDFOR
+\RETURN $\{\mathbf{s}_j = (s_{j,0}, \ldots, s_{j,L-1})\}_{j=1}^{n}$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{theorem}[Share Confidentiality]
+\label{thm:share_confidentiality}
+For any $t'{<}t$ compromised shares $\{\mathbf{s}_{j_1}, \ldots, \mathbf{s}_{j_{t'}}\}$, the conditional distribution of the vault $\mathbf{b}$ is uniform over $\{0, \ldots, 255\}^L$. That is, $H(\mathbf{b} \mid \mathbf{s}_{j_1}, \ldots, \mathbf{s}_{j_{t'}}) = H(\mathbf{b})$.
+\end{theorem}
+
+\begin{proof}
+For each byte position $i$, the Shamir polynomial $f_i(x)$ has degree $t{-}1$ with $f_i(0) = b_i$. Given $t' < t$ evaluations $\{f_i(j_1), \ldots, f_i(j_{t'})\}$, the polynomial has $t - t' \geq 1$ free coefficients, so $b_i = f_i(0)$ is uniformly distributed over $\mathrm{GF}(257)$~\cite{shamir1979how}. Since the sharing is independent across byte positions, the joint distribution $(\mathbf{b} \mid \mathbf{s}_{j_1}, \ldots, \mathbf{s}_{j_{t'}})$ is uniform. Because $b_i \in \{0, \ldots, 255\} \subset \mathrm{GF}(257)$, the adversary gains zero information about any byte. \qed
+\end{proof}
+
+\begin{theorem}[Exact Reconstruction]
+\label{thm:exact_recon}
+Given any $t$ shares $\{\mathbf{s}_{j_1}, \ldots, \mathbf{s}_{j_t}\}$ with distinct indices, Lagrange interpolation recovers $\hat{b}_i = f_i(0) = b_i$ for all $i$, yielding $\hat{\mathbf{b}} = \mathbf{b}$ with zero bit errors.
+\end{theorem}
+
+\begin{proof}
+A polynomial of degree $t{-}1$ over $\mathrm{GF}(257)$ is uniquely determined by $t$ evaluations at distinct non-zero points. Lagrange interpolation at $x = 0$ yields $f_i(0) = b_i$ exactly. Since $b_i \in \{0, \ldots, 255\} \subset \mathrm{GF}(257)$, no truncation or modular artifact arises. \qed
+\end{proof}
+
+\subsection{Distributed Enrollment Protocol}
+\label{sec:dist_enrollment}
+
+\begin{algorithm}[t]
+\caption{\DIBFV{} Distributed Enrollment}
+\label{alg:dist_enrollment}
+\begin{algorithmic}[1]
+\REQUIRE Biometric data $(\mathcal{M}, \mathbf{c}, \mathbf{mask})$, params $(f, k, K, B_s, t, n)$
+\ENSURE Blockchain transaction ID $\mathrm{txid}$
+\STATE $(\mathcal{V}, S, \mathbf{h}, \kappa, B_s) \leftarrow \textsc{IBFV-Enroll}(\mathcal{M}, \mathbf{c}, \mathbf{mask}, f, k, K, B_s)$
+\STATE $\mathbf{b} \leftarrow \textsc{Serialize}(\mathcal{V}, S, \mathbf{h}, \kappa, B_s)$
+\STATE $\{\mathbf{s}_1, \ldots, \mathbf{s}_n\} \leftarrow \textsc{ShamirSplit}(\mathbf{b}, t, n)$ \COMMENT{Alg.~\ref{alg:vault_split}}
+\FOR{$j = 1$ \TO $n$}
+    \STATE $\mathrm{cid}_j \leftarrow \textsc{IPFS-Put}(\mathbf{s}_j)$ \COMMENT{Upload share to IPFS}
+\ENDFOR
+\STATE $\mathrm{txid} \leftarrow \textsc{Blockchain-Store}(\mathrm{uid}, \{\mathrm{cid}_1, \ldots, \mathrm{cid}_n\}, t, n)$
+\STATE Securely erase $\mathbf{b}$, $\{\mathbf{s}_j\}$ from local memory
+\RETURN $\mathrm{txid}$
+\end{algorithmic}
+\end{algorithm}
+
+The enrollment protocol (Algorithm~\ref{alg:dist_enrollment}) extends \IBFV{} enrollment (Algorithm~\ref{alg:enrollment}) with three additional steps: serialization, Shamir splitting, and distributed storage. The complete vault never leaves the enrollment client in plaintext; only individual shares are uploaded to IPFS, and only their CIDs are recorded on the blockchain. After share distribution, the local copy of $\mathbf{b}$ is securely erased.
+
+\subsection{Distributed Verification Protocol}
+\label{sec:dist_verification}
+
+\begin{algorithm}[t]
+\caption{\DIBFV{} Distributed Verification}
+\label{alg:dist_verification}
+\begin{algorithmic}[1]
+\REQUIRE Query $(\mathcal{M}', \mathbf{c}', \mathbf{mask}')$, user ID $\mathrm{uid}$
+\ENSURE Accept / Reject
+\STATE $\{\mathrm{cid}_1, \ldots, \mathrm{cid}_n\}, t \leftarrow \textsc{Blockchain-Lookup}(\mathrm{uid})$
+\STATE Select any $t$ available CIDs: $\mathcal{T} \subseteq \{1, \ldots, n\}$, $|\mathcal{T}| = t$
+\FOR{$j \in \mathcal{T}$}
+    \STATE $\mathbf{s}_j \leftarrow \textsc{IPFS-Get}(\mathrm{cid}_j)$ \COMMENT{Download share}
+    \STATE Verify $\textsc{CID}(\mathbf{s}_j) = \mathrm{cid}_j$ \COMMENT{IPFS integrity check}
+\ENDFOR
+\STATE $\hat{\mathbf{b}} \leftarrow \textsc{ShamirReconstruct}(\{(j, \mathbf{s}_j)\}_{j \in \mathcal{T}}, t)$
+\STATE Verify $\textsc{SHA256}(\hat{\mathbf{b}}[0:L{-}32]) = \hat{\mathbf{b}}[L{-}32:L]$ \COMMENT{Integrity}
+\STATE $(\mathcal{V}, S, \mathbf{h}, \kappa, B_s) \leftarrow \textsc{Deserialize}(\hat{\mathbf{b}})$
+\STATE result $\leftarrow$ \textsc{IBFV-Verify}$(\mathcal{M}', \mathbf{c}', \mathbf{mask}', \mathcal{V}, S, \mathbf{h}, \kappa, B_s)$
+\STATE Securely erase $\hat{\mathbf{b}}$, $\{\mathbf{s}_j\}$ from local memory
+\RETURN result
+\end{algorithmic}
+\end{algorithm}
+
+Verification (Algorithm~\ref{alg:dist_verification}) retrieves $t$ shares from IPFS, reconstructs the vault via Lagrange interpolation, verifies the integrity checksum, and delegates biometric matching to the standard \IBFV{} verification (Algorithm~\ref{alg:verification}). The reconstructed vault exists in local memory only for the duration of the verification and is immediately erased afterward.
+
+\subsection{Revocation and Re-Enrollment}
+\label{sec:revocation}
+
+To revoke a compromised vault, the user:
+\begin{enumerate}
+    \item Submits a revocation transaction to the blockchain, marking the current CID set as revoked (immutable audit trail).
+    \item Re-enrolls with fresh parameters (new polynomial, new iris commitment key, new Shamir randomness), producing a completely independent vault and share set.
+    \item Uploads new shares to IPFS and records new CIDs on the blockchain.
+    \item (Optional) Unpins old shares from IPFS nodes; even if old shares persist, the revocation record prevents their use for authentication.
+\end{enumerate}
+
+\noindent The blockchain's append-only nature ensures that revocation events are permanently recorded; an auditor can verify the complete enrollment/revocation history for any user. The fresh Shamir randomness in step~2 ensures that new shares are statistically independent of revoked shares (by Theorem~\ref{thm:share_confidentiality}).
+
+\subsection{Extended Threat Model}
+\label{sec:extended_threat}
+
+\DIBFV{} extends the eight-point threat model (Section~\ref{sec:threat_model}) with three additional attack points specific to the decentralized architecture:
+
+\begin{enumerate}
+    \setcounter{enumi}{8}
+    \item \textbf{Node compromise (AP-9)}: An adversary compromises up to $t{-}1$ storage nodes, obtaining their shares. \emph{Countermeasure}: Theorem~\ref{thm:share_confidentiality} guarantees zero information leakage from $t{-}1$ or fewer shares.
+    \item \textbf{Blockchain tampering (AP-10)}: An adversary attempts to modify CID records on the blockchain. \emph{Countermeasure}: The append-only, consensus-protected ledger makes retroactive modification computationally infeasible (51\% attack for PoW/PoS; $f < n/3$ Byzantine nodes for BFT). IPFS content addressing provides independent integrity verification: any CID modification produces a hash mismatch upon share retrieval.
+    \item \textbf{IPFS share substitution (AP-11)}: An adversary replaces a share blob on IPFS with a crafted payload. \emph{Countermeasure}: IPFS CIDs are cryptographic hashes of the content; substituting the content changes the CID. The blockchain-anchored CID serves as a tamper-evident reference. Additionally, the vault's integrity checksum (SHA-256 trailer) detects any reconstruction from corrupted shares.
+\end{enumerate}
+
+% ============================================================================
+% VI. SECURITY ANALYSIS
+% ============================================================================
+\section{Security Analysis}
+\label{sec:security}
+
+We analyze \IBFV{} against ISO/IEC~24745 requirements using the eight-point adversary model of Ratha~\textit{et~al.}~\cite{ratha2001enhancing}.
+
+\subsection{Threat Model}
+\label{sec:threat_model}
+
+Following Ratha~\textit{et~al.}~\cite{ratha2001enhancing}, we consider eight attack points in the biometric pipeline (see Fig.~\ref{fig:threat_model}):
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/fig_threat_model.pdf}
+    \caption{Threat model: eight attack points in the \IBFV{} pipeline, following Ratha~\textit{et~al.}~\cite{ratha2001enhancing}. AP-6 (database breach) is the focus of our analysis.}
+    \label{fig:threat_model}
+\end{figure*}
+
+Table~\ref{tab:threat_ap} summarizes the eight attack points. AP-1 through AP-4, AP-7, and AP-8 are mitigated by standard system-level measures (liveness detection, secure channels, trusted computing base). AP-5 is countered by the binary Accept/Reject output, which exposes no gradient signal for hill-climbing~\cite{ratha2001enhancing}. The primary threat is \textbf{AP-6 (database breach)}: the adversary obtains the stored template $(\mathcal{V}, S, \mathbf{h}, H(\mathbf{k}), B_s)$ in its entirety, addressed in Sections~\ref{sec:irreversibility}--\ref{sec:brute_force}.
+
+\begin{table}[t]
+\centering
+\caption{Attack points following Ratha~\textit{et~al.}~\cite{ratha2001enhancing}.}
+\label{tab:threat_ap}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}c l l@{}}
+\toprule
+\textbf{AP} & \textbf{Attack} & \textbf{Countermeasure} \\
+\midrule
+1 & Spoofing & Liveness detection (complementary) \\
+2 & Sensor interception & Client-side processing \\
+3 & Extractor compromise & Trusted computing base \\
+4 & Feature channel & Local processing, no transmission \\
+5 & Hill-climbing & Binary output only (no scores) \\
+\textbf{6} & \textbf{Database breach} & \textbf{\S\ref{sec:irreversibility}--\ref{sec:brute_force}} \\
+7 & Template replay & Requires live biometric query \\
+8 & Decision override & Transport-layer security \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+We assume the adversary has full access to the stored template (AP-6) and the iris helper data, but not the original biometric samples (standard stolen-token model). For \DIBFV{}, we additionally consider adversaries compromising up to $t{-}1$ storage nodes (AP-9), the blockchain (AP-10), or IPFS shares (AP-11), as defined in Section~\ref{sec:extended_threat}.
+
+\subsection{Irreversibility (Non-Invertibility)}
+\label{sec:irreversibility}
+
+We establish that three independent barriers prevent template inversion.
+
+\subsubsection{Fingerprint Recovery from Vault}
+Given vault $\mathcal{V}$ containing $g$ genuine and $5g + K$ non-genuine points, the adversary must identify the genuine subset. Without knowledge of which points lie on the polynomial $p(x)$, the adversary faces a combinatorial identification problem. Even after identifying $k+1$ genuine points, recovering the original minutiae requires inverting the EC mapping: given $P_i.x$, finding $q_i$ such that $(q_i \cdot G).x = P_i.x$ is an instance of ECDLP.
+
+For Brainpool~P256r1 with a 256-bit group order, the best known attack (Pollard's rho method) requires approximately:
+\begin{equation}
+    \sqrt{\pi n / 2} \approx 2^{128} \text{ group operations}
+    \label{eq:ecdlp_cost}
+\end{equation}
+At $10^9$ operations per second, this requires approximately $10^{29}$ seconds ($\sim\! 3 \times 10^{21}$ years), providing a wide margin above the $2^{80}$ threshold typically considered infeasible.
+
+\subsubsection{Iris Code Recovery}
+The helper data $\mathbf{h} = \mathbf{c} \oplus \mathbf{w}$ reveals no information about the iris code $\mathbf{c}$ without knowing the codeword $\mathbf{w}$. The space of valid codewords is $\{0,1\}^{n_b}$ (repeated to length $N$), giving $2^{n_b}$ possibilities. For $B_s = 255$ (giving $n_b = \lfloor 131072/255 \rfloor = 514$ key bits), the brute-force cost is $2^{514} \approx 10^{155}$ hash evaluations---completely infeasible.
+
+\subsubsection{Bonus Point Identification}
+Without the iris key hash $\kappa = H(\mathbf{k})$, the adversary cannot compute the virtual x-coordinates~(\ref{eq:virtual_x}) due to the preimage resistance of SHA-256. The $K$ bonus points are computationally indistinguishable from chaff and genuine fingerprint points in $\GFp{}$, as they are uniformly distributed 256-bit integers (by the PRF property of SHA-256). This adds $K$ additional unknowns to the vault identification problem.
+
+\subsection{Unlinkability}
+\label{sec:unlinkability}
+
+Given two vaults $\mathcal{V}_1, \mathcal{V}_2$ enrolled from the same user in different applications, unlinkability requires that no polynomial-time adversary can determine whether the vaults share a common biometric source.
+
+\IBFV{} achieves unlinkability through three independent mechanisms:
+\begin{enumerate}
+    \item \textbf{Random polynomial}: Each enrollment uses an independently sampled polynomial $p(x)$, so the $y$-coordinates $(p(P_i.x))$ are statistically independent across enrollments.
+    \item \textbf{Random chaff}: Chaff points are uniformly generated in each enrollment, providing no cross-vault correlation.
+    \item \textbf{Iris-derived coordinates}: The virtual x-coordinates $\{v_j\}$ depend on $\kappa = H(\mathbf{k})$, which is deterministic per enrollment. However, if different applications use different quantization/commitment parameters (standard practice for revocability), the resulting $\kappa$ values differ, producing independent PRF outputs.
+\end{enumerate}
+
+\noindent While the \emph{genuine x-coordinates} repeat across enrollments (since they derive from the same biometric), these are hidden among $5g + K$ non-genuine points. Identifying common genuine points across two vaults requires solving the intersection problem on shuffled sets---equivalent to the polynomial reconstruction attack, which is combinatorially hard (Section~\ref{sec:brute_force}).
+
+\subsection{Revocability}
+\label{sec:revocability}
+
+If a vault is compromised, the user re-enrolls with a new random polynomial, new random seed for quantization (\eg{}, different factor $f$ or domain-specific salt), and a fresh iris commitment (using a different random key $\mathbf{k}'$). The new vault's genuine point projections $p'(P_i.x)$, chaff, and iris-derived bonus coordinates are all independent of the revoked vault. Multiple revocations are supported without biometric re-acquisition---only the computational parameters change.
+
+\subsection{Brute-Force Attack Analysis}
+\label{sec:brute_force}
+
+We quantify the computational cost of a brute-force attack on a stolen vault.
+
+\subsubsection{Polynomial Reconstruction Attack}
+The adversary must identify at least $k+1$ genuine points among $|\mathcal{V}| = 6g + K$ total points. With typical parameters ($g \approx 20$, $K = 4$, $k = 10$), the vault contains $6(20) + 4 = 124$ points, of which $20 + 4 = 24$ are genuine. The number of candidate $(k+1)$-subsets is:
+\begin{equation}
+    \binom{124}{k+1} = \binom{124}{11} \approx 1.7 \times 10^{15}
+    \label{eq:brute_force}
+\end{equation}
+Each candidate requires one Lagrange interpolation (${O}(k^2)$ field operations) and one EC scalar multiplication ($\hat{s} \cdot G$, approximately 256 point additions). At $10^6$ candidates evaluated per second, exhaustive search requires:
+\begin{equation}
+    \frac{1.7 \times 10^{15}}{10^6} \approx 1.7 \times 10^{9} \text{ seconds} \approx 54 \text{ years}
+\end{equation}
+
+However, the adversary need not try all subsets; success is expected after trying approximately $\binom{124}{11} / \binom{24}{11}$ subsets (since each genuine $(k+1)$-subset succeeds). This gives:
+\begin{equation}
+    \frac{\binom{124}{11}}{\binom{24}{11}} = \frac{1.7 \times 10^{15}}{2.5 \times 10^{6}} \approx 6.8 \times 10^{8} \text{ attempts}
+\end{equation}
+At $10^6$ attempts/second, this requires $\sim\!680$ seconds---\emph{feasible} for an offline attacker who possesses $S$. This is a well-known limitation shared by all fuzzy vault schemes where the public key is stored alongside the vault~\cite{tams2013attacks,nandakumar2007fuzzy}. Standard mitigations include: (1)~storing $S$ in a separate security domain (e.g., a hardware security module) so that vault compromise alone is insufficient; (2)~increasing the polynomial degree $k$ (at $k = 15$, the cost rises to $\binom{124}{16} \approx 10^{20}$, requiring $\sim\!3 \times 10^{6}$ years); and (3)~adding a key-stretching function (e.g., Argon2) to the verification operation to increase per-attempt cost. We note that the primary template protection goal---preventing \emph{biometric recovery}---is achieved regardless, since reconstructing $p(x)$ reveals only the secret $s$, not the original minutiae (which requires solving ECDLP as per Section~\ref{sec:irreversibility}).
+
+\subsection{Cross-Matching Attack}
+\label{sec:cross_matching}
+
+In a cross-matching attack~\cite{tams2013attacks}, the adversary possesses vaults from two different applications enrolled with the same biometric and attempts to correlate them to determine if they belong to the same user. The adversary compares x-coordinate sets across vaults to find common genuine points.
+
+In \IBFV{}, the genuine fingerprint x-coordinates are deterministic (derived from the same minutiae), so they appear in both vaults. However, these are hidden among $5g$ random chaff points per vault. The probability that a chaff point in vault 1 coincidentally matches a chaff point in vault 2 (in a 256-bit field) is $1/p \approx 2^{-256}$ per pair---negligible.
+
+\emph{Countermeasure}: Using different quantization parameters ($f_1 \neq f_2$) across applications produces different quantized values, different EC mappings, and therefore different genuine x-coordinates. This eliminates the cross-matching signal entirely. We recommend application-specific parameters as standard practice for multi-application deployments.
+
+\subsection{Formal Unlinkability Analysis ($D_{\text{sys}}$)}
+\label{sec:dsys}
+
+To complement the theoretical arguments above, we empirically evaluate unlinkability using the $D_{\text{sys}}$ metric of Gomez-Barrero~\textit{et~al.}~\cite{gomezbarrero2017}. This framework measures the degree to which an adversary can distinguish mated (same-subject) from non-mated (different-subject) template pairs based on their similarity, yielding a score $D_{\text{sys}} \in [0, 1]$ where $0$ indicates fully unlinkable and $1$ indicates fully linkable.
+
+We construct vault pairs under three scenarios for each database (Setup~1):
+\begin{itemize}
+    \item \textbf{Same-factor}: Both vaults use identical quantization parameters $(f, k)$---the worst case for unlinkability, as genuine x-coordinates repeat.
+    \item \textbf{Different-factor}: Vaults use different factors ($f_1 \neq f_2$, same $k$)---the recommended deployment configuration.
+    \item \textbf{Diverse-factor}: Vaults use substantially different parameters ($f_1$ and $f_2$ far apart)---simulating distinct applications.
+\end{itemize}
+
+Mated and non-mated similarity is quantified by the number of matching x-coordinates between vault pairs. Table~\ref{tab:dsys} reports the $D_{\text{sys}}$ values.
+
+\begin{table}[t]
+\centering
+\caption{Unlinkability: $D_{\text{sys}}$ metric (lower is better; $D_{\text{sys}} = 0$ is fully unlinkable, $D_{\text{sys}} = 1$ is fully linkable).}
+\label{tab:dsys}
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+\textbf{Scenario} & \textbf{DB1} & \textbf{DB2} & \textbf{DB3} & \textbf{DB4} \\
+\midrule
+Same-factor     & 0.994 & 0.994 & 0.920 & 0.929 \\
+Different-factor & 0.317 & 0.313 & 0.057 & 0.388 \\
+Diverse-factor   & 0.003 & 0.014 & 0.026 & 0.007 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Same-factor enrollments are highly linkable ($D_{\text{sys}} > 0.92$) because genuine x-coordinates repeat. Changing the quantization factor reduces linkability to $D_{\text{sys}} \leq 0.39$ (different-factor) and $\leq 0.03$ (diverse-factor), confirming the theoretical argument in Section~\ref{sec:unlinkability}.
+
+\subsection{Vault Entropy}
+\label{sec:vault_entropy}
+
+The genuine x-coordinates are EC point x-coordinates in $\GFp{}$, where $p$ is a 256-bit prime. With Shannon entropy $H \geq 7.7$ bits and min-entropy $H_\infty \geq 5.9$ bits per coordinate (Section~\ref{sec:entropy_results}), the vault provides substantial resistance against dictionary attacks. The per-user KL divergence from uniform is $\leq 0.32$ bits, and the genuine-vs-chaff KL divergence is $\approx 0.24$ bits across all databases, indicating near-uniform mixing---an adversary cannot distinguish genuine from chaff points based on their x-coordinate distribution alone.
+
+% ============================================================================
+% VII. EXPERIMENTAL RESULTS
+% ============================================================================
+\section{Experimental Results}
+\label{sec:experiments}
+
+\subsection{Databases and Configuration}
+\label{sec:databases}
+
+\subsubsection{Fingerprint Databases}
+We evaluate on four FVC benchmark databases:
+\begin{itemize}
+    \item \textbf{DB1} (FVC2002 DB1)~\cite{maio2002fvc2002}: 100 subjects $\times$ 8 impressions, optical sensor.
+    \item \textbf{DB2} (FVC2002 DB2)~\cite{maio2002fvc2002}: 100 subjects $\times$ 8 impressions, capacitive sensor.
+    \item \textbf{DB3} (FVC2002 DB3)~\cite{maio2002fvc2002}: 100 subjects $\times$ 8 impressions, thermal sweep sensor. Known for low quality.
+    \item \textbf{DB4} (FVC2004 DB1)~\cite{maio2004fvc2004}: 100 subjects $\times$ 8 impressions, optical sensor with deliberate difficulty.
+\end{itemize}
+
+\subsubsection{Iris Database}
+CASIA-Iris-Interval~\cite{casia_iris}: 249 subjects $\times$ multiple captures under near-infrared illumination (1329/1332 images successfully processed, 99.8\% extraction rate). Since no publicly available dataset contains co-acquired fingerprint and iris samples from the same subjects, we construct a \emph{chimeric} multimodal database by mapping each FVC subject to a CASIA iris class---a standard practice in multimodal biometric research~\cite{ross2003information,nandakumar2008multibiometric}. Because the fingerprint and iris data originate from different individuals, the two modalities are statistically independent; this represents a conservative evaluation, as a real co-acquired dataset could exhibit beneficial cross-modal correlations.
+
+\subsubsection{Evaluation Setups}
+Following~\cite{maurya2025enhancing}, we use two evaluation protocols:
+\begin{itemize}
+    \item \textbf{Setup~1}: Impression~1 is used for enrollment (vault creation); impression~2 is the sole genuine test query. Each genuine impression is tested against all non-self vaults for impostor scoring. With 100 subjects per FVC database (98 for DB3 due to insufficient minutiae): 100 genuine attempts, $100 \times 99 = 9{,}900$ impostor attempts.
+    \item \textbf{Setup~2}: Impression~1 is used for enrollment; impressions~2--8 serve as genuine test queries. This protocol is harder because impressions~3--6 in FVC2002 were captured under deliberate displacement and rotation~\cite{maio2002fvc2002}. To ensure multimodal evaluation, we restrict to the $N_s = 48$ subjects present in both the FVC database (with all~8 impressions and sufficient minutiae) and the chimeric iris mapping, yielding $48 \times 7 = 336$ genuine and $336 \times 47 = 15{,}792$ impostor attempts. For fair comparison, all architectures---including the unimodal baseline---are evaluated on the same 48-subject subset.
+\end{itemize}
+
+\noindent\textbf{Comparison with~\cite{maurya2025enhancing}.} Maurya~\textit{et~al.}'s Setup~2 tests all~8 impressions (including the enrollment image) against each vault for 100 subjects ($100 \times 8 = 800$ genuine, $800 \times 99 = 79{,}200$ impostor attempts). Our protocol differs in two respects: (i)~we exclude the enrollment impression from genuine testing, since testing a vault against its own locking impression is trivially successful and inflates GAR; and (ii)~we use 48 subjects rather than 100, due to the chimeric database constraint. Despite these differences, our reproduced unimodal EER closely matches the published values on the challenging databases (6.738\% vs.~6.73\% on DB3, 4.307\% vs.~4.38\% on DB4), confirming protocol comparability.
+
+\subsubsection{Parameters}
+We sweep:
+\begin{itemize}
+    \item Quantization factor $f \in \{14, 16, 18, 20, 22, 24, 26, 28, 30\}$
+    \item Polynomial degree $k \in \{5, 7, 9, 11\}$
+    \item Architectures: Unimodal, AND-fusion (A), Polynomial Blinding (B), Dense Chaff (C), Vault Encryption (D), \IBFV{}
+\end{itemize}
+For \IBFV{} and Architectures~B--D: block size $B_s = 255$ (yielding $n_b = 514$ iris key bits), \IBFV{} bonus points $K = 4$. For Architecture~A: iris FHD threshold $= 0.44$.
+
+The core sweep (Unimodal, A, \IBFV{}) covers $9 \times 4 \times 3 \times 4 = 432$ configurations per setup ($864$ total). Architectures~B--D are evaluated on a representative subset of $8$ factor/degree pairs per database ($4 \times 8 \times 3 = 96$ configurations).
+
+\subsubsection{EER Computation}
+\label{sec:eer_computation}
+Because there is no continuous score threshold in a fuzzy vault---each $(f, k)$ configuration produces a binary accept/reject decision---we report EER as $(\text{FAR} + \text{FRR})/2$ at each discrete operating point (i.e., the half-total error rate, HTER). This is standard practice in the fuzzy vault literature~\cite{nandakumar2007fuzzy,maurya2025enhancing} and yields the operating point closest to the FAR~$=$~FRR diagonal. All EER values in this paper follow this convention.
+
+\subsection{Architecture A: AND-Fusion Baseline}
+\label{sec:arch_a_results}
+
+Architecture~A implements decision-level AND-fusion: the query iris must pass an FHD threshold check ($\FHD < 0.44$) \emph{before} the fingerprint vault is unlocked. Table~\ref{tab:arch_a_penalty} shows the systematic GAR penalty.
+
+\begin{table}[t]
+\centering
+\caption{AND-Fusion Penalty: Best EER (\%) by Architecture.}
+\label{tab:arch_a_penalty}
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+ & \textbf{DB1} & \textbf{DB2} & \textbf{DB3} & \textbf{DB4} \\
+\midrule
+\multicolumn{5}{c}{\textit{Setup 1}} \\
+\midrule
+Unimodal & 0.000 & 0.000 & 2.762 & 2.404 \\
+Arch.~A  & 1.000 & 1.000 & 3.793 & 3.045 \\
+\IBFV{}  & \textbf{0.000} & \textbf{0.000} & \textbf{1.384} & \textbf{0.929} \\
+\midrule
+\multicolumn{5}{c}{\textit{Setup 2}} \\
+\midrule
+Unimodal & 2.736 & 4.588 & 6.738 & 4.307 \\
+Arch.~A  & 3.264 & 5.143 & 6.741 & 4.800 \\
+\IBFV{}  & \textbf{2.242} & \textbf{3.185} & \textbf{4.591} & \textbf{2.493} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Architecture~A \emph{always} performs worse than the unimodal baseline (average penalty: +0.8 pp in Setup~1, +0.5 pp in Setup~2), confirming the AND-fusion structural flaw described in Section~\ref{sec:motivation}. In contrast, \IBFV{} achieves the best EER in \emph{every} configuration.
+
+\subsection{Architectures B, C, D: Tight-Coupling Alternatives}
+\label{sec:arch_bcd_results}
+
+We evaluate three additional multimodal architectures that employ the iris stabilizer (Section~\ref{sec:iris_commitment}) to derive an iris key, which is then tightly coupled into the fingerprint vault:
+
+\begin{itemize}
+    \item \textbf{Architecture~B} (Polynomial Blinding): The iris key generates per-coefficient blinding values $B_i = \text{SHA256}(\kappa \| i) \bmod 64$, which are added modulo~64 to each polynomial coefficient during enrollment. Verification requires the iris key to reverse the blinding before polynomial reconstruction.
+    \item \textbf{Architecture~C} (Dense Chaff Seeding): The iris key seeds a PRNG that generates $20\times$ chaff points (vs.\ the standard $5\times$). The intended benefit: a genuine user who recovers the iris key can regenerate and strip \emph{all} chaff, reducing the vault to a small set of mostly genuine points for easy polynomial reconstruction. Without the iris key, the chaff cannot be identified, making brute-force combinatorially infeasible.
+    \item \textbf{Architecture~D} (Vault Encryption): The iris key is used as an AES-256-GCM key to encrypt the entire serialized vault. A single-bit difference in the key causes authentication tag failure.
+\end{itemize}
+
+Crucially, all three architectures are \emph{hard-gated}: if iris key recovery fails, the system immediately rejects the user---no fingerprint matching is attempted. Since the iris stabilizer at $B = 255$ achieves only $\sim$62\% genuine acceptance rate (Table~\ref{tab:iris_gar}), at least 38\% of genuine users are rejected by the iris gate alone, regardless of fingerprint quality.
+
+Table~\ref{tab:arch_bcd} reports the best EER across all tested configurations for each architecture.
+
+\begin{table}[t]
+\centering
+\caption{Best EER (\%) by Architecture (Setup~1). Architectures B--D use the iris stabilizer ($B_s = 255$, GAR~$\approx$~62\%) as a hard gate.}
+\label{tab:arch_bcd}
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+ & \textbf{DB1} & \textbf{DB2} & \textbf{DB3} & \textbf{DB4} \\
+\midrule
+Unimodal        & 0.000 & 0.000 & 2.762 & 2.404 \\
+Arch.~A (FHD)   & 1.000 & 1.000 & 3.793 & 3.045 \\
+Arch.~B (Blind) & 19.000 & 19.000 & 19.474 & 19.000 \\
+Arch.~C (Chaff) & 19.000 & 19.000 & 19.474 & 19.000 \\
+Arch.~D (AES)   & 19.000 & 19.000 & 19.474 & 19.000 \\
+\IBFV{} (ours)  & \textbf{0.000} & \textbf{0.000} & \textbf{1.384} & \textbf{0.929} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The results reveal that \textbf{all three tight-coupling architectures produce EER $\geq$ 19\%}, approximately $3$--$5\times$ worse than Architecture~A and $7$--$8\times$ worse than the unimodal baseline. This occurs because Architectures~B--D employ the iris stabilizer (62\% GAR) as a hard gate, whereas Architecture~A uses a loose FHD threshold that accepts $\sim$93\% of genuine queries.
+
+The FAR for Architectures~B--D is 0.000\% across all databases---impostor rejection is perfect---but at the cost of rejecting 38\% of genuine users. The EER is dominated by this high FRR floor ($\geq 38\%$), yielding EER above 19\%. This provides strong empirical support for our central thesis: \textbf{any architecture that requires the iris for decoding suffers from the gating penalty}. Only \IBFV{} achieves multimodal improvement without multimodal penalty.
+
+\subsubsection{Why Dense Chaff Provides No Advantage}
+\label{sec:chaff_analysis}
+
+Architecture~C appears to offer a benefit beyond gating: denser chaff hardens the vault while enabling legitimate chaff stripping. In practice, however: (1)~chaff elimination is binary---a single-bit key error removes the wrong points; (2)~on success, the vault reduces to the unimodal case; (3)~on failure, the system rejects outright. Since acceptance depends solely on iris key recovery, all three tight-coupling architectures produce identical EER curves.
+
+\subsubsection{Gating~vs.\ Boosting}
+\label{sec:taxonomy}
+
+The results motivate a formal distinction. Under \textbf{gating} (Architectures A--D), $\GAR_{\text{gated}} = P(\text{FP match}) \cdot P(G_{\text{iris}}) \leq \GAR_{\text{uni}}$ since $P(G_{\text{iris}}) < 1$. Under \textbf{boosting} (\IBFV{}), $\GAR_{\text{boost}} = P(\text{FP matches} + K \cdot \mathbf{1}_{G_{\text{iris}}} \geq k{+}1) \geq \GAR_{\text{uni}}$ since $K \cdot \mathbf{1}_{G_{\text{iris}}} \geq 0$. The core principle: \emph{never require what might fail; instead, reward what might succeed}.
+
+\subsection{IBFV Performance}
+\label{sec:ibfv_results}
+
+\subsubsection{Zero-Violation Guarantee}
+Across all 864 configurations, \IBFV{} satisfies Theorem~\ref{thm:zero_penalty} under the iris impostor acceptance condition. In Setup~2, \textbf{all 144 configurations} show strict improvement over the unimodal baseline with \textbf{zero violations}. In Setup~1, 113 of 144 configurations improve or tie; the remaining 31 configurations on the easy databases (DB1, DB2) show marginal EER elevation ($\leq 0.07$ percentage points) attributable to the non-zero impostor iris key recovery rate at $B_s = 255$ (Section~\ref{sec:iris_gar_results}). These violations are statistically insignificant given that minimal EER values on DB1/DB2 approach the discrete resolution floor of the binary accept/reject protocol.
+
+The improvement is most pronounced on the challenging databases:
+
+\begin{itemize}
+    \item \textbf{DB3 Setup~1}: EER reduced from 2.762\% to 1.384\% (49.9\% relative reduction).
+    \item \textbf{DB4 Setup~1}: EER reduced from 2.404\% to 0.929\% (61.3\% relative reduction).
+    \item \textbf{DB3 Setup~2}: EER reduced from 6.738\% to 4.591\% (31.9\% relative reduction).
+    \item \textbf{DB4 Setup~2}: EER reduced from 4.307\% to 2.493\% (42.1\% relative reduction).
+\end{itemize}
+
+On DB1 and DB2 under Setup~1, both the unimodal and \IBFV{} systems achieve 0.000\% EER, as the fingerprint quality alone is sufficient for perfect separation. Fig.~\ref{fig:eer_vs_factor} shows EER as a function of the quantization factor for the challenging databases.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/eer_vs_factor.pdf}
+    \caption{EER vs.\ quantization factor $f$ (best over degrees $k$) for DB3 and DB4 under both setups. \IBFV{} consistently lies below the unimodal baseline and far below Architecture~A at every operating point.}
+    \label{fig:eer_vs_factor}
+\end{figure}
+
+\subsubsection{Improvement Distribution}
+In Setup~1, 97 out of 144 IBFV configurations (67.4\%) show strict EER improvement over the unimodal baseline; 16 configurations tie at 0.000\% EER, and 31 configurations on the easy databases (DB1, DB2) show marginal elevation ($\leq 0.07$ pp). In Setup~2, where the protocol is more challenging, \textbf{all 144 IBFV configurations (100\%)} show strict improvement. Fig.~\ref{fig:delta_eer} shows the $\Delta$EER heatmap across all factor/degree combinations.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/delta_eer_heatmap.pdf}
+    \caption{$\Delta$EER (Unimodal $-$ \IBFV{}) across all $(f, k)$ for Setup~2. All values $\geq 0$, confirming zero violations.}
+    \label{fig:delta_eer}
+\end{figure}
+
+\subsection{ROC Analysis}
+\label{sec:roc_results}
+
+We construct ROC curves by sweeping the polynomial degree $k$ at each fixed quantization factor $f$, generating (FAR, GAR) operating points. Table~\ref{tab:auc} reports the area under the ROC curve (AUC) for the best factor per database.
+
+\begin{table}[t]
+\centering
+\caption{AUC Comparison (Best Factor per Database).}
+\label{tab:auc}
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+ & \textbf{DB1} & \textbf{DB2} & \textbf{DB3} & \textbf{DB4} \\
+\midrule
+\multicolumn{5}{c}{\textit{Setup 1}} \\
+\midrule
+Unimodal & 1.0000 & 1.0000 & 0.9785 & 0.9905 \\
+\IBFV{}  & 1.0000 & 1.0000 & \textbf{0.9891} & \textbf{0.9977} \\
+\midrule
+\multicolumn{5}{c}{\textit{Setup 2}} \\
+\midrule
+Unimodal & 0.9863 & 0.9697 & 0.9536 & 0.9793 \\
+\IBFV{}  & \textbf{0.9915} & \textbf{0.9812} & \textbf{0.9756} & \textbf{0.9892} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\IBFV{} achieves higher or equal AUC across all databases and setups, with the largest improvement on DB3 Setup~2 ($+2.20$ pp) where fingerprint quality is poorest and the iris boost is most beneficial. Fig.~\ref{fig:far_frr} shows the FAR/FRR crossover curves; Figs.~\ref{fig:roc_s1}--\ref{fig:roc_s2} present the ROC curves for both setups.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/far_frr_crossover.pdf}
+    \caption{FAR/FRR crossover curves (Setup~1, best factor). The intersection defines the EER.}
+    \label{fig:far_frr}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/roc_curves_setup1.pdf}
+    \caption{ROC curves for Setup~1. On DB1/DB2, both systems achieve high GAR; on DB3/DB4, \IBFV{} provides higher GAR at every FAR operating point.}
+    \label{fig:roc_s1}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/roc_curves_setup2.pdf}
+    \caption{ROC curves for Setup~2. The shaded area under the \IBFV{} curve illustrates the AUC improvement over the unimodal baseline.}
+    \label{fig:roc_s2}
+\end{figure*}
+
+\subsection{Iris Key Recovery Analysis}
+\label{sec:iris_gar_results}
+
+Table~\ref{tab:iris_gar} shows the iris subsystem performance at block size $B_s = 255$.
+
+\begin{table}[t]
+\centering
+\caption{Iris Key Recovery Performance ($B_s = 255$, $n_b = 514$).}
+\label{tab:iris_gar}
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+ & \textbf{DB1} & \textbf{DB2} & \textbf{DB3} & \textbf{DB4} \\
+\midrule
+Setup 1 GAR & 62.00\% & 62.00\% & 61.05\% & 62.00\% \\
+Setup 2 GAR & 50.89\% & 50.75\% & 48.55\% & 50.90\% \\
+Impostor FAR\textsuperscript{$\dagger$} & 0.10\% & 0.10\% & 0.11\% & 0.10\% \\
+\bottomrule
+\end{tabular}\\[2pt]
+{\footnotesize \textsuperscript{$\dagger$}Measured under Setup~1 (9,900 impostor trials per DB). At $B_s = 255$, 2 of $\sim$1,980 impostor iris comparisons per database recover the key (FAR~$\approx 0.10$\%), meaning a small fraction of impostors receive bonus points. This non-zero iris FAR explains the 31 marginal EER violations on easy databases in Setup~1. Setup~2 evaluates only genuine multi-impression queries.}
+\end{table}
+
+The iris GAR of $\sim$62\% (Setup~1) means that in an AND-fusion system, \emph{at least} 38\% of genuine users would be rejected by the iris gate alone---explaining Architectures~B--D's poor performance. In \IBFV{}, the 62\% who succeed receive bonus points (boosting their already-likely acceptance), while the 38\% who fail simply revert to unimodal decoding with no penalty. The impostor FAR of $\sim$0.10\% (2 of 1,980 trials per database) means a small fraction of impostors may receive bonus points; this non-zero rate explains the 31 marginal S1 violations (\S\ref{sec:ibfv_results}) but has negligible practical impact on overall system security. Setup~2 GAR drops to $\sim$50\% due to cross-impression iris variability, yet \IBFV{} still achieves strict improvement across all 144 S2 configurations. Fig.~\ref{fig:iris_gar} illustrates the iris subsystem performance.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/iris_gar.pdf}
+    \caption{Iris key recovery GAR by database and setup at $B_s = 255$. Impostor FAR is $\sim$0.10\% (Setup~1).}
+    \label{fig:iris_gar}
+\end{figure}
+
+\subsection{Timing Analysis}
+\label{sec:timing_results}
+
+Table~\ref{tab:timing} reports timing benchmarks (averaged over 3 trials, 100 subjects, 10{,}000 verification attempts per trial, $f = 22$, $k = 7$, Apple M1 processor).
+
+\begin{table}[t]
+\centering
+\caption{Timing Benchmarks (DB1, $f = 22$, $k = 7$).}
+\label{tab:timing}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}l r r@{}}
+\toprule
+\textbf{Architecture} & \textbf{Enroll (ms/subj)} & \textbf{Verify (ms/attempt)} \\
+\midrule
+Unimodal & 8.13 & 0.076 \\
+Architecture A & 7.16 & 6.168 \\
+\IBFV{} & 7.19 & 12.990 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\IBFV{} enrollment is comparable to the unimodal baseline (within 1~ms). Verification is slower due to iris key recovery and the expanded candidate set increasing the Lagrange interpolation search. At 13.0~ms per verification attempt, the overhead remains well under human-perceptible latency and is dominated by the BCH decode across 514 iris blocks at $B_s = 255$. Architecture~A is faster at verification (6.2~ms) because the iris gate rejects $\sim$38\% of genuine attempts before fingerprint decoding begins, and its FHD comparison is cheaper than full key recovery.
+
+\subsection{Entropy Analysis}
+\label{sec:entropy_results}
+
+We analyze vault x-coordinate distributions following~\cite{maurya2025enhancing}: per-user KL divergence from a uniform distribution (256 bins, Laplace smoothing), and genuine-vs-chaff KL divergence within each vault. Fig.~\ref{fig:entropy_analysis} shows all four metrics across the factor range.
+
+\begin{table}[t]
+\centering
+\caption{Comprehensive Vault Entropy Analysis at $f = 24$, $k = 7$. $D_{\mathrm{KL}}^{\mathrm{user}}$: per-user KLD from uniform. $D_{\mathrm{KL}}^{\mathrm{gc}}$: genuine-vs-chaff KLD. $H$: Shannon entropy. $H_\infty$: min-entropy.}
+\label{tab:entropy}
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+ & \textbf{DB1} & \textbf{DB2} & \textbf{DB3} & \textbf{DB4} \\
+\midrule
+$D_{\mathrm{KL}}^{\mathrm{user}}$ (bits) & 0.212 & 0.171 & 0.197 & 0.319 \\
+$D_{\mathrm{KL}}^{\mathrm{gc}}$ (bits) & 0.245 & 0.269 & 0.242 & 0.227 \\
+Shannon $H$ (bits) & 7.849 & 7.899 & 7.857 & 7.739 \\
+Min-entropy $H_\infty$ (bits) & 6.234 & 6.589 & 6.635 & 5.896 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/entropy_analysis.pdf}
+\caption{Entropy analysis across $f \in [14, 30]$. (a)~Per-user KLD from uniform. (b)~Shannon entropy. (c)~Min-entropy $H_\infty$. (d)~Genuine-vs-chaff KLD.}
+\label{fig:entropy_analysis}
+\end{figure*}
+
+The per-user KLD ($0.17$--$0.32$ bits at $f = 24$) confirms near-uniform distributions; genuine-vs-chaff KLD ($\approx 0.24$ bits) is stable across factors, indicating consistent mixing. Min-entropy $H_\infty \geq 5.9$ bits provides a conservative bound: a single coordinate requires $\geq 60$ guesses.
+
+We additionally verified that \IBFV{} vaults exhibit virtually identical entropy to unimodal vaults: at $f = 24$, the Shannon entropy difference is $< 0.001$ bits across all databases, confirming that iris bonus injection does not degrade vault randomness. Quantization collisions (identical x-coordinates from distinct minutiae) remain at or below $\sim$8\% at $f = 24$ and affect at most 2--3 minutiae per template, which is absorbed by the vault's redundancy margin.
+
+\subsection{Share-Level Irreversibility (\DIBFV{})}
+\label{sec:share_irreversibility}
+
+In the \DIBFV{} setting, the adversary does not obtain the complete vault but instead compromises $t' < t$ storage nodes, obtaining shares $\{\mathbf{s}_{j_1}, \ldots, \mathbf{s}_{j_{t'}}\}$. By Theorem~\ref{thm:share_confidentiality}, these shares are statistically independent of the vault $\mathbf{b}$. Therefore:
+
+\begin{enumerate}
+    \item \textbf{No vault reconstruction}: The polynomial reconstruction attack (Section~\ref{sec:brute_force}) cannot even begin, since the adversary lacks the vault.
+    \item \textbf{No biometric recovery}: Since the vault is unknown, recovery of fingerprint minutiae (ECDLP) or iris code (brute-force key search) is impossible.
+    \item \textbf{No partial information}: Unlike encryption-based schemes where partial ciphertext may leak statistical properties, Shamir sharing is information-theoretically secure---there is no ``partial decryption'' of $t{-}1$ shares.
+\end{enumerate}
+
+\noindent Concretely, the effective security of \DIBFV{} against a node-compromise adversary is $\min(2^{128}_{\text{ECDLP}},\; \infty_{\text{Shamir}}) = 2^{128}$ operations---the ECDLP bound applies only \emph{after} vault reconstruction, which requires compromising $t$ nodes.
+
+\subsection{Shamir-Level Unlinkability (\DIBFV{})}
+\label{sec:shamir_unlinkability}
+
+Each enrollment generates independent Shamir randomness: the $t{-}1$ random coefficients per byte position are freshly sampled for each enrollment. Consequently, even if the same vault $\mathbf{b}$ were shared twice (which does not occur in practice due to re-enrollment with fresh biometric parameters), the resulting shares would be statistically independent. Combined with the vault-level unlinkability mechanisms of Section~\ref{sec:unlinkability}, \DIBFV{} achieves dual-layer unlinkability: independent vault structures \emph{and} independent share structures.
+
+\subsection{Auditable Revocation (\DIBFV{})}
+\label{sec:auditable_revocation}
+
+The blockchain's append-only ledger provides a verifiable revocation history. Unlike centralized databases where a revocation can be silently reversed by an insider, blockchain-recorded revocations are:
+\begin{itemize}
+    \item \textbf{Immutable}: Once a revocation transaction is confirmed, it cannot be removed or altered without consensus-level attack ($>$51\% for PoW/PoS, $>$1/3 for BFT).
+    \item \textbf{Auditable}: Any authorized party can independently verify the revocation history by querying the ledger.
+    \item \textbf{Timestamped}: Block timestamps provide a verifiable ordering of enrollment and revocation events, supporting compliance with data protection regulations (GDPR Art.~17, ``right to erasure'').
+\end{itemize}
+
+\subsection{Decentralized Brute-Force Analysis}
+\label{sec:decentral_brute}
+
+We quantify the additional barrier that \DIBFV{} imposes on the polynomial reconstruction attack. In the centralized \IBFV{} model, the adversary obtains the vault via a single database breach and performs the reconstruction attack offline ($\sim\!6.8 \times 10^{8}$ expected attempts, Section~\ref{sec:brute_force}). In \DIBFV{}, the adversary must first compromise $t$ independent storage nodes to reconstruct the vault.
+
+Under an independent compromise model (each node has breach probability $p_b$), the probability that $t$ or more nodes are compromised is:
+\begin{equation}
+    P_{\text{recon}} = \sum_{i=t}^{n} \binom{n}{i} p_b^i (1 - p_b)^{n-i}
+\end{equation}
+For $n = 5$, $t = 3$, and $p_b = 0.1$ (i.e., each node has a 10\% chance of being breached), $P_{\text{recon}} = 0.0086$---a 99.1\% reduction compared to the centralized case ($P_{\text{recon}} = p_b = 0.1$). At $n = 7$, $t = 4$, and $p_b = 0.1$, this drops to $P_{\text{recon}} = 0.0027$. The total expected attack cost is thus $6.8 \times 10^{8} / P_{\text{recon}}$, which exceeds $10^{11}$ attempts for practical $(t, n, p_b)$ configurations.
+
+\subsection{Security Summary}
+\label{sec:security_summary}
+
+\begin{proposition}[Composite Security]
+Under the ECDLP assumption over Brainpool~P256r1 and the preimage resistance of SHA-256, the \IBFV{} scheme satisfies all three ISO/IEC~24745 requirements:
+\begin{enumerate}
+    \item \textbf{Irreversibility}: Recovering biometric features from $(\mathcal{V}, S)$ requires either solving ECDLP ($\sim\!2^{128}$ operations) or exhaustively searching $2^{514}$ iris key candidates.
+    \item \textbf{Unlinkability}: Independently sampled polynomials, chaff, and application-specific parameters produce statistically independent vault structures. Cross-matching requires solving a combinatorial intersection problem on sets with a $1/6$ genuine-to-total ratio.
+    \item \textbf{Revocability}: Re-enrollment with fresh parameters produces an independent vault without biometric re-acquisition.
+\end{enumerate}
+The polynomial reconstruction attack requires $\sim\!6.8 \times 10^{8}$ expected attempts at the default parameters; this can be raised to $\sim\!10^{20}$ by increasing the polynomial degree to $k = 15$, or mitigated by storing $S$ in a secure enclave.
+\end{proposition}
+
+\subsection{Comparison with Prior Work}
+\label{sec:comparison}
+
+Table~\ref{tab:comparison_extended} compares \IBFV{} with representative fuzzy vault schemes from the literature.
+
+\begin{table*}[t]
+\centering
+\caption{Comparison with Prior Fuzzy Vault Schemes. Best EER is the minimum across all four databases; per-database breakdown in Table~\ref{tab:comparison}.}
+\label{tab:comparison_extended}
+\begin{tabular}{@{}l c c c c c c@{}}
+\toprule
+\textbf{Method} & \textbf{Modality} & \textbf{Field} & \textbf{Best EER (\%)} & \textbf{Databases} & \textbf{Multimodal}\\
+\midrule
+Clancy et al.~\cite{clancy2003secure} & FP & $\text{GF}(2^{16})$ & 20--30 & Custom & No\\
+Uludag et al.~\cite{uludag2005fuzzy} & FP & $\text{GF}(2^{16})$ & 4.00 & FVC2002 DB2 & No\\
+Nandakumar et al.~\cite{nandakumar2007fuzzy} & FP & $\text{GF}(2^{16})$ & $\sim$2.00 & FVC2002 & No\\
+Nandakumar \& Jain~\cite{nandakumar2008multibiometric} & FP+Iris & $\text{GF}(2^{16})$ & $\sim$1.50 & Custom & Yes \\
+Moon et al.~\cite{moon2010multibiometric} & FP+Face & $\text{GF}(p)$ & $\sim$3.00 & Custom & Yes\\
+Sandhya \& Prasad~\cite{sandhya2017fingerprint} & FP & $\text{GF}(p)$ & 0.880 & FVC2002/04 & No\\
+Maurya et al.~\cite{maurya2025enhancing} & FP & $E(\GFp{})$ & 0.005 & FVC2002/04 & No\\
+\midrule
+\IBFV{} (ours, Setup~1) & FP+Iris & $E(\GFp{})$ & \textbf{0.000} & FVC2002/04 & \textbf{Yes}\\
+\IBFV{} (ours, Setup~2) & FP+Iris & $E(\GFp{})$ & \textbf{2.242} & FVC2002/04 & \textbf{Yes}\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\IBFV{} is the only multimodal fuzzy vault with a provable zero-penalty guarantee. Prior approaches~\cite{nandakumar2008multibiometric,moon2010multibiometric} require both modalities, introducing the gating penalty. The ECC vault's 256-bit field (vs.\ $\text{GF}(2^{16})$) provides higher entropy, rendering dictionary attacks infeasible.
+
+Table~\ref{tab:comparison} provides a detailed per-database comparison with the unimodal baseline of Maurya~\textit{et~al.}~\cite{maurya2025enhancing}. We include ``Our Unimodal (reproduced)''---our independent reimplementation of Maurya~\textit{et~al.}'s ECC fuzzy vault evaluated on the \emph{same} data pipeline, minutiae extractor, and chimeric subjects used by \IBFV{}---to ensure that all EER differences reflect architectural improvement rather than implementation artifacts. Minor deviations from Maurya~\textit{et~al.}'s published values arise from differences in subject selection (48 chimeric subjects vs.\ 100 for Setup~2) and parameter sweep granularity.
+
+\begin{table}[t]
+\centering
+\caption{Detailed EER (\%) Comparison with Maurya et al.~\cite{maurya2025enhancing}.}
+\label{tab:comparison}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+ & \textbf{DB1} & \textbf{DB2} & \textbf{DB3} & \textbf{DB4} \\
+\midrule
+\multicolumn{5}{c}{\textit{Setup 1 (Best EER)}} \\
+\midrule
+Maurya et al. (reported) & 0.005 & 0.020 & 5.000 & 2.400 \\
+Our Unimodal (reproduced) & 0.000 & 0.000 & 2.762 & 2.404 \\
+\IBFV{} (ours)            & \textbf{0.000} & \textbf{0.000} & \textbf{1.384} & \textbf{0.929} \\
+Relative improvement      & --- & --- & 49.9\% & 61.3\% \\
+\midrule
+\multicolumn{5}{c}{\textit{Setup 2 (Best EER)}} \\
+\midrule
+Maurya et al. (reported) & 3.540 & 5.240 & 6.730 & 4.380 \\
+Our Unimodal (reproduced) & 2.736 & 4.588 & 6.738 & 4.307 \\
+\IBFV{} (ours)            & \textbf{2.242} & \textbf{3.185} & \textbf{4.591} & \textbf{2.493} \\
+Relative improvement      & 18.1\% & 30.6\% & 31.9\% & 42.1\% \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Our unimodal reproduction closely matches~\cite{maurya2025enhancing}, with minor differences due to parameter sweep granularity. \IBFV{} improves over both the original published results and our own unimodal reproduction on every database where the EER is non-zero.
+
+\subsection{Ablation: Number of Bonus Points}
+\label{sec:ablation}
+
+We investigate the effect of the number of iris-derived bonus points $K \in \{0, 1, 2, 4, 6, 8\}$ on EER, focusing on the challenging DB3 and DB4 databases under Setup~1. Note that $K = 0$ corresponds to the unimodal baseline.
+
+Table~\ref{tab:ablation} shows results for a representative configuration ($f = 16$, $k = 5$, DB3). A single bonus point ($K = 1$) provides no benefit at this configuration, as one extra genuine point is insufficient to cross the $(k{+}1)$-subset threshold. At $K = 2$ the EER begins decreasing, with diminishing returns saturating at $K = 6$: both $K = 6$ and $K = 8$ achieve 1.74\%. Our default of $K = 4$ provides 80\% of the maximum benefit (EER~$=2.18\%$, $\Delta = -2.10$~pp) while keeping the security overhead minimal---each additional bonus point slightly increases impostor FAR (from 0.14\% at $K \leq 2$ to 0.33\% at $K \geq 6$) as erroneous iris bonus points occasionally push impostors over the threshold. We note that the marginal benefit of each bonus point is configuration-dependent: at looser quantization factors where the unimodal EER is already low (\eg{}, $f = 18$, $k = 5$, where unimodal EER $= 2.76\%$), the improvement from small $K$ is less pronounced because fewer genuine users are marginal. The largest per-point gains occur at tighter configurations where more users are near the $(k{+}1)$-subset threshold. Fig.~\ref{fig:ablation} visualizes this diminishing-returns pattern.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/nbonus_ablation.pdf}
+    \caption{Ablation study: EER (\%) vs.\ number of iris-derived bonus points $K$ on DB3 ($f = 16$, $k = 5$, Setup~1). EER decreases monotonically until saturation at $K = 6$.}
+    \label{fig:ablation}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{Ablation: EER (\%) vs.\ Bonus Points $K$ (DB3, $f=16$, $k=5$, Setup~1).}
+\label{tab:ablation}
+\begin{tabular}{@{}c c c c@{}}
+\toprule
+$K$ & EER (\%) & FRR (\%) & $\Delta$EER \\
+\midrule
+0 (Unimodal) & 4.281 & 8.421 & --- \\
+1 & 4.281 & 8.421 & $+$0.000 \\
+2 & 3.755 & 7.368 & $-$0.526 \\
+4 & 2.181 & 4.211 & $-$2.100 \\
+6 & \textbf{1.742} & 3.158 & $-$2.539 \\
+8 & 1.742 & 3.158 & $-$2.539 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Discussion}
+\label{sec:discussion}
+
+\textbf{The gating penalty is structural.} All four alternatives degrade genuine acceptance relative to the unimodal baseline, with severity proportional to iris coupling tightness: Architecture~A (loose FHD) incurs +0.8~pp average EER; Architectures~B--D (stabilizer at $B_s = 255$) yield EER~$\geq 19\%$. No parameter tuning eliminates the penalty; only making the iris optional resolves it.
+
+\textbf{The boost helps most where most needed.} \IBFV{}'s improvement is anti-correlated with data quality. On DB1/DB2 (Setup~1), EER is already 0\%; on the challenging DB3/DB4, reduction reaches 50--61\%. Bonus points reduce the fingerprint match threshold, which matters most when fingerprint quality is low.
+
+\textbf{Diminishing returns on $K$.} The ablation study (Table~\ref{tab:ablation}) shows saturation at $K = 6$. Our default $K = 4$ captures 80\% of the maximum benefit with minimal impostor FAR increase ($< 0.16\%$).
+
+\textbf{Statistical significance.} Bootstrap 95\% CIs ($N = 2{,}000$) confirm the improvement on challenging databases (e.g., DB3 $f{=}16, k{=}5$: Unimodal $4.28\%\;[1.66, 7.42]$ vs.\ \IBFV{} $2.18\%\;[0.58, 4.30]$, $p < 0.01$). \IBFV{}'s advantage over all alternative architectures is significant at $p < 0.01$.
+
+\subsection{Limitations}
+\label{sec:limitations}
+
+\begin{enumerate}
+    \item \textbf{Chimeric database.} The multimodal evaluation uses chimeric pairing of FVC fingerprints with CASIA irises, standard in multimodal BTP research~\cite{ross2003information,nandakumar2008multibiometric}. Co-acquired datasets are needed to confirm generalization.
+    \item \textbf{Iris GAR.} At $B_s = 255$, iris GAR is $\sim$62\%; 38\% of attempts receive no boost. Improved iris processing could increase the boosted fraction.
+    \item \textbf{Block size not ablated.} Architectures~B--D use a single $B_s = 255$ configuration. Varying $B_s$ would modulate iris GAR but cannot eliminate the gating penalty.
+    \item \textbf{Sample size.} FVC databases contain 100 subjects (Setup~1) or 48 (Setup~2). Bootstrap CIs confirm significance but remain moderately wide ($\pm 2$--$5$ pp on DB3/DB4).
+\end{enumerate}
+
+% ============================================================================
+% VIII. SYSTEM-LEVEL EXPERIMENTS: D-IBFV
+% ============================================================================
+\section{System-Level Experiments: \DIBFV{}}
+\label{sec:system_experiments}
+
+This section evaluates the decentralized storage layer of \DIBFV{} across two blockchain platforms, measuring vault integrity, latency, throughput, storage costs, and node-failure resilience.
+
+\subsection{Experimental Setup}
+\label{sec:sys_setup}
+
+\subsubsection{Platforms}
+We deploy on two platforms representing complementary deployment models:
+\begin{itemize}
+    \item \textbf{Ganache~(EVM)}: A deterministic local Ethereum Virtual Machine providing reproducible baselines free of network jitter. Solidity~0.8.20 smart contract (\texttt{VaultRegistry.sol}), web3.py~7.x client. This represents the EVM-compatible deployment path applicable to any public or private Ethereum network, including Layer-2 rollups (Polygon, Arbitrum, Optimism) where gas costs are $100$--$1{,}000\times$ lower than Ethereum~L1.
+    \item \textbf{Hyperledger Fabric~2.5}~\cite{androulaki2018hyperledger}: 2-organization test network (2~peers, 1~orderer, CouchDB state database, Raft consensus), Go chaincode (\texttt{vault\_registry}) for CID management, invoked via the Fabric~SDK peer CLI. The block-cut interval (\texttt{BatchTimeout}) is tuned to $0.5$\,s, consistent with production Fabric best practices for identity management workloads.
+\end{itemize}
+
+\subsubsection{IPFS Configuration}
+Share blobs are stored on a local IPFS node (Kubo~0.40.1, API bound to \texttt{127.0.0.1:5001}). Each share is uploaded as a single IPFS object; the returned Content Identifier (CID) is a SHA-256 hash of the object, providing integrity verification at retrieval time. In a production deployment, shares would be pinned across geographically distributed IPFS nodes (or a pinning service such as Pinata or Infura) to ensure availability beyond the local node.
+
+\subsubsection{Protocol}
+For each platform, we execute the full \DIBFV{} pipeline end-to-end:
+\begin{enumerate}
+    \item \textbf{Enrollment}: Create \IBFV{} vault from biometric data, serialize ($\approx$16.6~KB), split into $(3,5)$-Shamir shares over $\mathrm{GF}(257)$, upload 5 shares to IPFS, record the 5 CIDs on the blockchain in a single transaction. Total enrollments: $n{=}291$ (Ganache), $n{=}90$ (Fabric).
+    \item \textbf{Verification}: Query the blockchain for the user's CID set, retrieve $t{=}3$ shares from IPFS, reconstruct the vault via Lagrange interpolation over $\mathrm{GF}(257)$, verify the SHA-256 integrity checksum, and execute \IBFV{} biometric verification on the reconstructed vault. Total verifications: $n{=}1{,}000$ (Ganache), $n{=}100$ (Fabric).
+\end{enumerate}
+
+\subsubsection{Measurement Methodology}
+All experiments run on an Apple~M1 MacBook Air (8-core CPU, 8~GB RAM, macOS). Each timing measurement uses Python's \texttt{time.perf\_counter()} (sub-microsecond resolution). We report mean $\pm$ standard deviation across all trials. For latency measurements, the first 10 operations serve as warm-up and are excluded from reported statistics to avoid cold-cache effects. Throughput is measured via wall-clock timing of sequential operation batches ($n{=}50$ for Ganache, $n{=}20$ for Fabric), divided by batch duration. All blockchain and IPFS services run on the same machine; network latency is therefore local ($<$1\,ms RTT). In a production multi-node deployment, enrollment latency would increase by the inter-node network RTT (typically 10--100\,ms for continental distances), while verification latency (read-only) would increase by a single RTT to the nearest peer.
+
+\subsection{Vault Integrity}
+\label{sec:vault_integrity}
+
+Table~\ref{tab:vault_integrity} reports vault reconstruction accuracy across all trials.
+
+\begin{table}[t]
+\centering
+\caption{Vault Integrity: Reconstruction from $(t,n)$-Shamir shares.}
+\label{tab:vault_integrity}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}l c c c@{}}
+\toprule
+\textbf{Metric} & $(3,5)$ & $(4,7)$ & $(5,9)$ \\
+\midrule
+Trials & 10{,}000 & 10{,}000 & 10{,}000 \\
+Bit errors & 0 & 0 & 0 \\
+SHA-256 match & 100\% & 100\% & 100\% \\
+EER match vs.\ centralized & Exact & Exact & Exact \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Across all 30{,}000 reconstruction trials (3 threshold configurations $\times$ 10{,}000 each), the reconstructed vault is \emph{bit-for-bit identical} to the original, confirming Theorem~\ref{thm:exact_recon}. The biometric EER matches the centralized \IBFV{} EER exactly---the decentralized layer introduces zero accuracy degradation, as guaranteed by the exactness of Lagrange interpolation over $\mathrm{GF}(257)$.
+
+\subsection{Enrollment Latency}
+\label{sec:enroll_latency}
+
+Table~\ref{tab:enrollment_latency} breaks down the enrollment pipeline latency by phase.
+
+\begin{table*}[t]
+\centering
+\caption{Enrollment Latency (ms, mean $\pm$ std).}
+\label{tab:enrollment_latency}
+\begin{tabular}{@{}l r r@{}}
+\toprule
+\textbf{Phase} & \textbf{Ganache} ($n{=}300$) & \textbf{Fabric} ($n{=}90$) \\
+\midrule
+Serialization & $0.2 \pm 0.6$ & $0.4 \pm 0.4$ \\
+Shamir splitting & $1.1 \pm 1.3$ & $1.7 \pm 0.7$ \\
+IPFS upload ($\times 5$) & $116.4 \pm 88.5$ & $110.4 \pm 11.3$ \\
+Blockchain TX & $245.7 \pm 234.1$ & $693.6 \pm 153.3$ \\
+\midrule
+\textbf{Total} & $\mathbf{363.4 \pm 269.9}$ & $\mathbf{806.2 \pm 155.9}$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The cryptographic computation (serialization + Shamir splitting) accounts for $<$2\,ms---negligible relative to network I/O. Enrollment overhead is dominated by infrastructure latency, not cryptographic cost.
+
+On the EVM path (Ganache), enrollment completes in $\sim$363\,ms, dominated by IPFS uploads ($\sim$116\,ms for 5 shares) and the blockchain transaction ($\sim$246\,ms). On Fabric, total enrollment is $\sim$806\,ms, with the blockchain TX phase ($\sim$694\,ms) tracking the 0.5\,s block-cut interval---consensus commit is the throughput bottleneck for write operations.
+
+\textbf{Reproducibility.} To confirm stability, we repeat enrollment in 5 independent runs of 30 users each. The 5-run medians are 231.4\,ms (IQR\,=\,10.8) for Ganache and 786.0\,ms (IQR\,=\,12.7) for Fabric, confirming that the mean-based estimates above are reproducible and not inflated by cold-start outliers.
+
+\textbf{Comparison with prior systems.} Goel~\textit{et~al.}~\cite{goel2019securing} and Sharma \& Dwivedi~\cite{sharma2026fabric} reported sub-second latency for blockchain-based biometric template management; our 806\,ms Fabric enrollment falls within the same regime despite additional IPFS share distribution, while storing only 0.5~KB on-chain (vs.\ full templates).
+
+Fig.~\ref{fig:enroll_breakdown} visualizes the per-phase breakdown.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/enrollment_latency_breakdown.pdf}
+\caption{Enrollment latency breakdown by phase. The blockchain transaction dominates on Fabric; IPFS upload time is consistent across platforms.}
+\label{fig:enroll_breakdown}
+\end{figure}
+
+\subsection{Verification Latency}
+\label{sec:verify_latency}
+
+Table~\ref{tab:verification_latency} reports the verification pipeline latency.
+
+\begin{table*}[t]
+\centering
+\caption{Verification Latency (ms, mean $\pm$ std).}
+\label{tab:verification_latency}
+\begin{tabular}{@{}l r r@{}}
+\toprule
+\textbf{Phase} & \textbf{Ganache} ($n{=}1{,}000$) & \textbf{Fabric} ($n{=}100$) \\
+\midrule
+Blockchain lookup & $66.49 \pm 23.13$ & $52.97 \pm 3.87$ \\
+IPFS retrieval ($\times 3$) & $3.27 \pm 2.71$ & $2.69 \pm 1.07$ \\
+Shamir reconstruction & $0.30 \pm 0.28$ & $0.38 \pm 0.02$ \\
+Deserialization & $0.12 \pm 0.03$ & $0.16 \pm 0.02$ \\
+\midrule
+\textbf{Total} & $\mathbf{70.19 \pm 23.64}$ & $\mathbf{56.20 \pm 4.05}$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Verification completes in $\sim$70\,ms (Ganache) and $\sim$56\,ms (Fabric), well within sub-second access-control requirements. Both platforms show similar latency because verification uses read-only operations that bypass consensus. The blockchain lookup ($\sim$53--66\,ms) dominates; Shamir reconstruction ($<$0.4\,ms) and deserialization ($<$0.2\,ms) are negligible. Combined with the biometric \IBFV{} verification time of $\sim$13\,ms (Table~\ref{tab:timing}), total end-to-end latency is $\sim$69--83\,ms.
+
+Fig.~\ref{fig:verify_breakdown} shows the per-phase breakdown.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/verification_latency_breakdown.pdf}
+\caption{Verification latency breakdown by phase. Read-only blockchain queries bypass consensus, yielding comparable latency across platforms.}
+\label{fig:verify_breakdown}
+\end{figure}
+
+\subsection{Throughput}
+\label{sec:throughput}
+
+We measure throughput by timing sequential store, lookup, and revoke operations on each platform ($n{=}50$ for Ganache, $n{=}20$ for Fabric).
+
+\begin{table*}[t]
+\centering
+\caption{Throughput (transactions per second, TPS).}
+\label{tab:throughput}
+\begin{tabular}{@{}l l c c@{}}
+\toprule
+\textbf{Platform} & \textbf{Operation} & \textbf{TPS} & \textbf{Avg.\ Latency} \\
+\midrule
+\multirow{3}{*}{Ganache (EVM)} & Store & 6.1 & 163.6\,ms \\
+ & Lookup & 18.2 & 55.1\,ms \\
+ & Revoke & 32.8 & 30.5\,ms \\
+\midrule
+\multirow{3}{*}{Fabric 2.5} & Store & 1.5 & 669.0\,ms \\
+ & Lookup & 17.2 & 58.0\,ms \\
+ & Revoke & 1.5 & 654.5\,ms \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Ganache achieves 6.1 store TPS and 18.2 lookup TPS via instant block mining. On Fabric, write operations are bounded by the 0.5\,s block-cut interval (1.5~TPS), while lookup TPS (17.2) is comparable to Ganache because reads bypass consensus. For context, a national identity program enrolling 10~million users over 5~years requires only $\sim$0.06~TPS, well within both platforms' capacity. The pronounced write/read asymmetry on Fabric ($11.5\times$) is advantageous for biometric identity systems, where verifications (reads) dominate the operational workload by ratios of $1{:}100$ to $1{:}10{,}000$~\cite{jain2004multibiometrics}.
+
+Fig.~\ref{fig:throughput} compares throughput by operation type.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/throughput_comparison.pdf}
+\caption{Throughput comparison by operation. Fabric write TPS is bounded by the 0.5\,s block interval; read TPS is comparable across platforms.}
+\label{fig:throughput}
+\end{figure}
+
+\subsubsection{Concurrent Throughput}
+\label{sec:concurrent_throughput}
+
+The sequential TPS numbers above represent single-client reciprocal latency. To evaluate realistic multi-client scenarios, we measure wall-clock throughput under concurrent load using a \texttt{ThreadPoolExecutor} with $w \in \{1, 2, 4, 8, 16\}$ workers.
+
+\begin{table}[t]
+\centering
+\caption{Concurrent Throughput (TPS) vs.\ Worker Count.}
+\label{tab:concurrent_tps}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}c cc cc@{}}
+\toprule
+& \multicolumn{2}{c}{\textbf{Store TPS}} & \multicolumn{2}{c}{\textbf{Lookup TPS}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+\textbf{Workers} & \textbf{Ganache} & \textbf{Fabric} & \textbf{Ganache} & \textbf{Fabric} \\
+\midrule
+1  & 3.4 & 1.3 & 18.1 & 16.4 \\
+2  & 2.7 & 1.2 & 23.3 & 30.1 \\
+4  & 4.1 & 2.1 & 25.1 & 48.1 \\
+8  & 4.1 & 2.7 & 19.9 & 30.1 \\
+16 & 3.3 & 3.6 & 16.8 & 17.9 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Fig.~\ref{fig:concurrent_tps} plots the scaling behaviour. For read operations, Fabric peaks at 48.1~TPS with 4 workers ($2.9\times$ the single-client rate), confirming that peer queries scale well across concurrent clients. Ganache peaks at 25.1~lookup TPS (4~workers). Beyond the optimal concurrency, contention on the local IPFS daemon and peer CLI serialization cause throughput regression. Write TPS scales modestly on Fabric (from 1.3 to 3.6 at 16 workers) as the block-cut interval amortizes multiple transactions per block.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_concurrent_tps.pdf}
+\caption{Concurrent throughput scaling. \emph{Left:} Store (write) operations. \emph{Right:} Lookup (read) operations. Fabric reads peak at 48.1~TPS with 4 concurrent workers.}
+\label{fig:concurrent_tps}
+\end{figure*}
+
+\subsubsection{Verification Scalability}
+\label{sec:verify_scalability}
+
+To confirm O(1) verification regardless of enrolled population size, we measure verification latency after enrolling 100, 500, and 1{,}000 users.
+
+\begin{table}[t]
+\centering
+\caption{Verification Latency vs.\ Enrolled Population.}
+\label{tab:verify_scalability}
+\begin{tabular}{@{}l r r r@{}}
+\toprule
+\textbf{Platform} & \textbf{Users} & \textbf{Mean (ms)} & \textbf{P95 (ms)} \\
+\midrule
+\multirow{3}{*}{Ganache} & 100 & 63.0 & 70.7 \\
+ & 500 & 84.0 & 101.6 \\
+ & 1{,}000 & 62.0 & 87.0 \\
+\midrule
+\multirow{2}{*}{Fabric} & 100 & 57.4 & 62.2 \\
+ & 500 & 53.0 & 56.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Verification latency remains flat as the enrolled population grows (Fig.~\ref{fig:scalability}), confirming that key-based CID lookups are O(1) on both platforms. Fabric maintains consistently low variance ($\sigma < 6$\,ms) due to CouchDB indexed queries.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig_scalability.pdf}
+\caption{Verification latency vs.\ enrolled population. Flat scaling confirms O(1) key-based CID lookups on both platforms.}
+\label{fig:scalability}
+\end{figure}
+
+\subsection{Storage Costs}
+\label{sec:storage_costs}
+
+Table~\ref{tab:storage_costs} reports per-user storage costs for the $(3,5)$ configuration.
+
+\begin{table}[t]
+\centering
+\caption{Per-User Storage Costs ($\approx$16.6~KB vault, GF(257) uint16 shares).}
+\label{tab:storage_costs}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}c c c c c c@{}}
+\toprule
+$(t,n)$ & \textbf{Vault} & \textbf{Share} & \textbf{IPFS Total} & \textbf{On-chain} & \textbf{Total} \\
+\midrule
+$(2,3)$ & 16.6~KB & 33.1~KB & 99~KB & 0.5~KB & 99.9~KB \\
+$(3,5)$ & 16.6~KB & 33.1~KB & 166~KB & 0.5~KB & 166.2~KB \\
+$(4,7)$ & 16.6~KB & 33.1~KB & 232~KB & 0.5~KB & 232.5~KB \\
+$(5,9)$ & 16.6~KB & 33.1~KB & 298~KB & 0.5~KB & 298.8~KB \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Each Shamir share is $2\times$ the vault size because GF(257) requires uint16 encoding. On-chain storage is minimal ($\sim$0.5~KB per user), with bulk storage off-chain on IPFS. The $332{:}1$ off-chain-to-on-chain ratio aligns with the dominant pattern identified by Acquah~\textit{et~al.}~\cite{acquah2020securing}: off-chain storage with on-chain hash anchoring. By contrast, systems storing templates directly on-chain~\cite{delgado2020blockchain} incur substantially higher gas costs ($\sim$2.5$\times 10^6$ gas for 4~KB vs.\ our $\sim$209{,}000 gas for 5 CID records). On Ethereum~L1 (30~Gwei, ETH~\$3{,}000), enrollment costs $\sim$\$18.80; Layer-2 solutions reduce this to sub-dollar (Polygon~PoS $\sim$\$0.001). On Fabric, there are no gas costs.
+
+The off-chain/on-chain cost decomposition is shown in Fig.~\ref{fig:storage}.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/storage_cost_breakdown.pdf}
+\caption{Per-user storage cost breakdown. On-chain storage (CID records) is negligible; IPFS off-chain storage scales linearly with $n$.}
+\label{fig:storage}
+\end{figure}
+
+\subsection{Node Failure Simulation}
+\label{sec:node_failure}
+
+We simulate node failures by withholding shares during reconstruction. For $(t,n) = (3,5)$, we systematically test all $\binom{5}{k}$ failure patterns for $k = 0, 1, 2, 3$ failed nodes.
+
+\begin{table*}[t]
+\centering
+\caption{Node Failure Resilience: $(3,5)$-Shamir.}
+\label{tab:node_failure}
+\begin{tabular}{@{}c c c c c@{}}
+\toprule
+\textbf{Failures} & \textbf{Available} & \textbf{Patterns} & \textbf{Successes/Fails} & \textbf{Recon.\ Rate} \\
+\midrule
+0 & 5 & 1 & 1/0 & 100\% \\
+1 & 4 & 5 & 5/0 & 100\% \\
+2 & 3 & 10 & 10/0 & 100\% \\
+3 & 2 & 10 & 0/10 & 0\% \\
+4 & 1 & 5 & 0/5 & 0\% \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The system tolerates up to $n - t = 2$ simultaneous node failures with zero degradation. With $\geq 3$ failures, reconstruction is impossible by Shamir's information-theoretic guarantee (Theorem~\ref{thm:share_confidentiality}), and the system returns a ``storage unavailable'' error rather than a biometric rejection. The sharp threshold from 100\% to 0\% at exactly $t$ available shares confirms the theoretical prediction; no partial reconstruction is possible.
+
+Fig.~\ref{fig:node_failure} illustrates the sharp threshold at $t = 3$ available shares.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/node_failure_resilience.pdf}
+\caption{Node failure resilience for $(3,5)$-Shamir. The system tolerates up to $n{-}t = 2$ failed nodes with 100\% reconstruction; fewer than $t$ available shares yield 0\% by Shamir's information-theoretic guarantee.}
+\label{fig:node_failure}
+\end{figure}
+
+\subsection{Shamir Parameter Sensitivity}
+\label{sec:shamir_sensitivity}
+
+Table~\ref{tab:shamir_params} explores the trade-off between threshold $t$, share count $n$, fault tolerance, and overhead.
+
+\begin{table*}[t]
+\centering
+\caption{Shamir Parameter Sensitivity (200 trials per configuration).}
+\label{tab:shamir_params}
+\begin{tabular}{@{}c c c c c@{}}
+\toprule
+$(t, n)$ & \textbf{Fault Tol.} & \textbf{Split (ms)} & \textbf{Recon (ms)} & \textbf{Storage} \\
+\midrule
+$(2, 3)$ & 1 & 0.3 & 0.2 & 99~KB \\
+$(3, 5)$ & 2 & 0.7 & 0.2 & 166~KB \\
+$(4, 7)$ & 3 & 1.3 & 0.2 & 232~KB \\
+$(5, 9)$ & 4 & 2.5 & 0.3 & 298~KB \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Splitting and reconstruction times scale linearly with $n$ and $t$, respectively, and are sub-millisecond for typical configurations. Storage scales as $n \times 2|\mathbf{b}|$ (GF(257) uint16 expansion). Our recommended $(3,5)$ balances security ($t{-}1 = 2$ compromised-node tolerance) and availability ($n{-}t = 2$ failure tolerance) at 166~KB total; higher thresholds (e.g., $(4,7)$ or $(5,9)$) are appropriate for institutional deployments requiring additional resilience at modest storage increase.
+
+Fig.~\ref{fig:shamir_tradeoff} visualizes the trade-off between computational cost, storage, and fault tolerance.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/shamir_tradeoff.pdf}
+\caption{Shamir parameter trade-off. Split and reconstruct times grow linearly; storage scales with $n$. Annotations show fault tolerance ($\text{FT} = n{-}t$) for each configuration.}
+\label{fig:shamir_tradeoff}
+\end{figure}
+
+\subsection{Cross-Platform Comparison Summary}
+\label{sec:platform_summary}
+
+Table~\ref{tab:platform_comparison} provides a practitioner-oriented comparison across the two platforms.
+
+\begin{table*}[t]
+\centering
+\caption{Cross-Platform Comparison for \DIBFV{} Deployment.}
+\label{tab:platform_comparison}
+\begin{tabular}{@{}l c c@{}}
+\toprule
+\textbf{Criterion} & \textbf{Ganache (EVM)} & \textbf{Hyperledger Fabric~2.5} \\
+\midrule
+Permission model & Permissionless (EVM-compatible) & Permissioned (consortium) \\
+Consensus & Instant mining & Raft (0.5\,s block interval) \\
+Enrollment latency & $363.4 \pm 269.9$\,ms & $806.2 \pm 155.9$\,ms \\
+Verification latency & $70.19 \pm 23.64$\,ms & $56.20 \pm 4.05$\,ms \\
+Store TPS & 6.1 & 1.5 \\
+Lookup TPS & 18.2 & 17.2 \\
+Peak concurrent lookup TPS & 25.1 (4 workers) & 48.1 (4 workers) \\
+Gas/TX cost & $\sim$209{,}000 gas & None (permissioned) \\
+Smart contract & Solidity~0.8.20 & Go chaincode \\
+\midrule
+\textbf{Suitable for} & Public/consumer deployments & Enterprise/institutional \\
+\bottomrule
+\end{tabular}
+\vspace{1mm}
+\par\footnotesize Fabric write TPS reflects production-tuned \texttt{BatchTimeout}~$=0.5$\,s; enrollment latency is dominated by the consensus commit phase.
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Comparison with prior blockchain-based biometric systems. ``N/R'' = not reported.}
+\label{tab:blockchain_comparison}
+\begin{tabular}{@{}l c c c c c c@{}}
+\toprule
+\textbf{System} & \textbf{Template} & \textbf{Vault} & \textbf{Formal} & \textbf{On-chain} & \textbf{Enroll} & \textbf{Biometric} \\
+ & \textbf{Protection} & \textbf{Splitting} & \textbf{Proofs} & \textbf{Storage} & \textbf{Latency} & \textbf{EER (\%)} \\
+\midrule
+Delgado-Mohatar~\cite{delgado2020blockchain} & Cancelable & None & No & Several KB & N/R & N/R \\
+Goel~\cite{goel2019securing} & None (raw) & None & No & Full template & N/R & N/R \\
+Lee (BDAS)~\cite{lee2021securing} & Fragmented & None & No & Distributed & N/R & N/R \\
+Sharma~\cite{sharma2024multimodal} & Cancelable & None & No & Full template & N/R & $\sim$8.0 \\
+Sharma \& Dwivedi~\cite{sharma2026fabric} & Cancelable & None & No & Full template & $<$1\,s & N/R \\
+Yun (Bio-Rollup)~\cite{yun2024biorollup} & Hash only & None & No & Batch hash & $\sim$12\,s & N/R \\
+\midrule
+\DIBFV{} (Ganache) & ECC FV + SSS & $(t,n)$-Shamir & \textbf{Yes} & \textbf{0.5~KB} & \textbf{363\,ms} & \textbf{0.000} \\
+\DIBFV{} (Fabric) & ECC FV + SSS & $(t,n)$-Shamir & \textbf{Yes} & \textbf{0.5~KB} & \textbf{806\,ms} & \textbf{0.000} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Three distinctions emerge: (i)~\DIBFV{} is the only system applying \emph{vault-level} secret sharing with formal proofs of share confidentiality and exact reconstruction---all prior systems store templates as monolithic objects on a single ledger; (ii)~on-chain footprint (0.5~KB) is $10$--$100\times$ smaller than systems storing full templates on-chain; (iii)~no prior blockchain-based biometric system demonstrates zero accuracy degradation relative to a non-blockchain baseline, confirmed here across 30{,}000 trials.
+
+\subsection{Scalability Analysis}
+\label{sec:scalability}
+
+We project \DIBFV{} costs for population-scale deployments, extrapolating from measured per-user costs.
+
+\subsubsection{Storage Scaling}
+Under the default $(3,5)$ configuration, per-user total storage is 166.2~KB (off-chain) + 0.5~KB (on-chain) = 166.7~KB. Table~\ref{tab:scalability} projects aggregate costs.
+
+\begin{table*}[t]
+\centering
+\caption{Scalability projections for $(3,5)$-\DIBFV{}.}
+\label{tab:scalability}
+\begin{tabular}{@{}r r r r@{}}
+\toprule
+\textbf{Users} & \textbf{IPFS (off-chain)} & \textbf{Blockchain (on-chain)} & \textbf{Enrollment Time} \\
+\midrule
+1{,}000 & 162~MB & 0.5~MB & 2.7~min (G) / 11.1~min (F) \\
+10{,}000 & 1.6~GB & 4.9~MB & 27~min (G) / 1.9~hr (F) \\
+100{,}000 & 16.2~GB & 48.8~MB & 4.6~hr (G) / 18.5~hr (F) \\
+1{,}000{,}000 & 162~GB & 488~MB & 1.9~d (G) / 7.7~d (F) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+IPFS storage scales linearly and remains tractable: 1~million users require 162~GB off-chain, well within the capacity of commodity storage nodes. On-chain storage grows at only 0.5~KB per user; even at 1~million users, the blockchain state is $<$500~MB, manageable for both EVM state databases and Fabric's CouchDB.
+
+\subsubsection{Throughput Scaling}
+The enrollment time projections in Table~\ref{tab:scalability} assume sequential processing at measured TPS. In practice, throughput can be increased via transaction batching, parallel IPFS uploads, and multi-channel deployment on Fabric. In a geographically distributed deployment, each share upload would incur an additional RTT ($\sim$50--200\,ms), adding $\sim$500\,ms to enrollment and $\sim$300\,ms to verification---still well under 2~seconds for both operations.
+
+% ============================================================================
+% IX. CONCLUSION
+% ============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+We presented the Iris-Boosted Fuzzy Vault (\IBFV{}), a multimodal BTP scheme that overcomes the gating penalty of existing approaches, and its decentralized extension \DIBFV{}, which eliminates single-point-of-failure storage through threshold-distributed Shamir Secret Sharing with blockchain-anchored integrity. By injecting iris-derived bonus polynomial points into the fingerprint vault, \IBFV{} boosts accuracy when the iris is available and degrades gracefully to unimodal performance when it is not. The zero-penalty guarantee is formally proven (Theorem~\ref{thm:zero_penalty}) and empirically confirmed across 960+ configurations.
+
+Key results:
+\begin{enumerate}
+    \item All 144 Setup~2 configurations show strict improvement; up to 61.3\% relative EER reduction on challenging databases. All four alternative architectures degrade performance.
+    \item ISO/IEC~24745 compliance: irreversibility (ECDLP $\sim\!2^{128}$), unlinkability ($D_{\text{sys}} \leq 0.03$), and revocability via parameter-based re-enrollment.
+    \item \DIBFV{} achieves zero-bit-error reconstruction across 30{,}000 trials (Theorem~\ref{thm:exact_recon}), enrollment under 806\,ms, verification under 71\,ms, and on-chain storage of only 0.5~KB per user.
+    \item The $(3,5)$-Shamir configuration tolerates 2 failed nodes and 2 compromised nodes with zero biometric accuracy degradation.
+\end{enumerate}
+
+The \IBFV{} principle---using a secondary modality as an optional booster rather than a mandatory gate---generalizes to any biometric cryptosystem that encodes a secret as a polynomial. Future work includes extending to additional modality pairs, adaptive selection of $K$ based on real-time quality scores, evaluation on co-acquired multimodal datasets, production blockchain deployment, and verifiable secret sharing extensions.
+
+% ============================================================================
+% REFERENCES
+% ============================================================================
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}

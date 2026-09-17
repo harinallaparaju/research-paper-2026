@@ -1,0 +1,212 @@
+\chapter{Discussion and Analysis}
+\label{ch:discussion}
+
+% ============================================================================
+\section{Why Gating Always Hurts: A Structural Argument}
+\label{sec:gating_argument}
+% ============================================================================
+
+The AND-fusion penalty (Eq.~\ref{eq:and_penalty}) is not an artifact of specific
+sensors or databases. It is a structural consequence of treating a fallible
+biometric as a mandatory gate. Let $G_\mathrm{FP}$ and $G_\mathrm{Iris}$
+be independent Bernoulli random variables indicating genuine acceptance. Under
+AND-fusion:
+\begin{equation}
+  \Pr[\mathrm{Accept}] = G_\mathrm{FP} \wedge G_\mathrm{Iris}
+  \leq G_\mathrm{FP}
+\end{equation}
+with equality only if $G_\mathrm{Iris} = 1$ always, which is impossible for
+any realistic biometric. The tighter the coupling (Architectures B, C, D), the
+more strictly this equality becomes an inequality.
+
+Architectures B--D impose a stronger bound: their EER is floor-bounded by the
+iris FRR. At $B_s = 255$, iris FRR $\approx 38\%$; therefore:
+\begin{equation}
+  \mathrm{EER}_\mathrm{B/C/D} \geq 0.38 \times (1 - \mathrm{FAR}_\mathrm{FP})
+  \approx 38\%
+\end{equation}
+for any fingerprint system, regardless of sensor quality. The experimental results
+(EER $\geq 19\%$ under the best fingerprint conditions) closely track this bound.
+
+IBFV breaks the structural constraint by making the iris conditional: the iris
+path is activated only when the iris key recovers successfully. This converts an
+AND-gate ($\text{must pass both}$) into a conditional booster ($\text{may use
+iris if available}$).
+
+% ============================================================================
+\section{Where Boosting Helps Most}
+\label{sec:boost_analysis}
+% ============================================================================
+
+The 61.3\% relative EER reduction on FVC2002~DB3 (vs.\ $\sim$40--60\% on
+other databases) is explained by the interaction between fingerprint difficulty
+and iris bonus:
+
+\begin{itemize}
+  \item On an \textbf{easy database} (DB1, unimodal EER already 0.000\%), there
+  is no room for further absolute improvement. Both unimodal and IBFV achieve
+  0.000\% EER; the zero-penalty guarantee holds trivially, and bonus points do
+  not elevate impostor FAR on these high-quality databases.
+  \item On a \textbf{challenging database} (DB3, unimodal EER~2.762\%), many genuine
+  queries fail because they recover too few matching fingerprint points to
+  enumerate $k{+}1$ subsets successfully. Adding $K = 4$ bonus points reduces the
+  required fingerprint match from $k{+}1 = 11$ to $k{+}1{-}K = 7$, which is a
+  qualitatively easier threshold. This corresponds to a $\Delta \approx 4$-point
+  shift in the distribution of matched points, moving substantially more genuines
+  above the acceptance threshold.
+  \item \textbf{Diminishing returns} at $K > 6$: once $K$ reaches $k{+}1$, all
+  required polynomial points can be supplied by the iris alone. Further increasing
+  $K$ cannot reduce the subset enumeration further; the fingerprint constraint
+  is already fully satisfied.
+\end{itemize}
+
+% ============================================================================
+\section{Security Analysis}
+\label{sec:security_analysis}
+% ============================================================================
+
+\subsection{Irreversibility}
+\label{sec:irreversibility}
+
+The ECC vault protects minutiae via ECDLP: recovering quantized minutia $q_i$
+from stored $x$-coordinate $P_i.x$ requires solving ECDLP on Brainpool~P256r1.
+The best known attack requires $\approx 2^{128}$ group operations---beyond the
+computational reach of any foreseeable adversary.
+
+The iris commitment stores only helper data $\mathbf{h}$ and key hash $H(\mathbf{k})$.
+The key space for $n_b = 514$ blocks is $2^{514}$; brute-forcing the iris key
+is infeasible. Together, the vault and iris commitment achieve the irreversibility
+requirement of ISO/IEC~24745 \cite{iso24745}.
+
+\subsection{Unlinkability}
+\label{sec:unlinkability}
+
+Unlinkability is quantified by Meng et al.'s $D_{\leftrightarrow}$ metric and the
+$D_\mathrm{sys}$ system-level measure \cite{gomezbarrero2017}. A threshold of
+$D_\mathrm{sys} \leq 0.05$ is required for unlinkability.
+
+The IBFV vault achieves $D_\mathrm{sys} \leq 0.03$ through three mechanisms:
+\begin{itemize}
+  \item \textbf{EC mapping}: Vault x-coordinates are elliptic curve points; no
+  two vaults share the same x-coordinates (fresh polynomial each enrollment).
+  \item \textbf{Virtual x-coordinate randomness}: Bonus point coordinates depend
+  on $H(\mathbf{k})$; with a fresh iris commitment key per enrollment, they are
+  computationally independent across templates.
+  \item \textbf{Chaff randomness}: Fresh random chaff per enrollment ensures no
+  statistical relationship between vaults.
+\end{itemize}
+
+\subsection{Revocability}
+\label{sec:revocability}
+
+Re-enrollment with new quantization factor $f'$, new polynomial, and new iris
+commitment key produces a vault in a different domain. By the security of SHA-256
+(used in key hashing) and by Theorem~2 (Shamir share confidentiality), new and
+revoked shares are information-theoretically independent. Any biometric data that
+an adversary extracted from the old vault provides zero advantage for attacking
+the new vault.
+
+\subsection{D-IBFV Security Summary}
+\label{sec:dibfv_security_summary}
+
+\begin{table}[h]
+\centering
+\caption{D-IBFV security properties per ISO/IEC~24745.}
+\label{tab:security_summary}
+\small
+\begin{tabular}{@{}p{3.2cm}p{8.2cm}p{3.8cm}@{}}
+\toprule
+\textbf{Property} & \textbf{Mechanism} & \textbf{Quantification} \\
+\midrule
+Irreversibility     & ECDLP + iris key space & $2^{128}$ / $2^{514}$ \\
+Unlinkability       & Vault randomness + IBFV PRF & $D_\mathrm{sys} \leq 0.03$ \\
+Revocability        & Re-enrollment protocol & Zero information leakage (Thm.~2) \\
+Brute-force defense & Expected $6.8{\times}10^{8}$ attempts at $10^6$/s $\approx 680$\,s; mitigations: HSM, $k{=}15$, Argon2 & Known limitation~\cite{tams2013attacks} \\
+Server compromise   & Shamir $(t,n)$: $<t$ shares give nothing & Thm.~2: info-theoretic \\
+IPFS tampering      & CID integrity + SHA-256 trailer & Detect any 1-bit change \\
+Blockchain tamper   & Consensus + append-only & Raft/BFT: $< 50\%$ attack budget \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Brute-force resistance.} An adversary holding a complete vault
+must identify $k{+}1$ genuine points among $|\mathcal{V}| = 6g + K = 124$ total
+points. The expected number of attempts is
+$\binom{124}{11}/\binom{24}{11} \approx 6.8 \times 10^{8}$; at $10^6$ attempts
+per second this requires $\sim\!680$~seconds---\emph{feasible} for an offline
+attacker, a well-known limitation of all fuzzy vault schemes~\cite{tams2013attacks}.
+Standard mitigations include: (1)~storing $S$ in a hardware security module (HSM)
+so vault compromise alone is insufficient; (2)~increasing polynomial degree $k$
+(at $k = 15$, cost rises to $\sim\!3 \times 10^{6}$ years); and
+(3)~adding key-stretching (e.g., Argon2). The primary template protection
+goal---preventing \emph{biometric recovery}---is achieved regardless, since
+reconstructing $p(x)$ reveals only the secret $s$, not the original minutiae
+(ECDLP on Brainpool~P256r1 requires $\sim\!2^{128}$ operations).
+
+% ============================================================================
+\section{Comparison with Prior Systems}
+\label{sec:prior_comparison}
+% ============================================================================
+
+\begin{table}[h]
+\centering
+\caption{Comparison with key prior multimodal fuzzy vault and blockchain biometric systems.}
+\label{tab:prior_comparison}
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{System} & \textbf{Zero-Penalty} & \textbf{Decentralized} & \textbf{Formal Proofs}
+ & \textbf{Best EER} & \textbf{ISO 24745} \\
+\midrule
+Nandakumar \cite{nandakumar2008multibiometric} & No & No & No & 2.14\% & Partial \\
+Moon \cite{moon2010multibiometric}             & No & No & No & 4.50\% & Partial \\
+Kelkboom \cite{kelkboom2011multialgorithm}               & No & No & No & 3.80\% & Partial \\
+Maurya \cite{maurya2025enhancing}              & N/A & No & No & 0.005\% & Yes \\
+Delgado-Mohatar \cite{delgado2020blockchain}   & N/A & Yes & No & --- & No \\
+Sharma 2024 \cite{sharma2024multimodal}        & N/A & Yes & No & --- & Partial \\
+\midrule
+\textbf{D-IBFV (proposed)} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} &
+  \textbf{0.000\%} & \textbf{Full} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+D-IBFV is the only system in the comparison that simultaneously: (1) guarantees
+zero-penalty multimodal fusion, (2) operates on a decentralized blockchain
+infrastructure with Shamir threshold sharing, and (3) provides formal
+information-theoretic proofs.
+
+% ============================================================================
+\section{Limitations and Caveats}
+\label{sec:limitations}
+% ============================================================================
+
+\begin{enumerate}
+  \item \textbf{Chimeric database}: Fingerprint and iris subjects are paired
+  artificially rather than co-acquired from the same individuals. The independence
+  assumption may not hold for all real deployments where inter-modal correlation
+  could affect security estimates. The fusion is evaluated on balanced impostor
+  scenarios, which may differ from real-world attack distributions.
+
+  \item \textbf{Iris GAR ($\sim$62\%)}: The iris fuzzy commitment achieves only
+  $\sim$62\% genuine acceptance at $B_s = 255$. While the zero-penalty guarantee
+  eliminates any \emph{penalty} from this limitation, higher iris GAR would
+  translate to a larger IBFV boost. The iris pipeline does not include
+  iris-specific quality filters (e.g., specular reflection removal, pupil dilation
+  normalization) that could improve GAR.
+
+  \item \textbf{Gas cost at Ethereum L1}: At current prices ($\sim$\$18.80 per
+  enrollment), Ethereum L1 deployment is cost-prohibitive for large-scale systems.
+  Layer-2 solutions (Polygon PoS, Arbitrum) reduce costs by $\sim 10{,}000\times$
+  to sub-dollar, but L2 security assumptions differ from L1 finality guarantees.
+
+  \item \textbf{Ganache vs.\ mainnet}: Ganache provides a local single-node
+  EVM simulation. Mainnet deployment would introduce additional latency from
+  network propagation, mempool congestion, and variable gas prices.
+
+  \item \textbf{Sample size}: The biometric evaluation uses 100 subjects per
+  FVC database and 249 subjects for CASIA. Larger-scale evaluations (thousands
+  of subjects) may reveal distribution tail effects not visible at these scales.
+\end{enumerate}
+
+

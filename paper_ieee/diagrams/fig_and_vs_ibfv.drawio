@@ -1,0 +1,118 @@
+<mxfile host="app.diagrams.net" modified="2026-04-06" agent="IBFV Paper" version="24.0.0" type="device">
+  <diagram id="and-vs-ibfv" name="AND-Fusion vs IBFV">
+    <mxGraphModel dx="960" dy="360" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="960" pageHeight="360" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ===== (a) CONVENTIONAL AND-FUSION ===== -->
+        <mxCell id="and_title" value="&lt;b&gt;(a) Conventional AND-Fusion&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;(Architectures A, B, C, D)&lt;/font&gt;" style="text;html=1;align=center;fontSize=10;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="65" y="8" width="210" height="26" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="and_fp" value="FP Query" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="48" width="70" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="and_iris" value="Iris Query" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="130" width="70" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- Iris Gate -->
+        <mxCell id="and_gate" value="&lt;b&gt;Iris Gate&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:6px&quot;&gt;Must pass before&lt;br&gt;FP vault is unlocked&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="140" y="88" width="100" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="ae1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="and_fp" target="and_gate" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="110" y="62"/><mxPoint x="110" y="108"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ae2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="and_iris" target="and_gate" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Pass path -->
+        <mxCell id="and_decode" value="FP Vault&lt;br&gt;Decode" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=8;" vertex="1" parent="1">
+          <mxGeometry x="300" y="48" width="72" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ae3" value="Pass" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;fontSize=7;" edge="1" source="and_gate" target="and_decode" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="265" y="98"/><mxPoint x="265" y="62"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Blocked path -->
+        <mxCell id="and_blocked" value="&lt;b&gt;Blocked&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:6px&quot;&gt;~46% of genuine users&lt;br&gt;rejected here&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="280" y="106" width="110" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="ae4" value="Fail" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=2;fontSize=7;" edge="1" source="and_gate" target="and_blocked" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Result box -->
+        <mxCell id="and_result" value="GAR&lt;sub&gt;AND&lt;/sub&gt; = GAR&lt;sub&gt;FP&lt;/sub&gt; &#215; GAR&lt;sub&gt;Iris&lt;/sub&gt; &lt;b&gt;&#8804; GAR&lt;sub&gt;FP&lt;/sub&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=8;strokeDasharray=4 4;" vertex="1" parent="1">
+          <mxGeometry x="50" y="178" width="240" height="26" as="geometry"/>
+        </mxCell>
+
+        <!-- Problem list -->
+        <mxCell id="and_problems" value="&#8226; EER &gt; Unimodal (always)&lt;br&gt;&#8226; Iris failure = system failure&lt;br&gt;&#8226; Best EER for B/C/D &#8805; 23%" style="text;html=1;fontSize=7;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="55" y="210" width="180" height="36" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== DIVIDER ===== -->
+        <mxCell id="divider" value="" style="line;strokeWidth=1;strokeColor=#999999;strokeDasharray=4 4;" vertex="1" parent="1">
+          <mxGeometry x="425" y="12" width="1" height="240" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== (b) IBFV ===== -->
+        <mxCell id="ibfv_title" value="&lt;b&gt;(b) IBFV: Iris-Boosted Fuzzy Vault&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;(Proposed Architecture)&lt;/font&gt;" style="text;html=1;align=center;fontSize=10;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="560" y="8" width="230" height="26" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ibfv_fp" value="FP Query" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=8;" vertex="1" parent="1">
+          <mxGeometry x="460" y="48" width="70" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ibfv_iris" value="Iris Query" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=8;" vertex="1" parent="1">
+          <mxGeometry x="460" y="130" width="70" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- FP always runs -->
+        <mxCell id="ibfv_fp_pts" value="|X&lt;sub&gt;FP&lt;/sub&gt;|&lt;br&gt;&lt;font style=&quot;font-size:6px&quot;&gt;FP points&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=8;" vertex="1" parent="1">
+          <mxGeometry x="580" y="48" width="62" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="ibfv_fp" target="ibfv_fp_pts" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Iris decision -->
+        <mxCell id="ibfv_diamond" value="Key&lt;br&gt;recovered?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=7;" vertex="1" parent="1">
+          <mxGeometry x="570" y="112" width="72" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="ibfv_iris" target="ibfv_diamond" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- YES: bonus -->
+        <mxCell id="ibfv_bonus" value="+&lt;i&gt;K&lt;/i&gt; bonus&lt;br&gt;points" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=8;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="105" width="68" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie3" value="Yes" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;fontSize=7;" edge="1" source="ibfv_diamond" target="ibfv_bonus" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- NO: no-op -->
+        <mxCell id="ibfv_noop" value="No change&lt;br&gt;&lt;font style=&quot;font-size:6px&quot;&gt;(zero penalty)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=8;strokeDasharray=4 4;" vertex="1" parent="1">
+          <mxGeometry x="680" y="143" width="68" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie4" value="No" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeDasharray=4 4;fontSize=7;" edge="1" source="ibfv_diamond" target="ibfv_noop" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- FP vault decode (always runs) -->
+        <mxCell id="ibfv_decode" value="FP Vault&lt;br&gt;Decode&lt;br&gt;&lt;font style=&quot;font-size:6px&quot;&gt;Always runs&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="790" y="44" width="72" height="38" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="ibfv_fp_pts" target="ibfv_decode" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="762" y="62"/><mxPoint x="762" y="63"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ie6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" edge="1" source="ibfv_bonus" target="ibfv_decode" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="762" y="119"/><mxPoint x="762" y="63"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Result -->
+        <mxCell id="ibfv_result" value="GAR&lt;sub&gt;IBFV&lt;/sub&gt; &#8805; GAR&lt;sub&gt;FP&lt;/sub&gt;  &lt;b&gt;Provably never worse&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="510" y="178" width="240" height="26" as="geometry"/>
+        </mxCell>
+
+        <!-- Benefit list -->
+        <mxCell id="ibfv_benefits" value="&#8226; EER &#8804; Unimodal (always, Theorem 1)&lt;br&gt;&#8226; Iris failure = graceful fallback&lt;br&gt;&#8226; Up to 55.2% relative EER reduction" style="text;html=1;fontSize=7;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="515" y="210" width="210" height="36" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

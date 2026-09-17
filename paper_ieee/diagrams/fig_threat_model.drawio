@@ -1,0 +1,114 @@
+<mxfile host="app.diagrams.net" modified="2026-04-06" agent="IBFV Paper" version="24.0.0" type="device">
+  <diagram id="threat-model" name="Threat Model">
+    <mxGraphModel dx="1300" dy="420" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="420" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ===== SYSTEM PIPELINE ===== -->
+
+        <mxCell id="user" value="&lt;b&gt;User&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Fingerprint&lt;br&gt;+ Iris&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="25" y="85" width="80" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="sensor" value="&lt;b&gt;Sensor&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;FP scanner&lt;br&gt;+ NIR camera&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="165" y="85" width="85" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="extractor" value="&lt;b&gt;Feature&lt;br&gt;Extractor&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Minutiae +&lt;br&gt;iris code&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="315" y="80" width="85" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="engine" value="&lt;b&gt;IBFV&lt;br&gt;Engine&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Vault create/&lt;br&gt;unlock&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="465" y="80" width="85" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="database" value="&lt;b&gt;Database&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;(&lt;i&gt;V&lt;/i&gt;, &lt;i&gt;S&lt;/i&gt;, &lt;b&gt;h&lt;/b&gt;,&lt;br&gt;&lt;i&gt;H&lt;/i&gt;(&lt;b&gt;k&lt;/b&gt;), &lt;i&gt;B&lt;/i&gt;&lt;sub&gt;&lt;i&gt;s&lt;/i&gt;&lt;/sub&gt;)&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#E0E0E0;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="620" y="75" width="80" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="decision" value="&lt;b&gt;Decision&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Accept/&lt;br&gt;Reject&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="765" y="85" width="75" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="app" value="&lt;b&gt;Application&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="905" y="90" width="85" height="35" as="geometry"/>
+        </mxCell>
+
+        <!-- Connecting arrows -->
+        <mxCell id="c1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="user" target="sensor" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="sensor" target="extractor" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="extractor" target="engine" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="engine" target="database" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="database" target="decision" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="decision" target="app" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Client/Server boundary -->
+        <mxCell id="boundary" value="" style="line;strokeWidth=1;strokeColor=#999999;strokeDasharray=4 4;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="585" y="60" width="1" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="client_label" value="&lt;font style=&quot;font-size:7px;color:#777777&quot;&gt;Client side&lt;/font&gt;" style="text;html=1;fontSize=7;" vertex="1" parent="1">
+          <mxGeometry x="270" y="60" width="55" height="12" as="geometry"/>
+        </mxCell>
+        <mxCell id="server_label" value="&lt;font style=&quot;font-size:7px;color:#777777&quot;&gt;Server side&lt;/font&gt;" style="text;html=1;fontSize=7;" vertex="1" parent="1">
+          <mxGeometry x="690" y="60" width="55" height="12" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== ATTACK POINTS (numbered circles) ===== -->
+        <!-- AP-1: Spoofing -->
+        <mxCell id="ap1" value="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=10;fontStyle=1;aspect=fixed;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="115" y="75" width="24" height="24" as="geometry"/>
+        </mxCell>
+        <!-- AP-2: Sensor-Extractor channel -->
+        <mxCell id="ap2" value="2" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=10;fontStyle=1;aspect=fixed;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="260" y="75" width="24" height="24" as="geometry"/>
+        </mxCell>
+        <!-- AP-3: Feature extractor -->
+        <mxCell id="ap3" value="3" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=10;fontStyle=1;aspect=fixed;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="345" y="140" width="24" height="24" as="geometry"/>
+        </mxCell>
+        <!-- AP-4: Extractor-Engine channel -->
+        <mxCell id="ap4" value="4" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=10;fontStyle=1;aspect=fixed;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="410" y="75" width="24" height="24" as="geometry"/>
+        </mxCell>
+        <!-- AP-5: Engine (hill-climbing) -->
+        <mxCell id="ap5" value="5" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=10;fontStyle=1;aspect=fixed;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="495" y="140" width="24" height="24" as="geometry"/>
+        </mxCell>
+        <!-- AP-6: Database breach (primary threat - thicker) -->
+        <mxCell id="ap6" value="6" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D0D0D0;strokeColor=#000000;fontSize=11;fontStyle=1;aspect=fixed;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="648" y="140" width="28" height="28" as="geometry"/>
+        </mxCell>
+        <!-- AP-7: Database-Decision channel -->
+        <mxCell id="ap7" value="7" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=10;fontStyle=1;aspect=fixed;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="720" y="75" width="24" height="24" as="geometry"/>
+        </mxCell>
+        <!-- AP-8: Decision override -->
+        <mxCell id="ap8" value="8" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=10;fontStyle=1;aspect=fixed;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="856" y="75" width="24" height="24" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== ATTACK POINT ANNOTATIONS (below) ===== -->
+        <mxCell id="ap1_text" value="&lt;b&gt;AP-1&lt;/b&gt; Spoofing&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Fake biometric.&lt;br&gt;Requires liveness detection.&lt;/font&gt;" style="text;html=1;fontSize=8;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="25" y="195" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="ap2_text" value="&lt;b&gt;AP-2&lt;/b&gt; Channel intercept&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Replay raw image.&lt;br&gt;Client-side; assumed secure.&lt;/font&gt;" style="text;html=1;fontSize=8;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="175" y="195" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="ap3_text" value="&lt;b&gt;AP-3&lt;/b&gt; Trojan extractor&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Compromised module.&lt;br&gt;Trusted computing base.&lt;/font&gt;" style="text;html=1;fontSize=8;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="325" y="195" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="ap4_text" value="&lt;b&gt;AP-4&lt;/b&gt; Feature intercept&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Intercept features.&lt;br&gt;Local processing, no TX.&lt;/font&gt;" style="text;html=1;fontSize=8;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="25" y="250" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="ap5_text" value="&lt;b&gt;AP-5&lt;/b&gt; Hill-climbing&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Iterative refinement.&lt;br&gt;&lt;b&gt;Defended:&lt;/b&gt; binary output only.&lt;/font&gt;" style="text;html=1;fontSize=8;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="175" y="250" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="ap6_text" value="&lt;b&gt;AP-6 Database breach&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;&lt;b&gt;Primary threat.&lt;/b&gt;&lt;br&gt;Addressed in Sections V-B&#8211;V-E.&lt;/font&gt;" style="text;html=1;fontSize=8;fontColor=#000000;align=left;" vertex="1" parent="1">
+          <mxGeometry x="325" y="250" width="155" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="ap7_text" value="&lt;b&gt;AP-7&lt;/b&gt; DB-to-engine replay&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Replay vault data.&lt;br&gt;Vault alone cannot authenticate.&lt;/font&gt;" style="text;html=1;fontSize=8;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="500" y="250" width="160" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="ap8_text" value="&lt;b&gt;AP-8&lt;/b&gt; Decision override&lt;br&gt;&lt;font style=&quot;font-size:7px&quot;&gt;Flip Accept/Reject.&lt;br&gt;Standard TLS/mTLS mitigation.&lt;/font&gt;" style="text;html=1;fontSize=8;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="680" y="250" width="160" height="40" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,200 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Main report template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,12pt,oneside]{book}
+\usepackage{CS_report}
+
+\begin{document}
+
+\captionsetup[figure]{margin=1.5cm,font=small,name={Figure},labelsep=colon}
+\captionsetup[table]{margin=1.5cm,font=small,name={Table},labelsep=colon}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+\pagenumbering{roman}
+
+% Avoid duplicate page anchor warnings in front matter
+\hypersetup{pageanchor=false}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Title Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+\begin{center}
+
+{\bfseries\fontsize{18}{20}\selectfont Decentralized Iris-Boosted Fuzzy Vault: Zero-Penalty Multimodal Template Protection with Threshold-Distributed Storage\par}
+
+\vspace{1cm}
+
+Submitted in fulfillment of the requirements for the degree of
+
+\vspace{0.5cm}
+
+{\bfseries Master of Technology (M.Tech)}
+
+\vspace{0.5cm}
+
+by
+
+\vspace{0.5cm}
+
+{\bfseries Nallaparaju V. Suryanarayana Raju (24CSM2S04)}
+
+\vspace{1.5cm}
+
+Supervisor
+
+\vspace{0.5cm}
+
+{\bfseries Dr. Mulagala Sandhya}\\
+Assistant Professor
+
+\vspace{2.5cm}
+
+\includegraphics[width=30mm]{uglo}
+
+\vspace{1.5cm}
+
+Department of Computer Science and Engineering\\
+National Institute of Technology Warangal\\
+2026
+
+\end{center}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Approval Sheet
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+\begin{center}
+
+{\bfseries\fontsize{18}{20}\selectfont APPROVAL SHEET\par}
+
+\vspace{1.3cm}
+
+This dissertation work entitled {\bfseries ``Decentralized Iris-Boosted Fuzzy Vault: Zero-Penalty Multimodal Template Protection with Threshold-Distributed Storage''} by {\bfseries Nallaparaju V. Suryanarayana Raju (24CSM2S04)} is approved for the degree of Master of Technology (M.Tech).
+
+\vspace{1.2cm}
+{\bfseries Examiners}
+
+\vspace{1.0cm}
+\noindent\rule{0.55\textwidth}{0.4pt}
+
+\vspace{1.0cm}
+\noindent\rule{0.55\textwidth}{0.4pt}
+
+\vspace{1.0cm}
+\noindent\rule{0.55\textwidth}{0.4pt}
+
+\vspace{1.5cm}
+{\bfseries Supervisor}
+
+\vspace{0.8cm}
+\noindent\rule{0.55\textwidth}{0.4pt}\\[0.3cm]
+{\bfseries Dr. Mulagala Sandhya}
+
+\vspace{1.2cm}
+{\bfseries Chairman}
+
+\vspace{0.8cm}
+\noindent\rule{0.55\textwidth}{0.4pt}\\[0.3cm]
+Department of Computer Science and Engineering\\
+National Institute of Technology Warangal
+
+\end{center}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Declaration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Declaration}
+
+I declare that this written submission represents my ideas in my own words and where others' ideas or words have been included, I have adequately cited and referenced the original sources. I also declare that I have adhered to all principles of academic honesty and integrity and have not misrepresented or fabricated or falsified any idea, data, fact, or source in my submission. I understand that any violation of the above will be cause for disciplinary action by the Institute and can also evoke penal action from the sources which have thus not been properly cited or from whom proper permission has not been taken when needed.
+
+\vspace{2cm}
+
+\noindent\rule{7cm}{0.4pt}\\
+(Signature of the student)
+
+\vspace{1.5cm}
+
+\noindent\rule{7cm}{0.4pt}\\
+(Name of the student)
+
+\vspace{1.5cm}
+
+\noindent\rule{7cm}{0.4pt}\\
+(Roll No.)
+
+\vspace{2cm}
+
+Date: \rule{5cm}{0.4pt}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Certificate
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Certificate}
+
+This is to certify that the dissertation work entitled {\bfseries ``Decentralized Iris-Boosted Fuzzy Vault: Zero-Penalty Multimodal Template Protection with Threshold-Distributed Storage''} is a bonafide record of the work carried out by {\bfseries Nallaparaju V. Suryanarayana Raju (24CSM2S04)}, submitted to the faculty of {\bfseries Department of Computer Science and Engineering}, in partial fulfilment of the requirements for the award of the degree of {\bfseries Master of Technology in Computer Science and Information Security} at {\bfseries National Institute of Technology Warangal} during the academic year {\bfseries 2025--26}.
+
+\vspace{3cm}
+
+\begin{flushleft}
+\rule{7cm}{0.4pt}\\
+{\bfseries Dr. Mulagala Sandhya}\\
+Assistant Professor\\
+Department of Computer Science and Engineering\\
+National Institute of Technology Warangal
+\end{flushleft}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{chapters/00_i_abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Acknowledgements
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{chapters/00_ii_acknowledgments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TOC / Figures / Tables / Glossary
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\listoffigures
+\listoftables
+\input{glossaries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Main matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\hypersetup{pageanchor=true}
+\mainmatter
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{chapters/01_introduction}
+\input{chapters/02_literature}
+\input{chapters/03_methodology}
+\input{chapters/04_results}
+\input{chapters/05_discussion}
+\input{chapters/06_conclusions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Appendices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\input{chapters/appendix_A}
+\input{chapters/appendix_B}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% References
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,21 @@
+# D-IBFV — Python Dependencies
+# Install with: pip install -r requirements.txt
+# Python 3.10 or 3.11 recommended.
+
+# ── Core numerics ──────────────────────────────────────────────────────────
+numpy>=1.24
+
+# ── ECC (brainpoolP256r1 scalar multiplication) ───────────────────────────
+tinyec>=0.4.0
+
+# ── Iris processing ────────────────────────────────────────────────────────
+opencv-python>=4.7
+
+# ── Figure generation ─────────────────────────────────────────────────────
+matplotlib>=3.7
+
+# ── Blockchain / Ethereum ─────────────────────────────────────────────────
+# Required only for D-IBFV distributed experiments.
+# Skip if you only want to run the biometric (IBFV) experiments.
+web3>=6.0
+py-solc-x>=2.0        # Solidity compiler wrapper (auto-downloads solc)

@@ -1,0 +1,86 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# D-IBFV — Docker Compose
+#
+# Starts three services:
+#   • ipfs     — local IPFS daemon (vault share storage)
+#   • ganache  — local Ethereum node (blockchain registry)
+#   • dibfv    — Python environment with all experiment code
+#
+# Usage:
+#   docker-compose up -d          # Start all services in background
+#   docker-compose exec dibfv bash # Open a shell inside the container
+#   docker-compose down           # Stop everything
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+
+  # ── IPFS daemon ─────────────────────────────────────────────────────────────
+  ipfs:
+    image: ipfs/kubo:v0.27.0
+    container_name: dibfv_ipfs
+    ports:
+      - "4001:4001"   # Swarm (peer communication)
+      - "5001:5001"   # API (what our code talks to)
+      - "8080:8080"   # Gateway (browser access to CIDs)
+    volumes:
+      - ipfs_data:/data/ipfs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "ipfs", "id"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Ganache — local Ethereum node ────────────────────────────────────────────
+  ganache:
+    image: trufflesuite/ganache:latest
+    container_name: dibfv_ganache
+    ports:
+      - "8545:8545"
+    command: >
+      --deterministic
+      --accounts 10
+      --networkId 1337
+      --chainId 1337
+      --gasLimit 12000000
+      --quiet
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "-X", "POST",
+             "-H", "Content-Type: application/json",
+             "--data", "{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}",
+             "http://localhost:8545"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── D-IBFV Python environment ─────────────────────────────────────────────────
+  dibfv:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dibfv_python
+    depends_on:
+      ipfs:
+        condition: service_healthy
+      ganache:
+        condition: service_healthy
+    environment:
+      - IPFS_API_URL=http://ipfs:5001
+      - GANACHE_RPC=http://ganache:8545
+    volumes:
+      # Live-mount code so edits on your laptop reflect immediately
+      - ./code:/app/code
+      # data/ is volume-mounted (never baked into image — too large)
+      - ./data:/app/data
+      # Results are inside ./code/results — already covered by the code mount above
+    working_dir: /app/code
+    # Keep container alive — exec into it to run experiments
+    stdin_open: true
+    tty: true
+    command: bash
+
+volumes:
+  ipfs_data:

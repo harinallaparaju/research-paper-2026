@@ -1,0 +1,157 @@
+\chapter{Formal Proofs}
+\label{appn:A}
+
+This appendix contains the complete proofs of the three theorems stated in
+Chapter~\ref{ch:methodology}.
+
+% ============================================================================
+\section{Proof of Theorem~1 (Zero-Penalty Guarantee)}
+\label{sec:proof_thm1}
+% ============================================================================
+
+\noindent\textbf{Theorem~1.} \textit{For any parameter configuration $(f, k)$ and
+any biometric sample pair $(\mathcal{M}', \mathbf{c}')$:}
+\begin{equation}
+  \Pr[\mathrm{Accept}_{\mathrm{IBFV}}] \geq \Pr[\mathrm{Accept}_{\mathrm{Uni}}]
+\end{equation}
+
+\noindent\textbf{Proof.}
+
+Let $\mathcal{X}_{\mathrm{FP}}$ be the set of fingerprint-matching vault points
+(those whose x-coordinate equals $P_i.x$ for some quantized query minutia $q_i$).
+Denote the polynomial degree as $k$, so decoding requires a $(k{+}1)$-tuple of
+genuine points for Lagrange interpolation.
+
+The unimodal verification accepts if and only if some $(k{+}1)$-subset of
+$\mathcal{X}_{\mathrm{FP}}$ lies on the locked polynomial $p(x)$. Denote this
+event $A_\mathrm{Uni}$.
+
+IBFV verification has two exclusive branches:
+
+\textbf{Branch 1: Iris key recovery succeeds.}
+
+Let $\hat{\mathbf{k}}$ be the recovered iris key. The virtual x-coordinates
+$\{v_0, \ldots, v_{K-1}\}$ are derived deterministically from $\hat{\mathbf{k}}$
+via the PRF in Eq.~(\ref{eq:virtual_x}). Since $v_j = p(v_j)$ was stored at
+enrollment (the iris key at enrollment equals the iris key recovered at
+verification for a genuine user, so $\hat{\mathbf{k}} = \mathbf{k}$), all $K$
+bonus vault points are genuine.
+
+The IBFV candidate set is $\mathcal{X} = \mathcal{X}_{\mathrm{FP}} \cup
+\mathcal{X}_{\mathrm{Iris}}$ with $|\mathcal{X}_{\mathrm{Iris}}| = K$.
+Smart decoding fixes all $K$ bonus points and enumerates $(k{+}1{-}K)$-subsets
+of $\mathcal{X}_{\mathrm{FP}}$.
+
+Formally, IBFV accepts event:
+\begin{equation}
+  A_\mathrm{IBFV,1} = \{\exists\, S \subseteq \mathcal{X}_{\mathrm{FP}},\,
+  |S| = k{+}1{-}K :\; S \cup \mathcal{X}_{\mathrm{Iris}} \text{ lies on } p(x)\}
+\end{equation}
+
+Now, $A_\mathrm{Uni}$ occurs iff $\exists\, T \subseteq \mathcal{X}_{\mathrm{FP}},\,
+|T| = k{+}1$ lying on $p(x)$. For any such $T$, take $S = T \setminus
+\{t_1, \ldots, t_K\}$ (any $K$ elements removed); then $S \cup
+\mathcal{X}_{\mathrm{Iris}}$ has $k{+}1$ points on $p(x)$, so $A_\mathrm{IBFV,1}$
+also occurs. Therefore $A_\mathrm{Uni} \Rightarrow A_\mathrm{IBFV,1}$, giving:
+\begin{equation}
+  \Pr[A_\mathrm{IBFV,1}] \geq \Pr[A_\mathrm{Uni}]
+\end{equation}
+
+\textbf{Branch 2: Iris key recovery fails.}
+
+IBFV sets $\mathcal{X} = \mathcal{X}_{\mathrm{FP}}$ and applies standard
+Lagrange interpolation---identical to unimodal. The acceptance event is:
+\begin{equation}
+  A_\mathrm{IBFV,2} = A_\mathrm{Uni}
+\end{equation}
+and trivially $\Pr[A_\mathrm{IBFV,2}] = \Pr[A_\mathrm{Uni}]$.
+
+\textbf{Combining:}
+
+Let $p_s = \Pr[\text{iris recovery succeeds}]$. By the law of total probability:
+\begin{align}
+  \Pr[A_\mathrm{IBFV}] &= p_s \cdot \Pr[A_\mathrm{IBFV,1}] +
+  (1{-}p_s) \cdot \Pr[A_\mathrm{IBFV,2}] \\
+  &\geq p_s \cdot \Pr[A_\mathrm{Uni}] + (1{-}p_s) \cdot \Pr[A_\mathrm{Uni}] \\
+  &= \Pr[A_\mathrm{Uni}]
+\end{align}
+\hfill$\square$
+
+% ============================================================================
+\section{Proof of Theorem~2 (Share Confidentiality)}
+\label{sec:proof_thm2}
+% ============================================================================
+
+\noindent\textbf{Theorem~2.} \textit{For any $t' < t$ compromised shares, the
+conditional distribution of vault $\mathbf{b}$ is uniform over
+$\{0, \ldots, 255\}^L$. Fewer than $t$ shares reveal zero information about the
+vault content.}
+
+\noindent\textbf{Proof.}
+
+Fix any byte index $i$. The Shamir polynomial for byte $i$ is:
+\begin{equation}
+  f_i(x) = b_i + a_1^{(i)} x + \cdots + a_{t-1}^{(i)} x^{t-1} \pmod{257}
+\end{equation}
+where coefficients $a_j^{(i)} \stackrel{\$}{\leftarrow} \mathrm{GF}(257)$
+are chosen uniformly and independently at random.
+
+Suppose the adversary holds shares at positions $x_1, \ldots, x_{t'}$ with
+$t' < t$. This gives the system of equations:
+\begin{equation}
+  \begin{pmatrix} f_i(x_1) \\ \vdots \\ f_i(x_{t'}) \end{pmatrix}
+  = \underbrace{\begin{pmatrix} 1 & x_1 & x_1^2 & \cdots & x_1^{t-1} \\
+  \vdots & \vdots & \vdots & & \vdots \\
+  1 & x_{t'} & x_{t'}^2 & \cdots & x_{t'}^{t-1}
+  \end{pmatrix}}_{\mathbf{V} \in \mathrm{GF}(257)^{t' \times t}}
+  \begin{pmatrix} b_i \\ a_1^{(i)} \\ \vdots \\ a_{t-1}^{(i)} \end{pmatrix}
+\end{equation}
+
+$\mathbf{V}$ is a Vandermonde matrix with $t' < t$ rows and $t$ columns over
+$\mathrm{GF}(257)$ (a field). Since $t' < t$, the system is underdetermined:
+for any fixed observed share values and any candidate $b_i \in \{0, \ldots, 255\}$,
+there exists at least one choice of the remaining coefficients
+$(a_1^{(i)}, \ldots, a_{t-1}^{(i)})$ that satisfies the system. The mapping
+from coefficients to shares is linear and surjective from a uniform random
+distribution over $\mathrm{GF}(257)^t$, which projects uniformly onto any $t'$
+shares. Therefore, the conditional distribution of $b_i$ given
+$t' < t$ shares is the uniform distribution over $\mathrm{GF}(257) \supseteq
+\{0, \ldots, 255\}$.
+
+Since bytes are shared independently, the joint distribution of $\mathbf{b}$
+given $t' < t$ shares is uniform over $\mathrm{GF}(257)^L \supseteq
+\{0,\ldots,255\}^L$. This is information-theoretic security: the mutual
+information $I(\mathbf{b}; \text{shares}_{< t}) = 0$.
+\hfill$\square$
+
+% ============================================================================
+\section{Proof of Theorem~3 (Exact Reconstruction)}
+\label{sec:proof_thm3}
+% ============================================================================
+
+\noindent\textbf{Theorem~3.} \textit{Given any $t$ shares with distinct indices,
+Lagrange interpolation over $\mathrm{GF}(257)$ recovers $\hat{b}_i = b_i$ for
+all $i$, yielding $\hat{\mathbf{b}} = \mathbf{b}$ with zero bit errors.}
+
+\noindent\textbf{Proof.}
+
+Fix byte $i$. The polynomial $f_i(x)$ has degree $t{-}1$ over $\mathrm{GF}(257)$.
+By the fundamental theorem of algebra over finite fields, a polynomial of degree
+$t{-}1$ is uniquely determined by its values at any $t$ distinct points.
+
+Given shares $(x_1, f_i(x_1)), \ldots, (x_t, f_i(x_t))$ at distinct
+$x_1, \ldots, x_t \in \mathrm{GF}(257)$, Lagrange interpolation reconstructs:
+\begin{equation}
+  \hat{f}_i(x) = \sum_{j=1}^{t} f_i(x_j)
+  \prod_{\substack{\ell=1 \\ \ell \neq j}}^{t}
+  \frac{x - x_\ell}{x_j - x_\ell}
+\end{equation}
+where all arithmetic is in $\mathrm{GF}(257)$. The interpolated polynomial
+$\hat{f}_i$ is the unique degree-$(t{-}1)$ polynomial through the $t$ given
+points, hence $\hat{f}_i \equiv f_i$. Evaluating at $x = 0$:
+\begin{equation}
+  \hat{b}_i = \hat{f}_i(0) = f_i(0) = b_i
+\end{equation}
+exactly. Since this holds for each byte independently and arithmetic is exact
+over the finite field, $\hat{\mathbf{b}} = \mathbf{b}$ with zero bit errors.
+\hfill$\square$

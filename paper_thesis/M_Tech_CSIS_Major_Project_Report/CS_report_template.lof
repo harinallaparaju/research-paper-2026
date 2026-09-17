@@ -1,0 +1,14 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces AND-fusion vs.\ IBFV. (a) AND-fusion gates decoding: iris failure blocks the user. (b) IBFV boosts decoding: iris success adds $K$ bonus points; iris failure falls back to unimodal with zero penalty.}}{17}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces IBFV enrollment pipeline. The fingerprint path maps minutiae to EC points on Brainpool~P256r1. The iris path extracts a key via fuzzy commitment, seeding a PRF to derive $K$ bonus points. All points are merged with chaff.}}{22}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces IBFV verification pipeline. If iris recovery succeeds ($\sim $62\%), $K$ bonus points reduce the search space. If it fails (dashed path), the system falls back to unimodal decoding with zero penalty.}}{23}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Complete D-IBFV architecture. Top: enrollment pipeline. Bottom: verification pipeline. The vault never exists as a complete unit on any single node except transiently on the trusted enrollment/verification client.}}{24}{figure.caption.19}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces ROC curves for Setup~1. IBFV lies above or on the unimodal curve at all FAR operating points.}}{29}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces ROC curves for Setup~2. IBFV strictly dominates the unimodal baseline across all four databases.}}{29}{figure.caption.25}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
