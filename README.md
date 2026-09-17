@@ -1,7 +1,7 @@
 # D-IBFV: Decentralized Iris-Boosted Fuzzy Vault
 
 **M.Tech Thesis — CS & Information Security, NIT Warangal, 2026**  
-**Author:** Nallaparaju V. Suryanarayana Raju (Roll: 24CSM2S04)  
+**Author:** Nallaparaju V. Suryanarayana Raju
 **Supervisor:** Dr. Mulagala Sandhya, Dept. of CSE, NIT Warangal
 
 ---
